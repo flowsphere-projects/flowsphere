@@ -3,7 +3,7 @@
 	<p></p>
 
 [//]: # (	<img src="https://github.com/ZShUn/flowsphere/blob/main/docs/logo.png" width = "350" height = "150" alt="图片名称" align=center />)
-    <img src="https://github.com/flowsphere-projects/flowsphere/docs/logo.png"  alt="图片名称" align=center />
+    <img src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/logo.png"  alt="图片名称" align=center />
 	<h1>云原生流量治理解决方案</h1>
 
 
@@ -25,10 +25,10 @@ FlowSphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 # 架构图
 
 ## 全局架构图
-![](https://github.com/flowsphere-projects/flowsphere/docs/agent.png)
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/agent.png)
 
 ## 全链路泳道全景图
-![](https://github.com/flowsphere-projects/flowsphere/docs/panoramic.png)
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/panoramic.png)
 
 # 主要特性
 
