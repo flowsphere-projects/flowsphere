@@ -102,3 +102,20 @@ FlowSphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 | Key | value |
 |------------|-------|
 | tag        | tagA  |
+
+# 付费社区
+
+
+## 社区服务
+
+1.完整的flowsphere使用文档、配置文档
+
+2.提供答疑服务，无次数限制提问，当天内必定得到详细的回复和指导
+
+3.独家内容帮助用户深度理解flowsphere原理、源码
+
+4.不定期分享编写简历技巧、三高（高性能、高可用、高并发）、线上紧急问题处理技巧、各种分布式场景下解决方案等知识点
+
+## 社区二维码
+
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/knowledge-planet.png)
