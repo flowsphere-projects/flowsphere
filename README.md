@@ -2,7 +2,6 @@
 	<p></p>
 	<p></p>
 
-[//]: # (	<img src="https://github.com/ZShUn/flowsphere/blob/main/docs/logo.png" width = "350" height = "150" alt="图片名称" align=center />)
     <img src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/logo.png"  alt="图片名称" align=center />
 	<h1>云原生流量治理解决方案</h1>
 
