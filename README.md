@@ -17,7 +17,7 @@
 
 
 # 简介
-FlowSphere是基于bytebuddy字节码增强技术进行建设，采用插件化方式进行整体架构设计，利用字节码增强技术为微服务提供全链路流量治理能力。全方位扩展SpringCloud&SpringCloudAlibaba，
+flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化方式进行整体架构设计，利用字节码增强技术为微服务提供全链路流量治理能力。全方位扩展SpringCloud&SpringCloudAlibaba，
 扩展Java生态提供高性能，低资源损耗，降本增效的流量治理框架。
 
 # 架构图
