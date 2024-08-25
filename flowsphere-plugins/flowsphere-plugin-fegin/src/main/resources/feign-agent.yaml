@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient
+    methodPointcutConfigs:
+      - methodName: execute
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.fegin.LoadBalancerFeignClientInterceptor

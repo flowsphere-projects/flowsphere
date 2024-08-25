@@ -1,0 +1,26 @@
+plugins:
+  - nacos
+  - rocketmq4
+  - springmvc
+  - springcloudgateway
+  - feign
+  - elasticjob2
+  - zuul
+  - eureka
+  - springboot2
+  - zookeeper
+  - consul
+sentinelEnabled: false
+pluginConfigDataSource:
+#  type: local
+  type: nacos
+  pros:
+    dataId: default
+    groupId: DEFAULT_GROUP
+    timeout: 3000
+    serverAddr: 127.0.0.1:8848
+#  type: apollo
+#  pros:
+#    appId: 101
+#    apolloMeta: http://localhost:8080
+#    env: DEV

@@ -1,0 +1,31 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: insight-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: test1
+          uri: lb://service-a
+          predicates:
+            - Path=/myClient
+      discovery:
+        locator:
+          enabled: true
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        heartbeat:
+          enabled: true
+logging:
+  level:
+    com.flowsphere:
+      debug
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+#        enabled: true
+#      username: nacos
+#      password: nacos

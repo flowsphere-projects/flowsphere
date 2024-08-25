@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: org.springframework.boot.context.event.EventPublishingRunListener
+    methodPointcutConfigs:
+      - methodName: running
+        type: instant
+        interceptorName: com.flowsphere.spring.boot2.EventPublishingRunListenerInterceptor

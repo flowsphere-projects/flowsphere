@@ -1,0 +1,25 @@
+server:
+  port: 5555
+spring:
+  application:
+    name: zuul-server
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        heartbeat:
+#          enabled: true
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8189}/eureka/
+#  instance:
+#    prefer-ip-address: true
+zuul:
+  routes:
+    path: /helloWord
+    serviceId: service-a

@@ -1,0 +1,16 @@
+pointcutConfigs:
+  - className: org.springframework.cloud.gateway.filter.LoadBalancerClientFilter
+    methodPointcutConfigs:
+      - methodName: filter
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.spring.cloud.gateway.LoadBalancerClientFilterInterceptor
+  - className: org.springframework.cloud.gateway.filter.AdaptCachedBodyGlobalFilter
+    methodPointcutConfigs:
+      - methodName: filter
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.spring.cloud.gateway.AdaptCachedBodyGlobalFilterInterceptor
+  - className: org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler
+    methodPointcutConfigs:
+      - methodName: handle
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.spring.cloud.gateway.AbstractErrorWebExceptionHandlerInterceptor

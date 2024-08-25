@@ -1,0 +1,36 @@
+pluginConfig:
+  rocketMQConfig:
+    consumerConfigList:
+      - consumerGroupName: CID_JODIE_3
+        tag: tagB
+        queueIdList: [0]
+    producerConfigList:
+      - topic: myTest
+        tag: tagB
+        queueIdList: [0]
+  elasticJobConfig:
+    grayEnabled: true
+    ip: 192.168.0.12
+  sentinelConfig:
+    appName: service-a
+    dataId: service-a
+    groupId: SENTINEL_GROUP
+    resourceLimitEnabled: true
+    limitReturnResult: {"code":429,"message":"服务器繁忙请稍后重试1！"}
+    httpApiLimitConfig:
+      httpApiLimitEnabled: true
+      excludeLimitUrlList:
+        - /myTest/helloWord
+  springCloudGatewayConfig:
+    regionWeight:
+      regions:
+        - 101
+      tagWeights:
+        - tag: tagA
+          weight: 0.2
+    userWeight:
+      userIds:
+        - 123
+      tagWeights:
+        - tag: tagA
+          weight: 0.2

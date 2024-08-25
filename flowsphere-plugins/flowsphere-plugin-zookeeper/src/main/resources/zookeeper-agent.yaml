@@ -1,0 +1,11 @@
+pointcutConfigs:
+  - className: com.netflix.loadbalancer.CompositePredicate
+    methodPointcutConfigs:
+      - methodName: getEligibleServers
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.zookeeper.CompositePredicateInterceptor
+  - className: org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryProperties
+    methodPointcutConfigs:
+      - methodName: getMetadata
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.zookeeper.ZookeeperDiscoveryPropertiesInterceptor

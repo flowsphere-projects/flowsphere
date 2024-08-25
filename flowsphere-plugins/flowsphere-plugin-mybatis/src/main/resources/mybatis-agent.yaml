@@ -1,0 +1,12 @@
+pointcutConfigs:
+  - className: org.apache.ibatis.executor.BaseExecutor
+    methodPointcutConfigs:
+      - methodName: update
+        type: instant
+        interceptorName: com.flowsphere.plugin.mybatis.BaseExecutorInterceptor
+      - methodName: query
+        type: instant
+        interceptorName: com.flowsphere.plugin.mybatis.BaseExecutorInterceptor
+      - methodName: queryCursor
+        type: instant
+        interceptorName: com.flowsphere.plugin.mybatis.BaseExecutorInterceptor
