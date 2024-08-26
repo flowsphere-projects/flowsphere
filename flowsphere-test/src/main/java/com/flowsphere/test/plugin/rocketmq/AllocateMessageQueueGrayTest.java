@@ -26,7 +26,7 @@ public class AllocateMessageQueueGrayTest {
 
         AllocateMessageQueueGray allocateMessageQueueGray = new AllocateMessageQueueGray();
 
-        System.setProperty("flow.sphere.tag", "grayTag");
+        System.setProperty("flowsphere.tag", "grayTag");
         List<MessageQueue> result = allocateMessageQueueGray.allocate("myConsumerGroupName", cid, messageQueueList, cidList);
         Assertions.assertTrue(result.size() == 1);
     }
@@ -43,7 +43,7 @@ public class AllocateMessageQueueGrayTest {
 
         AllocateMessageQueueGray allocateMessageQueueGray = new AllocateMessageQueueGray();
 
-        System.setProperty("flow.sphere.tag", "grayTag");
+        System.setProperty("flowsphere.tag", "grayTag");
         List<MessageQueue> result = allocateMessageQueueGray.allocate("myConsumerGroupName", cid2, messageQueueList, cidList);
         Assertions.assertTrue(result.size() == 2);
     }

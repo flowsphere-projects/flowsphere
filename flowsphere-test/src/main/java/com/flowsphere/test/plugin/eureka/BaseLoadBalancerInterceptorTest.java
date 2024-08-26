@@ -40,7 +40,7 @@ public class BaseLoadBalancerInterceptorTest {
 
     private void initEnv() {
         HashMap<String, String> configMap = new HashMap<>();
-        configMap.put("eureka.client.service-url.defaultZone", "127.0.0.1");
+        configMap.put("eureka.client.service-url.default-zone", "127.0.0.1");
         Env.putAll(configMap);
     }
 
