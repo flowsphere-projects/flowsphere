@@ -21,23 +21,24 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
     private static final AllocateMessageQueueAveragely DEFAULT = new AllocateMessageQueueAveragely();
 
     @Override
-    public List<MessageQueue> allocate(String consumerGroup, String currentCID, List<MessageQueue> mqAll, List<String> cidAll) {
+    public List<MessageQueue> allocate(String consumerGroup, String currentCid, List<MessageQueue> mqAll, List<String> cidAll) {
+
+        MessageQueue fistQueue = mqAll.get(0);
         RocketMQConfig.ConsumerConfig grayConsumerConfig = getGrayConsumerConfig(consumerGroup);
-        //当前不是灰度消费者直接计算消费队列
-        //consumerGroup是灰度消费者且当前Cid不是灰度Cid，cidAll则需要剔除灰度cid，同时mqAll需要剔除灰度队列
-        if (Objects.isNull(grayConsumerConfig)) {
-            return DEFAULT.allocate(consumerGroup, currentCID, mqAll, cidAll);
+        if (Objects.isNull(grayConsumerConfig) || fistQueue.getTopic().contains("%RETRY%")) {
+            return DEFAULT.allocate(consumerGroup, currentCid, mqAll, cidAll);
         }
-        boolean isGrayCid = isGrayCid(currentCID);
+        boolean isGrayCid = isGrayCid(currentCid, grayConsumerConfig.getTag());
         if (!isGrayCid) {
             if (log.isDebugEnabled()) {
                 log.debug("[flowsphere] gray not-consumer grayConsumerConfig={}", grayConsumerConfig);
             }
             //cidAll则需要剔除灰度cid，同时mqAll需要剔除灰度队列
-            List<String> newCidList = cidAll.stream().filter(cid -> !cid.contains(grayConsumerConfig.getTag())).collect(Collectors.toList());
+
+            List<String> newCidList = cidAll.stream().filter(cid -> isGrayCid(cid, TagManager.getSystemTag())).collect(Collectors.toList());
             List<MessageQueue> normalMessageQueueList = filterMessageQueue(mqAll, messageQueue -> !grayConsumerConfig.getQueueIdList().stream()
                     .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));
-            return DEFAULT.allocate(consumerGroup, currentCID, normalMessageQueueList, newCidList);
+            return DEFAULT.allocate(consumerGroup, currentCid, normalMessageQueueList, newCidList);
         } else {
             if (log.isDebugEnabled()) {
                 log.debug("[flowsphere] gray consumer grayConsumerConfig={}", grayConsumerConfig);
@@ -45,18 +46,17 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
             //当前Cid是灰度节点
             List<MessageQueue> grayMessageQueueList = filterMessageQueue(mqAll, messageQueue -> grayConsumerConfig.getQueueIdList().stream()
                     .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));
-            List<String> includeSystemTagCidList = filterCid(cidAll, new CidSplitMatchGrayCondition());
+            List<String> includeSystemTagCidList = filterCid(cidAll, new CidSplitMatchGrayCondition(TagManager.getSystemTag()));
             if (CollectionUtils.isNotEmpty(grayMessageQueueList) && CollectionUtils.isNotEmpty(includeSystemTagCidList)) {
-                return DEFAULT.allocate(consumerGroup, currentCID, grayMessageQueueList, includeSystemTagCidList);
+                return DEFAULT.allocate(consumerGroup, currentCid, grayMessageQueueList, includeSystemTagCidList);;
             }
         }
 
-
-        return DEFAULT.allocate(consumerGroup, currentCID, mqAll, cidAll);
+        return DEFAULT.allocate(consumerGroup, currentCid, mqAll, cidAll);
     }
 
-    private boolean isGrayCid(String currentCID) {
-        return currentCID.contains(TagManager.getSystemTag());
+    private boolean isGrayCid(String currentCid, String tag) {
+        return new CidSplitMatchGrayCondition(tag).test(currentCid);
     }
 
 
@@ -64,7 +64,7 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
         return RocketMQConfigService.getConsumerConfigList()
                 .stream()
                 .filter(consumerConfig -> {
-                    if (consumerGroup.equals(consumerConfig.getConsumerGroupName()) && consumerConfig.getTag().equals(TagManager.getTag())) {
+                    if (consumerGroup.equals(consumerConfig.getConsumerGroupName())) {
                         return true;
                     }
                     return false;
