@@ -48,7 +48,7 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
                     .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));
             List<String> includeSystemTagCidList = filterCid(cidAll, new CidSplitMatchGrayCondition(TagManager.getSystemTag()));
             if (CollectionUtils.isNotEmpty(grayMessageQueueList) && CollectionUtils.isNotEmpty(includeSystemTagCidList)) {
-                return DEFAULT.allocate(consumerGroup, currentCid, grayMessageQueueList, includeSystemTagCidList);;
+                return DEFAULT.allocate(consumerGroup, currentCid, grayMessageQueueList, includeSystemTagCidList);
             }
         }
 
