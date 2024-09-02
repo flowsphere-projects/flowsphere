@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
     <artifactId>flowsphere-common</artifactId>
     <name>flowsphere-common</name>

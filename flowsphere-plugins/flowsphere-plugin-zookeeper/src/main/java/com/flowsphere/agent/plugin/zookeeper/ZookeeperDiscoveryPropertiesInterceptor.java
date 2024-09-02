@@ -17,7 +17,7 @@ public class ZookeeperDiscoveryPropertiesInterceptor implements InstantMethodInt
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         Map<String, String> metadata = (Map<String, String>) callable.call();
-        metadata.put(CommonConstant.TAG_KEY, TagManager.getSystemTag());
+        metadata.put(CommonConstant.SERVER_TAG, TagManager.getSystemTag());
         instantMethodInterceptorResult.setContinue(false);
         instantMethodInterceptorResult.setResult(metadata);
     }

@@ -14,7 +14,7 @@ public class ZookeeperServerPredicate implements Predicate<ZookeeperServer> {
     @Override
     public boolean test(ZookeeperServer zookeeperServer) {
         String serverTag = zookeeperServer.getInstance().getPayload()
-                .getMetadata().get(CommonConstant.TAG_KEY);
+                .getMetadata().get(CommonConstant.SERVER_TAG);
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
             log.debug("[flowsphere] ZookeeperServerPredicate zk tag={}", tag);

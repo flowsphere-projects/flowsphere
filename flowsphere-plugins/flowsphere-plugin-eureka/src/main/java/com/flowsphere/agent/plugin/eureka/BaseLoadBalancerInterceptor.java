@@ -42,7 +42,7 @@ public class BaseLoadBalancerInterceptor implements InstantMethodInterceptor {
                     DiscoveryEnabledServer discoveryEnabledServer = (DiscoveryEnabledServer) server;
                     InstanceInfo instanceInfo = discoveryEnabledServer.getInstanceInfo();
                     Map<String, String> metadata = instanceInfo.getMetadata();
-                    String serverTag = metadata.get(CommonConstant.TAG_KEY);
+                    String serverTag = metadata.get(CommonConstant.SERVER_TAG);
                     String tag = TagContext.get();
                     if (log.isDebugEnabled()) {
                         log.debug("[flowsphere] BaseLoadBalancerInterceptor eureka tag={}", tag);

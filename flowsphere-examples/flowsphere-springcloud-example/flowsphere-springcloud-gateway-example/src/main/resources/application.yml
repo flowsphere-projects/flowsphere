@@ -13,19 +13,19 @@ spring:
       discovery:
         locator:
           enabled: true
-    consul:
-      host: localhost
-      port: 8500
+    nacos:
       discovery:
-        heartbeat:
-          enabled: true
+        server-addr: localhost:8848
+        enabled: true
+      username: nacos
+      password: nacos
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        heartbeat:
+#          enabled: true
 logging:
   level:
     com.flowsphere:
       debug
-#    nacos:
-#      discovery:
-#        server-addr: localhost:8848
-#        enabled: true
-#      username: nacos
-#      password: nacos

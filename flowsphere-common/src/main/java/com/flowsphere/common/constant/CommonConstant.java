@@ -12,4 +12,6 @@ public interface CommonConstant {
 
     String TAG_KEY = "flowsphere.tag";
 
+    String SERVER_TAG = "flowsphere.tag";
+
 }

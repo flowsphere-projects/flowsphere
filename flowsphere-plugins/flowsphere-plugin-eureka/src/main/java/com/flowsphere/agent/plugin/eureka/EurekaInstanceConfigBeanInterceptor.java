@@ -18,7 +18,7 @@ public class EurekaInstanceConfigBeanInterceptor implements InstantMethodInterce
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         Object callResult = callable.call();
         Map<String, String> result = (Map<String, String>) callResult;
-        result.put(CommonConstant.TAG_KEY, TagManager.getSystemTag());
+        result.put(CommonConstant.SERVER_TAG, TagManager.getSystemTag());
         instantMethodInterceptorResult.setContinue(false);
         instantMethodInterceptorResult.setResult(result);
     }

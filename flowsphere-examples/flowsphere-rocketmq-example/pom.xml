@@ -5,11 +5,11 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere-examples</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
 
     <artifactId>flowsphere-rocketmq-example</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <name>flowsphere-rocketmq-example</name>
     <description>flowsphere-rocketmq-example</description>
     <properties>

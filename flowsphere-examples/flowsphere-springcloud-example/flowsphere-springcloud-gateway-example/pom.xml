@@ -6,11 +6,11 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere-springcloud-example</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
 
     <artifactId>flowsphere-springcloud-gateway-example</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <name>flowsphere-springcloud-gateway-example</name>
     <description>Demo project for Spring Boot</description>
 
@@ -23,22 +23,21 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
-<!--            <version>${spring-cloud.version}</version>-->
-        </dependency>
-
 <!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>commons-codec</artifactId>-->
-<!--                    <groupId>commons-codec</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-consul-discovery</artifactId>-->
 <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
         <dependency>

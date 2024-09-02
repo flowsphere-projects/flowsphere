@@ -3,7 +3,7 @@ package com.flowsphere.common.tag.context;
 import com.flowsphere.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.flowsphere.common.constant.CommonConstant.TAG_KEY;
+import static com.flowsphere.common.constant.CommonConstant.SERVER_TAG;
 
 @Slf4j
 public class TagManager {
@@ -16,11 +16,11 @@ public class TagManager {
         if (log.isDebugEnabled()) {
             log.debug("tag context is null");
         }
-        return System.getProperty(TAG_KEY);
+        return System.getProperty(SERVER_TAG);
     }
 
     public static String getSystemTag() {
-        return System.getProperty(TAG_KEY);
+        return System.getProperty(SERVER_TAG);
     }
 
 

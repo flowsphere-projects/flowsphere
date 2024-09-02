@@ -13,7 +13,7 @@ public class ConsulServerPredicate implements Predicate<ConsulServer> {
 
     @Override
     public boolean test(ConsulServer consulServer) {
-        String serverTag = consulServer.getMetadata().get(CommonConstant.TAG_KEY);
+        String serverTag = consulServer.getMetadata().get(CommonConstant.SERVER_TAG);
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
             log.debug("[flowsphere] ConsulServerPredicate consul tag={}", tag);

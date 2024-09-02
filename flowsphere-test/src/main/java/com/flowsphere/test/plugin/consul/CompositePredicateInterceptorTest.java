@@ -43,7 +43,7 @@ public class CompositePredicateInterceptorTest {
         metadata.put("tag", "TAGA");
         HealthService healthService = new HealthService();
         HealthService.Service service = new HealthService.Service();
-        service.setTags(Arrays.asList(CommonConstant.TAG_KEY + "=" + TagManager.getSystemTag()));
+        service.setTags(Arrays.asList(CommonConstant.SERVER_TAG + "=" + TagManager.getSystemTag()));
         service.setPort(8500);
         service.setAddress("127.0.0.1");
         service.setId("consul");

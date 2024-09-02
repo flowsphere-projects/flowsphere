@@ -48,7 +48,7 @@ public class BaseLoadBalancerInterceptorTest {
     private List<DiscoveryEnabledServer> buildDiscoveryEnabledServerList() {
         HashMap<String, String> configMap = new HashMap<>();
         configMap.put("eureka.client.service-url.defaultZone", "127.0.0.1");
-        configMap.put(CommonConstant.TAG_KEY, "tagA");
+        configMap.put(CommonConstant.SERVER_TAG, "tagA");
         InstanceInfo instanceInfo = new InstanceInfo("", "", "", "", "", new InstanceInfo.PortWrapper(true, 8080),
                 new InstanceInfo.PortWrapper(true, 8080), "", "", "", "", "", "", 1, new DataCenterInfo() {
             @Override
@@ -64,7 +64,7 @@ public class BaseLoadBalancerInterceptorTest {
 
         HashMap<String, String> configMap1 = new HashMap<>();
         configMap1.put("eureka.client.service-url.defaultZone", "127.0.0.1");
-        configMap1.put(CommonConstant.TAG_KEY, "tagA1");
+        configMap1.put(CommonConstant.SERVER_TAG, "tagA1");
         InstanceInfo instanceInfo1 = new InstanceInfo("", "", "", "", "", new InstanceInfo.PortWrapper(true, 8080),
                 new InstanceInfo.PortWrapper(true, 8080), "", "", "", "", "", "", 1, new DataCenterInfo() {
             @Override

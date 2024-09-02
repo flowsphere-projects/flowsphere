@@ -5,7 +5,7 @@
 
     <groupId>io.github.flowsphere-projects</groupId>
     <artifactId>flowsphere-examples</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>flowsphere-example</name>
     <description>Demo project for Spring Boot</description>
@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <elastic-job.version>2.1.5</elastic-job.version>
         <curator-test.version>2.10.0</curator-test.version>
-        <flowsphere.version>0.0.3-SNAPSHOT</flowsphere.version>
+        <flowsphere.version>1.0.0.RELEASE</flowsphere.version>
         <spring-cloud.version>2.2.5.RELEASE</spring-cloud.version>
         <spring-boot-version>2.2.6.RELEASE</spring-boot-version>
         <rocketmq-client.version>4.8.0</rocketmq-client.version>

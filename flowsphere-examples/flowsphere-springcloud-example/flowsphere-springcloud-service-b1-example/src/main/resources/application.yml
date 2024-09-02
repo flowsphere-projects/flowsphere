@@ -4,12 +4,12 @@ spring:
   application:
     name: service-b
   cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        heartbeat:
-          enabled: true
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        heartbeat:
+#          enabled: true
     nacos:
       config:
         file-extension: yaml
@@ -21,8 +21,8 @@ spring:
 #    service-url:
 #      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8189}/eureka/
 #    nacos:
-#      discovery:
-#        server-addr: localhost:8848
-#        enabled: true
-#      username: nacos
-#      password: nacos
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+      username: nacos
+      password: nacos
