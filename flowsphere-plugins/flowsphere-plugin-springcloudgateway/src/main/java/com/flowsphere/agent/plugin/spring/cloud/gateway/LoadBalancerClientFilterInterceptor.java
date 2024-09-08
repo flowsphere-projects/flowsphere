@@ -3,10 +3,12 @@ package com.flowsphere.agent.plugin.spring.cloud.gateway;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.agent.plugin.spring.cloud.gateway.header.SpringCloudGatewayHeaderResolver;
-import com.flowsphere.agent.plugin.spring.cloud.gateway.propagator.SpringCloudGatewayPropagator;
-import com.flowsphere.common.header.HeaderResolver;
+import com.flowsphere.agent.plugin.spring.cloud.gateway.propagator.GatewayPropagator;
+import com.flowsphere.agent.plugin.spring.cloud.gateway.request.GatewayHttpRequest;
+import com.flowsphere.common.request.HeaderResolver;
 import com.flowsphere.common.loadbalance.InstantWeight;
+import com.flowsphere.common.request.SimpleAttributeResolver;
+import com.flowsphere.common.request.SimpleRequestResolver;
 import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
@@ -26,10 +28,10 @@ public class LoadBalancerClientFilterInterceptor implements InstantMethodInterce
             ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
             ServerHttpRequest request = exchange.getRequest();
             InstantWeight instantWeight = getInstantWeight();
-            SpringCloudGatewayPropagator propagator = new SpringCloudGatewayPropagator(request);
-
-            HeaderResolver headerResolver = new SpringCloudGatewayHeaderResolver(request);
-            propagator.inject(instantWeight, headerResolver);
+            GatewayPropagator propagator = new GatewayPropagator(request);
+            GatewayHttpRequest gatewayHttpRequest = new GatewayHttpRequest(request);
+            SimpleRequestResolver simpleRequestResolver = new SimpleRequestResolver(gatewayHttpRequest);
+            propagator.inject(instantWeight, new SimpleAttributeResolver(simpleRequestResolver));
         }
     }
 

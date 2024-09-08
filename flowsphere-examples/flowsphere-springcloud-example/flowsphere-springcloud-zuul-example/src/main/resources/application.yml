@@ -4,8 +4,14 @@ spring:
   application:
     name: zuul-server
   cloud:
-    zookeeper:
-      connect-string: 127.0.0.1:2181
+#    zookeeper:
+#      connect-string: 127.0.0.1:2181
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+      username: nacos
+      password: nacos
 #    consul:
 #      host: localhost
 #      port: 8500
