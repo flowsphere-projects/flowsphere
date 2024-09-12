@@ -4,6 +4,7 @@ import com.flowsphere.common.loadbalance.InstantWeight;
 import com.flowsphere.common.request.AbstractAttributeResolver;
 import com.flowsphere.common.request.AttributeResolver;
 import com.flowsphere.common.request.RequestResolver;
+import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.common.utils.StringUtils;
 
 public class ClientDefaultTagExtract implements TagExtract {
@@ -11,6 +12,7 @@ public class ClientDefaultTagExtract implements TagExtract {
 
     @Override
     public String extract(InstantWeight instantWeight, AbstractAttributeResolver attributeResolver) {
+        TagContext.set(attributeResolver.getTag());
         return attributeResolver.getTag();
     }
 

@@ -31,7 +31,6 @@ public class DynamicMachineIndicatorsLimiterInterceptor implements InstantMethod
 
     @Override
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {
-        TagContext.remove();
     }
 
     @Override
