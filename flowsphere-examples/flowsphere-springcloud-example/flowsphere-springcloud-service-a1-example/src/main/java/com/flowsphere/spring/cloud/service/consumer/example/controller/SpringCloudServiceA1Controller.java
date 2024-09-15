@@ -2,6 +2,7 @@ package com.flowsphere.spring.cloud.service.consumer.example.controller;
 
 import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.common.tag.context.TagManager;
+import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.spring.cloud.service.api.SpringCloudBApi;
 import com.flowsphere.spring.cloud.service.api.result.TagResult;
 import lombok.SneakyThrows;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -30,11 +32,22 @@ public class SpringCloudServiceA1Controller {
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @SneakyThrows
     @GetMapping("/lazy")
     public String lazy() {
         Thread.sleep(300);
         return "lazy";
+    }
+
+    @PostMapping("/restTemplate")
+    public List<TagResult> restTemplate(String str) {
+        String result = restTemplate.postForObject("http://service-b/service-b/helloWord?str=" + str, String.class, String.class);
+        List<TagResult> tagResults = JacksonUtils.toList(result, TagResult.class);
+        tagResults.add(TagResult.build("SpringCloudProviderA"));
+        return tagResults;
     }
 
     @PostMapping("/helloWord")

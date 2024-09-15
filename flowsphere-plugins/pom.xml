@@ -36,6 +36,7 @@
         <module>flowsphere-plugin-springboot2</module>
         <module>flowsphere-plugin-zookeeper</module>
         <module>flowsphere-plugin-consul</module>
+        <module>flowsphere-plugin-resttemplate</module>
     </modules>
 
 
