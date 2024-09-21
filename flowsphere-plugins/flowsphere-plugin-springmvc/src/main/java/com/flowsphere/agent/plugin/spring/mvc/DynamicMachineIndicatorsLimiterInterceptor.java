@@ -4,16 +4,14 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.agent.plugin.spring.mvc.constant.SpringMvcConstant;
-import com.flowsphere.agent.plugin.spring.mvc.flow.DynamicMachineIndicatorsLimiter;
+import com.flowsphere.extension.sentinel.limiter.support.DynamicMachineIndicatorsLimiter;
 import com.flowsphere.common.env.Env;
-import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.sentinel.limiter.SentinelResource;
+import com.flowsphere.extension.sentinel.utils.SentinelContext;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -36,8 +34,7 @@ public class DynamicMachineIndicatorsLimiterInterceptor implements InstantMethod
     @Override
     public void exceptionMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Throwable e) {
         if (e instanceof BlockException) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) allArguments[0];
-            httpServletRequest.setAttribute(SpringMvcConstant.SENTINEL_LIMIT_KEY, true);
+            SentinelContext.set((BlockException) e);
         }
     }
 }

@@ -1,15 +1,12 @@
-package com.flowsphere.agent.plugin.spring.mvc.flow;
+package com.flowsphere.extension.sentinel.limiter.support;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.sentinel.limiter.AbstractSentinelLimiter;
 import com.flowsphere.extension.sentinel.limiter.SentinelResource;
 import lombok.SneakyThrows;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 实现动态限流根据CPU/内存

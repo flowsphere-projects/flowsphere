@@ -3,7 +3,7 @@ package com.flowsphere.test.limiter;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
 import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
-import com.flowsphere.agent.plugin.spring.mvc.flow.DynamicMachineIndicatorsLimiter;
+import com.flowsphere.extension.sentinel.limiter.support.DynamicMachineIndicatorsLimiter;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.SentinelConfig;

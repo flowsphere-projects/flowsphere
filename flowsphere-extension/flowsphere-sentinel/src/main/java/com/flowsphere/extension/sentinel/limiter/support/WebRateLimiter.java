@@ -1,4 +1,4 @@
-package com.flowsphere.agent.plugin.spring.mvc.flow;
+package com.flowsphere.extension.sentinel.limiter.support;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
@@ -13,11 +13,11 @@ import lombok.SneakyThrows;
 import java.util.Objects;
 
 
-public class RateLimiter extends AbstractSentinelLimiter {
+public class WebRateLimiter extends AbstractSentinelLimiter {
 
-    private final static RateLimiter INSTANTCE = new RateLimiter();
+    private final static WebRateLimiter INSTANTCE = new WebRateLimiter();
 
-    public static RateLimiter getInstance() {
+    public static WebRateLimiter getInstance() {
         return INSTANTCE;
     }
 

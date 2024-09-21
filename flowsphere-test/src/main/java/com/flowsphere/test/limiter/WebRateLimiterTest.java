@@ -4,7 +4,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
-import com.flowsphere.agent.plugin.spring.mvc.flow.RateLimiter;
+import com.flowsphere.extension.sentinel.limiter.support.WebRateLimiter;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.SentinelConfig;
@@ -23,14 +23,14 @@ import java.util.concurrent.Callable;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RateLimiterTest {
+public class WebRateLimiterTest {
 
     private static final String KEY = "/myUrl";
 
     @Test
     public void apiLimiterBlockExceptionTest() {
         initBlockExceptionRule();
-        RateLimiter rateLimiter = new RateLimiter();
+        WebRateLimiter webRateLimiter = new WebRateLimiter();
         try (MockedStatic<PluginConfigCache> pluginConfigManagerMockedStatic = Mockito.mockStatic(PluginConfigCache.class)) {
             PluginConfig pluginConfig = new PluginConfig();
             SentinelConfig sentinelConfig = new SentinelConfig();
@@ -45,7 +45,7 @@ public class RateLimiterTest {
             pluginConfigManagerMockedStatic.when(() -> PluginConfigCache.get()).thenReturn(pluginConfig);
             HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
             Mockito.when(request.getRequestURI()).thenReturn(KEY);
-            assertThrows(BlockException.class, () -> rateLimiter.limit(new SentinelResource().setResourceName(request.getRequestURI()), new Callable<Object>() {
+            assertThrows(BlockException.class, () -> webRateLimiter.limit(new SentinelResource().setResourceName(request.getRequestURI()), new Callable<Object>() {
 
                 @Override
                 public Object call() throws Exception {
@@ -72,7 +72,7 @@ public class RateLimiterTest {
     @Test
     public void httpUrlLimiterTest() {
         initRule();
-        RateLimiter rateLimiter = new RateLimiter();
+        WebRateLimiter webRateLimiter = new WebRateLimiter();
         try (MockedStatic<PluginConfigCache> pluginConfigManagerMockedStatic = Mockito.mockStatic(PluginConfigCache.class)) {
             PluginConfig pluginConfig = new PluginConfig();
             pluginConfig.setSentinelConfig(new SentinelConfig());
@@ -80,7 +80,7 @@ public class RateLimiterTest {
             pluginConfigManagerMockedStatic.when(() -> PluginConfigCache.get()).thenReturn(pluginConfig);
             HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
             Mockito.when(request.getRequestURI()).thenReturn(KEY);
-            rateLimiter.limit(new SentinelResource().setResourceName(request.getRequestURI()), new Callable<Object>() {
+            webRateLimiter.limit(new SentinelResource().setResourceName(request.getRequestURI()), new Callable<Object>() {
 
                 @Override
                 public Object call() throws Exception {
