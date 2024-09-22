@@ -1,26 +1,15 @@
 package com.flowsphere.test.plugin.springmvc;
 
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
 import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
-import com.flowsphere.agent.plugin.spring.mvc.flow.FlowControlExecutor;
-import com.flowsphere.extension.datasource.cache.PluginConfigCache;
-import com.flowsphere.extension.datasource.entity.PluginConfig;
-import com.flowsphere.extension.datasource.entity.SentinelConfig;
-import com.flowsphere.extension.sentinel.limiter.SentinelResource;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class FlowControlExecutorTest {
 
@@ -32,31 +21,6 @@ public class FlowControlExecutorTest {
     public void before() {
         initFlowRule();
         initSystemRule();
-    }
-
-    @Test
-    public void executeTest() throws BlockException {
-
-        try (MockedStatic<PluginConfigCache> pluginConfigManagerMockedStatic = Mockito.mockStatic(PluginConfigCache.class)) {
-            PluginConfig pluginConfig = new PluginConfig();
-            pluginConfig.setSentinelConfig(new SentinelConfig());
-            pluginConfig.getSentinelConfig().setResourceLimitEnabled(true);
-            pluginConfig.getSentinelConfig().setRuleKey(KEY1);
-            pluginConfigManagerMockedStatic.when(() -> PluginConfigCache.get()).thenReturn(pluginConfig);
-
-            HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-            Mockito.when(request.getRequestURI()).thenReturn(KEY);
-            FlowControlExecutor.execute(new SentinelResource().setResourceName(request.getRequestURI()), new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    return 1;
-                }
-
-            });
-
-        }
-
     }
 
     private void initFlowRule() {

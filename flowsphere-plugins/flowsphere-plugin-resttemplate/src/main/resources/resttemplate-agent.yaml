@@ -3,4 +3,9 @@ pointcutConfigs:
     methodPointcutConfigs:
       - methodName: createRequest
         type: instant
+        interceptorName: com.flowsphere.plugin.resttemplate.HttpAccessorInterceptor
+  - className: org.springframework.web.client.RestTemplate
+    methodPointcutConfigs:
+      - methodName: doExecute
+        type: instant
         interceptorName: com.flowsphere.plugin.resttemplate.RestTemplateInterceptor

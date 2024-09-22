@@ -4,11 +4,11 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.agent.plugin.spring.mvc.constant.SpringMvcConstant;
-import com.flowsphere.agent.plugin.spring.mvc.flow.RateLimiter;
+import com.flowsphere.extension.sentinel.limiter.support.WebRateLimiter;
 import com.flowsphere.common.constant.CommonConstant;
 import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.extension.sentinel.limiter.SentinelResource;
+import com.flowsphere.extension.sentinel.utils.SentinelContext;
 import com.google.common.base.Strings;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class RequestContextFilterInterceptor implements InstantMethodInterceptor
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) allArguments[0];
         keepDeliveringTag(httpServletRequest);
-        Object result = RateLimiter.getInstance().limit(new SentinelResource()
+        Object result = WebRateLimiter.getInstance().limit(new SentinelResource()
                 .setResourceName(httpServletRequest.getRequestURI())
                 .setContextName("flowsphere_http_url_context"),
                 callable);
@@ -53,8 +53,7 @@ public class RequestContextFilterInterceptor implements InstantMethodInterceptor
     @Override
     public void exceptionMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Throwable e) {
         if (e instanceof BlockException) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) allArguments[0];
-            httpServletRequest.setAttribute(SpringMvcConstant.SENTINEL_LIMIT_KEY, true);
+            SentinelContext.set((BlockException) e);
         }
     }
 
