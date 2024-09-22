@@ -4,7 +4,7 @@ public interface CommonConstant {
 
     String REGION = "region";
 
-    String USER_ID = "userId";
+    String USER_ID = "user-id";
 
     String PLUGINS = "plugins";
 

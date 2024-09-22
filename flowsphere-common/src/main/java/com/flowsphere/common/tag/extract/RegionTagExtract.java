@@ -1,6 +1,7 @@
 package com.flowsphere.common.tag.extract;
 
-import com.flowsphere.common.header.HeaderResolver;
+import com.flowsphere.common.request.AbstractAttributeResolver;
+import com.flowsphere.common.request.HeaderResolver;
 import com.flowsphere.common.loadbalance.InstantWeight;
 import com.flowsphere.common.loadbalance.RegionWeight;
 import com.flowsphere.common.loadbalance.TagWeight;
@@ -15,13 +16,15 @@ public class RegionTagExtract extends AbstractTagExtract {
         return instantWeight.getRegionWeight().getTagWeights();
     }
 
+
+
     @Override
-    public boolean match(InstantWeight instantWeight, HeaderResolver headerResolver) {
+    public boolean match(InstantWeight instantWeight, AbstractAttributeResolver attributeResolver) {
         RegionWeight regionWeight = instantWeight.getRegionWeight();
         if (Objects.isNull(regionWeight) || Objects.isNull(regionWeight.getRegions()) || Objects.isNull(regionWeight.getTagWeights())) {
             return false;
         }
-        if (regionWeight.getRegions().contains(headerResolver.getRegion())) {
+        if (regionWeight.getRegions().contains(attributeResolver.getRegion())) {
             return true;
         }
         return false;

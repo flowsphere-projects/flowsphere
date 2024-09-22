@@ -10,6 +10,7 @@ plugins:
   - springboot2
   - zookeeper
   - consul
+  - resttemplate
 sentinelEnabled: false
 pluginConfigDataSource:
 #  type: local

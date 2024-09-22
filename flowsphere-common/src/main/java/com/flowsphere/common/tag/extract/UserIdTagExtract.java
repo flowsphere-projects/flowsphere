@@ -1,6 +1,7 @@
 package com.flowsphere.common.tag.extract;
 
-import com.flowsphere.common.header.HeaderResolver;
+import com.flowsphere.common.request.AbstractAttributeResolver;
+import com.flowsphere.common.request.HeaderResolver;
 import com.flowsphere.common.loadbalance.InstantWeight;
 import com.flowsphere.common.loadbalance.TagWeight;
 import com.flowsphere.common.loadbalance.UserWeight;
@@ -16,12 +17,12 @@ public class UserIdTagExtract extends AbstractTagExtract {
     }
 
     @Override
-    public boolean match(InstantWeight instantWeight, HeaderResolver headerResolver) {
+    public boolean match(InstantWeight instantWeight,  AbstractAttributeResolver attributeResolver) {
         UserWeight userWeight = instantWeight.getUserWeight();
         if (Objects.isNull(userWeight) || Objects.isNull(userWeight.getUserIds()) || Objects.isNull(userWeight.getTagWeights())) {
             return false;
         }
-        if (userWeight.getUserIds().contains(headerResolver.getUserId())) {
+        if (userWeight.getUserIds().contains(attributeResolver.getUserId())) {
             return true;
         }
         return false;

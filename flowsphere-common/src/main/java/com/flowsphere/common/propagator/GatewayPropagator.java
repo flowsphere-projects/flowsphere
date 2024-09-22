@@ -1,10 +1,10 @@
 package com.flowsphere.common.propagator;
 
-import com.flowsphere.common.header.HeaderResolver;
 import com.flowsphere.common.loadbalance.InstantWeight;
+import com.flowsphere.common.request.AbstractAttributeResolver;
 
 public interface GatewayPropagator {
 
-    void inject(InstantWeight instantWeight, HeaderResolver headerResolver);
+    void inject(InstantWeight instantWeight, AbstractAttributeResolver attributeResolver);
 
 }

@@ -4,12 +4,12 @@ import com.flowsphere.common.constant.CommonConstant;
 import com.flowsphere.common.propagator.AbstractGatewayPropagator;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
-public class SpringCloudGatewayPropagator extends AbstractGatewayPropagator {
+public class GatewayPropagator extends AbstractGatewayPropagator {
 
     private final ServerHttpRequest request;
 
 
-    public SpringCloudGatewayPropagator(ServerHttpRequest request) {
+    public GatewayPropagator(ServerHttpRequest request) {
         this.request = request;
     }
 

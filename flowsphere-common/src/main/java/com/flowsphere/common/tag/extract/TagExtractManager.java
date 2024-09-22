@@ -1,7 +1,7 @@
 package com.flowsphere.common.tag.extract;
 
-import com.flowsphere.common.header.HeaderResolver;
 import com.flowsphere.common.loadbalance.InstantWeight;
+import com.flowsphere.common.request.AbstractAttributeResolver;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +16,10 @@ public class TagExtractManager {
         TAG_SELECTOR_LIST.add(new UserIdTagExtract());
     }
 
-    public static String extract(InstantWeight instantWeight, HeaderResolver headerResolver) {
+    public static String extract(InstantWeight instantWeight, AbstractAttributeResolver attributeResolver) {
         for (TagExtract selector : TAG_SELECTOR_LIST) {
-            if (selector.match(instantWeight, headerResolver)) {
-                return selector.extract(instantWeight, headerResolver);
+            if (selector.match(instantWeight, attributeResolver)) {
+                return selector.extract(instantWeight, attributeResolver);
             }
         }
         return null;

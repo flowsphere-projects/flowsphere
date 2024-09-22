@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: org.springframework.http.client.support.HttpAccessor
+    methodPointcutConfigs:
+      - methodName: createRequest
+        type: instant
+        interceptorName: com.flowsphere.plugin.resttemplate.RestTemplateInterceptor

@@ -151,6 +151,14 @@
             </includes>
         </fileSet>
 
+        <fileSet>
+            <directory>../../flowsphere-plugins/flowsphere-plugin-resttemplate/target/</directory>
+            <outputDirectory>./plugins/</outputDirectory>
+            <includes>
+                <include>**.jar</include>
+            </includes>
+        </fileSet>
+
     </fileSets>
 
 
