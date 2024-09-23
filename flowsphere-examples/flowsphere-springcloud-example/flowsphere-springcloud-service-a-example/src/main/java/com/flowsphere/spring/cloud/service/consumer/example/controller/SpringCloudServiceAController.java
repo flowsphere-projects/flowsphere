@@ -4,7 +4,7 @@ import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.spring.cloud.service.api.SpringCloudBApi;
-import com.flowsphere.spring.cloud.service.api.result.TagResult;
+import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -44,27 +45,27 @@ public class SpringCloudServiceAController {
     }
 
     @PostMapping("/restTemplate")
-    public List<TagResult> restTemplate(String str) {
+    public List<TagEntity> restTemplate(String str) {
         String result = restTemplate.postForObject("http://service-b/service-b/helloWord?str=" + str, String.class, String.class);
-        List<TagResult> tagResults = JacksonUtils.toList(result, TagResult.class);
-        tagResults.add(TagResult.build("SpringCloudProviderA"));
-        return tagResults;
+        List<TagEntity> tagEntities = JacksonUtils.toList(result, TagEntity.class);
+        tagEntities.add(TagEntity.build("SpringCloudProviderA"));
+        return tagEntities;
     }
 
     @PostMapping("/helloWord")
-    public List<TagResult> helloWord(String str) {
+    public List<TagEntity> helloWord(String str) {
         restTemplate.postForObject("http://service-b/service-b/helloWord?str=2", String.class, String.class);
-        List<TagResult> tagResults = springCloudBApi.helloWord(str);
-        tagResults.add(TagResult.build("SpringCloudProviderA"));
-        return tagResults;
+        List<TagEntity> tagEntities = springCloudBApi.helloWord(str);
+        tagEntities.add(TagEntity.build("SpringCloudProviderA"));
+        return tagEntities;
     }
 
     @PostMapping("/repeat")
-    public List<TagResult> repeat(String str) {
+    public List<TagEntity> repeat(String str) {
         springCloudBApi.helloWord(str);
-        List<TagResult> tagResults = springCloudBApi.repeat(str);
-        tagResults.add(TagResult.build("SpringCloudProviderA"));
-        return tagResults;
+        List<TagEntity> tagEntities = springCloudBApi.repeat(str);
+        tagEntities.add(TagEntity.build("SpringCloudProviderA"));
+        return tagEntities;
     }
 
 
@@ -75,7 +76,12 @@ public class SpringCloudServiceAController {
             @Override
             public void run() {
                 System.out.println("获取到tag=" + TagContext.get());
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         }).start();
         return "[App=SpringCloudProviderA1 Tag=" + TagManager.getTag() + "] -> " + springCloudBApi.repeat(str);
@@ -92,7 +98,12 @@ public class SpringCloudServiceAController {
     public String runnableLambdaThread(final String str) {
         new Thread(() -> {
             System.out.println("获取到tag=" + TagContext.get());
-            springCloudBApi.helloWord(str);
+            List<TagEntity> tagList = new ArrayList<>();
+            TagEntity tag = new TagEntity();
+            tag.setTag(TagContext.get());
+            tag.setSystemTag(TagManager.getSystemTag());
+            tagList.add(tag);
+            springCloudBApi.tagSpread(tagList);
         }).start();
         return "runnableLambdaThread";
     }
@@ -109,7 +120,12 @@ public class SpringCloudServiceAController {
             @Override
             public void run() {
                 System.out.println("获取到tag=" + TagContext.get());
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         }).start();
         return "runnableThreadHelloWord";
@@ -127,7 +143,12 @@ public class SpringCloudServiceAController {
         threadPoolTaskExecutor.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "springThreadPool";
@@ -145,7 +166,12 @@ public class SpringCloudServiceAController {
         threadPoolTaskExecutor.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "springAsyncThreadPool";
@@ -161,10 +187,17 @@ public class SpringCloudServiceAController {
     @PostMapping("/completableFuture")
     public String completableFuture(final String str) {
         CompletableFuture.runAsync(new Runnable() {
+
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
+
         }, threadPoolTaskExecutor);
         return "completableFuture";
     }
@@ -183,7 +216,12 @@ public class SpringCloudServiceAController {
                 threadPoolTaskExecutor.submit(new Runnable() {
                     @Override
                     public void run() {
-                        springCloudBApi.helloWord(str);
+                        List<TagEntity> tagList = new ArrayList<>();
+                        TagEntity tag = new TagEntity();
+                        tag.setTag(TagContext.get());
+                        tag.setSystemTag(TagManager.getSystemTag());
+                        tagList.add(tag);
+                        springCloudBApi.tagSpread(tagList);
                     }
                 });
             }
@@ -199,7 +237,12 @@ public class SpringCloudServiceAController {
         scheduledThreadPoolRunnableExecutor.schedule(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         }, 1, TimeUnit.SECONDS);
         return "nestedThreadPool";
@@ -212,7 +255,12 @@ public class SpringCloudServiceAController {
         scheduledThreadPoolCallableExecutor.schedule(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         }, 1, TimeUnit.SECONDS);
         return "nestedThreadPool";
@@ -225,7 +273,12 @@ public class SpringCloudServiceAController {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "nestedThreadPool";
@@ -237,7 +290,12 @@ public class SpringCloudServiceAController {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "cachedThreadPoolRunnable";
@@ -251,7 +309,12 @@ public class SpringCloudServiceAController {
 
             @Override
             public Object call() throws Exception {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
                 return null;
             }
         });
@@ -264,7 +327,12 @@ public class SpringCloudServiceAController {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "scheduledThreadPoolRunnable";
@@ -278,7 +346,12 @@ public class SpringCloudServiceAController {
             @Override
             public Object call() throws Exception {
 
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
                 return null;
             }
         });
@@ -292,7 +365,12 @@ public class SpringCloudServiceAController {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
         });
         return "singleThreadPoolRunnable";
@@ -306,7 +384,12 @@ public class SpringCloudServiceAController {
             @Override
             public Object call() throws Exception {
 
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
                 return null;
             }
         });
@@ -319,13 +402,18 @@ public class SpringCloudServiceAController {
      * @param str
      * @return
      */
-    @GetMapping("/fixedThreadPoolRunnable")
+    @PostMapping("/fixedThreadPoolRunnable")
     public String fixedThreadPoolRunnable(final String str) {
         Executors.newFixedThreadPool(4).submit(new Runnable() {
 
             @Override
             public void run() {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
             }
 
         });
@@ -344,7 +432,12 @@ public class SpringCloudServiceAController {
 
             @Override
             public Object call() throws Exception {
-                springCloudBApi.helloWord(str);
+                List<TagEntity> tagList = new ArrayList<>();
+                TagEntity tag = new TagEntity();
+                tag.setTag(TagContext.get());
+                tag.setSystemTag(TagManager.getSystemTag());
+                tagList.add(tag);
+                springCloudBApi.tagSpread(tagList);
                 return null;
             }
 
