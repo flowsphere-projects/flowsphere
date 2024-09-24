@@ -440,7 +440,7 @@ public class SpringCloudServiceA1Controller {
      * @param str
      * @return
      */
-    @GetMapping("/fixedThreadPoolCallable")
+    @PostMapping("/fixedThreadPoolCallable")
     public String fixedThreadPoolCallable(final String str) {
         Executors.newFixedThreadPool(4).submit(new Callable() {
 
