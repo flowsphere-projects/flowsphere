@@ -11,7 +11,7 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ConsumerPullRequestInterceptorTest {
+public class ConsumerPullSimpleHttpRequestInterceptorTest {
 
     @Test
     public void beforeResultIsContinueTrueTest() {

@@ -1,4 +1,4 @@
-package com.flowsphere.agent.plugin.fegin;
+package com.flowsphere.agent.plugin.feign;
 
 
 import com.flowsphere.agent.core.context.CustomContextAccessor;
