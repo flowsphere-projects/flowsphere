@@ -1,10 +1,10 @@
 package com.flowsphere.spring.cloud.service.provider.example.feign;
 
-import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.common.tag.context.TagContext;
+import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.spring.cloud.service.api.SpringCloudBApi;
 import com.flowsphere.spring.cloud.service.api.SpringCloudCApi;
-import com.flowsphere.spring.cloud.service.api.result.TagResult;
+import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,22 +24,33 @@ public class SpringCloudProviderB1Feign implements SpringCloudBApi {
     private SpringCloudCApi springCloudCApi;
 
     @PostMapping("/helloWord")
-    public List<TagResult> helloWord(@RequestBody String str) {
+    public List<TagEntity> helloWord(@RequestBody String str) {
         log.info("SpringCloudProviderB1Feign helloWord str={} tag={}", str, TagContext.get());
-        List<TagResult> result = new ArrayList<>();
+        List<TagEntity> result = new ArrayList<>();
         result.add(springCloudCApi.helloWord(str));
-        result.add(TagResult.build("SpringCloudProviderB1Feign"));
+        result.add(TagEntity.build("SpringCloudProviderB1Feign"));
         return result;
     }
 
     @PostMapping("/repeat")
     @Override
-    public List<TagResult> repeat(String str) {
+    public List<TagEntity> repeat(String str) {
         log.info("SpringCloudProviderB1Feign helloWord1 str={} tag={}", str, TagContext.get());
-        List<TagResult> result = new ArrayList<>();
+        List<TagEntity> result = new ArrayList<>();
         result.add(springCloudCApi.helloWord(str));
-        result.add(TagResult.build("SpringCloudProviderB1Feign"));
+        result.add(TagEntity.build("SpringCloudProviderB1Feign"));
         return result;
+    }
+
+    @PostMapping("/tagSpread")
+    @Override
+    public void tagSpread(List<TagEntity> tagList) {
+        log.info("SpringCloudProviderB1Feign tagSpread tagList={} tag={}", tagList, TagContext.get());
+        TagEntity tag = new TagEntity();
+        tag.setTag(TagContext.get());
+        tag.setSystemTag(TagManager.getSystemTag());
+        tagList.add(tag);
+        springCloudCApi.tagSpread(tagList);
     }
 
 }
