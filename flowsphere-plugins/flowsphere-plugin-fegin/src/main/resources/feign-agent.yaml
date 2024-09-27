@@ -4,3 +4,13 @@ pointcutConfigs:
       - methodName: execute
         type: instant
         interceptorName: com.flowsphere.agent.plugin.feign.LoadBalancerFeignClientInterceptor
+  - className: org.springframework.cloud.openfeign.support.SpringMvcContract
+    methodPointcutConfigs:
+      - methodName: parseAndValidateMetadata
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.feign.SpringMvcContractInterceptor
+  - className: org.springframework.boot.context.event.EventPublishingRunListener
+    methodPointcutConfigs:
+      - methodName: running
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.feign.ApplicationContextInterceptor
