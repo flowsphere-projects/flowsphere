@@ -3,7 +3,7 @@ package com.flowsphere.agent.plugin.feign;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.agent.plugin.feign.manager.DependOnInterfaceManager;
+import com.flowsphere.common.instance.ConsumerInterfaceUrlManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class SpringMvcContractInterceptor implements InstantMethodInterceptor {
         String[] values = getPathValue(feignInterfaceMethod);
         for (int i = 0; i < values.length; i++) {
             String value = values[i];
-            DependOnInterfaceManager.addInterface(feignClient.name(), feignClient.path() + value);
+            ConsumerInterfaceUrlManager.addInterfaceUrl(feignClient.name(), feignClient.path() + value);
         }
     }
 

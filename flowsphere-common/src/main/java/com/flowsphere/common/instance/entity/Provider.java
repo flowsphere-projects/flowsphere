@@ -1,4 +1,4 @@
-package com.flowsphere.agent.plugin.feign.instance.entity;
+package com.flowsphere.common.instance.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
