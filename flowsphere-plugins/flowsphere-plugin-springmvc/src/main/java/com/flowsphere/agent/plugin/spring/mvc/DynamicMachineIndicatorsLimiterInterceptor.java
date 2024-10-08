@@ -16,15 +16,17 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
+import static com.flowsphere.common.constant.CommonConstant.SPRING_APPLICATION_NAME;
+
 public class DynamicMachineIndicatorsLimiterInterceptor implements InstantMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         PluginConfig pluginConfig = PluginConfigCache.get();
-        if (Objects.isNull(pluginConfig.getSentinelConfig()) || StringUtils.isEmpty(Env.get("spring.application.name"))) {
+        if (Objects.isNull(pluginConfig.getSentinelConfig()) || StringUtils.isEmpty(Env.get(SPRING_APPLICATION_NAME))) {
             return;
         }
-        DynamicMachineIndicatorsLimiter.getInstance().limit(new SentinelResource().setResourceName(Env.get("spring.application.name")), callable);
+        DynamicMachineIndicatorsLimiter.getInstance().limit(new SentinelResource().setResourceName(Env.get(SPRING_APPLICATION_NAME)), callable);
     }
 
     @Override
