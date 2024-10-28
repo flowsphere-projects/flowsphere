@@ -1,5 +1,8 @@
 package com.flowsphere.common.transport;
 
+import com.flowsphere.common.config.OkHttpConfig;
+import com.flowsphere.common.config.YamlAgentConfig;
+import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.utils.JacksonUtils;
 import lombok.SneakyThrows;
 import okhttp3.MediaType;
@@ -13,20 +16,22 @@ public class SimpleHttpClient  {
 
     private static final SimpleHttpClient INSTANT = new SimpleHttpClient();
 
-    public static SimpleHttpClient getInstance() {
-        return INSTANT;
-    }
+    private static final MediaType MEDIA_TYPE = MediaType.get("application/json");
 
     private OkHttpClient okHttpClient;
 
-    private static final MediaType MEDIA_TYPE = MediaType.get("application/json");
-
     public SimpleHttpClient() {
+        YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
+        OkHttpConfig okHttpConfig = yamlAgentConfig.getOkHttpConfig();
         okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(okHttpConfig.getConnectTimeout(), TimeUnit.SECONDS)
+                .writeTimeout(okHttpConfig.getWriteTimeout(), TimeUnit.SECONDS)
+                .readTimeout(okHttpConfig.getReadTimeout(), TimeUnit.SECONDS)
                 .build();
+    }
+
+    public static SimpleHttpClient getInstance() {
+        return INSTANT;
     }
 
     @SneakyThrows

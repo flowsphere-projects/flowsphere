@@ -7,6 +7,7 @@ import com.flowsphere.common.instance.ProviderInterfaceManager;
 import com.flowsphere.common.instance.entity.Consumer;
 import com.flowsphere.common.instance.entity.Provider;
 import com.flowsphere.common.instance.entity.ProviderFunction;
+import com.flowsphere.common.longpoll.LongPollService;
 import com.flowsphere.common.utils.IpUtils;
 import com.google.common.eventbus.Subscribe;
 import lombok.SneakyThrows;
@@ -22,6 +23,14 @@ public class InstanceInitListener {
     @SneakyThrows
     @Subscribe
     public void listener(InstanceInitEvent instanceInitEvent) {
+        LongPollService.getInstance().startLongPolling(instanceInitEvent.getServerAddr(),
+                instanceInitEvent.getApplicationName(),IpUtils.getIpv4Address());
+        register(instanceInitEvent);
+    }
+
+
+    @SneakyThrows
+    private void register(InstanceInitEvent instanceInitEvent) {
         Map<String, List<String>> consumerInterfaceList = ConsumerInterfaceUrlManager.getInterfaceUrlList();
         InstanceService.reportConsumerInterface(instanceInitEvent.getServerAddr(), new Consumer()
                 .setApplicationName(instanceInitEvent.getApplicationName())
