@@ -4,11 +4,13 @@ import com.flowsphere.common.config.YamlAgentConfig;
 import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.transport.SimpleHttpClient;
 import com.flowsphere.common.transport.SimpleHttpRequest;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class LongPollService {
 
     private static final LongPollService INSTANT = new LongPollService();
@@ -23,19 +25,23 @@ public class LongPollService {
 
     public void startLongPolling(String serverAddr, String applicationName, String ip) {
         YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
-        SCHEDULER.schedule(new Runnable() {
+        SCHEDULER.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                SimpleHttpClient.getInstance().send(new SimpleHttpRequest()
-                        .setUrl(serverAddr + NOTIFICATION_API_URL)
-                        .setData(
-                                new NotificationRequest()
-                                .setApplicationName(applicationName)
-                                .setIp(ip)
-                        )
-                );
+                try {
+                    SimpleHttpClient.getInstance().send(new SimpleHttpRequest()
+                            .setUrl(serverAddr + NOTIFICATION_API_URL)
+                            .setData(
+                                    new NotificationRequest()
+                                            .setApplicationName(applicationName)
+                                            .setIp(ip)
+                            )
+                    );
+                } catch (Exception e) {
+                    log.error("long polling notification fail", e);
+                }
             }
-        }, yamlAgentConfig.getLongPollDelay(), TimeUnit.SECONDS);
+        }, 0, yamlAgentConfig.getLongPollDelay(), TimeUnit.SECONDS);
     }
 
 }
