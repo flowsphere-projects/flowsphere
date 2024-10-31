@@ -33,10 +33,12 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 <table>
   <tbody>
     <tr align="center">
-      <td width="20%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/service-search.png"></td>
-      <td width="20%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/api.png"></td>
-      <td width="20%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/ip.png"></td>
-      <td width="20%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/consumer.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/service-search.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/api.png"></td>
+    </tr>
+    <tr align="center">
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/ip.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/consumer.png"></td>
     </tr>
   </tbody>
 </table>
