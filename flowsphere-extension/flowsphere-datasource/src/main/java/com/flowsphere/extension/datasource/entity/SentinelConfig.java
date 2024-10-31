@@ -25,12 +25,13 @@ public class SentinelConfig {
 
     private HttpApiLimitConfig httpApiLimitConfig;
 
+    private MybatisApiLimitConfig mybatisApiLimitConfig;
+
     private Map<String, Object> limitReturnResult;
 
 
     @Data
     public static class HttpApiLimitConfig {
-
 
         private boolean allUrlLimitEnabled;
 
@@ -38,7 +39,14 @@ public class SentinelConfig {
 
     }
 
+    @Data
+    public static class MybatisApiLimitConfig {
 
+        private boolean allMethodLimitEnabled;
+
+        private List<String> excludeLimitMethodList;
+
+    }
 
 
 }

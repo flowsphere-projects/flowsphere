@@ -5,6 +5,8 @@ import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.spring.cloud.service.api.SpringCloudBApi;
 import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
+import com.flowsphere.spring.cloud.service.consumer.example.entity.User;
+import com.flowsphere.spring.cloud.service.consumer.example.mapper.UserMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,14 @@ public class SpringCloudServiceAController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private UserMapper userMapper;
+
+
+    @GetMapping("/findById")
+    public User findById(int id) {
+        return userMapper.findById(id);
+    }
 
     @SneakyThrows
     @GetMapping("/lazy")

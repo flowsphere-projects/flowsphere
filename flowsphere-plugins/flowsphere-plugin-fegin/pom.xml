@@ -17,6 +17,8 @@
 
     <dependencies>
 
+
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>flowsphere-agent-core</artifactId>

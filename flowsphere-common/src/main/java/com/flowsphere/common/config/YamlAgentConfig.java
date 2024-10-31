@@ -14,4 +14,8 @@ public class YamlAgentConfig {
 
     private boolean sentinelEnabled;
 
+    private OkHttpConfig okHttpConfig = new OkHttpConfig();
+
+    private long longPollDelay = 30;
+
 }
