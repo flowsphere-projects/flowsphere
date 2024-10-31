@@ -28,6 +28,12 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 ## 全链路泳道全景图
 ![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/panoramic.png)
 
+## 微服务控制台
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/service-search.png)
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/api.png)
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/ip.png)
+![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/consumer.png)
+
 # 主要特性
 
 1.支持基于标签路由全链路灰度发布，支持Http、MQ、JOB多种标签过滤方式
@@ -39,6 +45,8 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 4.采用字节码增强技术，对业务代码无侵入，业务性能影响最小；
 
 5.采用微内核架构，强类隔离，简单易用的扩展和配置体系。
+
+6.支持查看生产者接口调用方关系
 
 # 基本能力
 
@@ -52,6 +60,7 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 
+- 支持SpringCloud查看生产者接口调用方关系
 
 # 使用场景
 ## 环境流量隔离
