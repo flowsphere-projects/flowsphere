@@ -28,7 +28,7 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 ## 全链路泳道全景图
 ![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/panoramic.png)
 
-## 微服务控制台
+# 微服务控制台
 
 <table>
   <tbody>
