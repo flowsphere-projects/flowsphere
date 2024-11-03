@@ -5,11 +5,11 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere-examples</artifactId>
-        <version>1.1.0.RELEASE</version>
+        <version>1.2.0.RELEASE</version>
     </parent>
 
     <artifactId>flowsphere-elasticjob-example</artifactId>
-    <version>1.1.0.RELEASE</version>
+    <version>1.2.0.RELEASE</version>
     <name>flowsphere-elasticjob-example</name>
     <description>flowsphere-elasticjob-example</description>
     <properties>
