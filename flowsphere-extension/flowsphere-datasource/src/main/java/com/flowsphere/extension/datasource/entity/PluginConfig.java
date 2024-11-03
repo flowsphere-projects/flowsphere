@@ -15,6 +15,5 @@ public class PluginConfig {
 
     private SentinelConfig sentinelConfig;
 
-    private FeignConfig feignConfig;
 
 }

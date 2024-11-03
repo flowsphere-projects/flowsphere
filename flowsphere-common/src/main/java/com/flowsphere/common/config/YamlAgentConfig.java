@@ -18,4 +18,6 @@ public class YamlAgentConfig {
 
     private long longPollDelay = 30;
 
+    private String serverAddr;
+
 }
