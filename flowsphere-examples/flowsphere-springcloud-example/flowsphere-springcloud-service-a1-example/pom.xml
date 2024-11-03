@@ -5,10 +5,10 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere-springcloud-example</artifactId>
-        <version>1.1.0.RELEASE</version>
+        <version>1.2.0.RELEASE</version>
     </parent>
     <artifactId>flowsphere-springcloud-service-a1-example</artifactId>
-    <version>1.1.0.RELEASE</version>
+    <version>1.2.0.RELEASE</version>
     <name>flowsphere-springcloud-service-a1-example</name>
     <description>flowsphere-springcloud-service-a1-example</description>
     <properties>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>io.github.flowsphere-projects</groupId>
             <artifactId>flowsphere-springcloud-service-api-example</artifactId>
-            <version>1.1.0.RELEASE</version>
+            <version>1.2.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 
