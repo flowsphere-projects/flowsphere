@@ -5,7 +5,7 @@
 	<h1>云原生流量治理解决方案</h1>
 
 
-![Static Badge](https://img.shields.io/badge/flowsphere-1.1.0-blue)
+![Static Badge](https://img.shields.io/badge/flowsphere-1.2.0-blue)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/license-Apache%202.0-blue)
@@ -102,7 +102,7 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 
 | flowsphere版本 | SpringCloud版本 | SpringCloudAlibaba版本 | ElasticJob版本 |
 |--------------|---------------|----------------------|----------|
-| 1.0          | Spring Cloud Hoxton            | 2.2.x                 |2.1.5.RELEASE          |
+| 1.x          | Spring Cloud Hoxton            | 2.2.x                 |2.1.5.RELEASE          |
 
 
 # 使用方式
