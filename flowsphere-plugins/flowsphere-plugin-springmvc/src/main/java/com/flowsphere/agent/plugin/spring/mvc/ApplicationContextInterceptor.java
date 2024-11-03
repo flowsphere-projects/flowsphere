@@ -2,20 +2,18 @@ package com.flowsphere.agent.plugin.spring.mvc;
 
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.flowsphere.common.config.YamlAgentConfig;
+import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.eventbus.EventBusManager;
 import com.flowsphere.common.eventbus.event.InstanceInitEvent;
 import com.flowsphere.common.eventbus.listener.InstanceInitListener;
 import com.flowsphere.common.utils.StringUtils;
-import com.flowsphere.extension.datasource.cache.PluginConfigCache;
-import com.flowsphere.extension.datasource.entity.FeignConfig;
-import com.flowsphere.extension.datasource.entity.PluginConfig;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.lang.reflect.Method;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -45,9 +43,8 @@ public class ApplicationContextInterceptor implements InstantMethodInterceptor {
 
 
     private String getServerAddr() {
-        PluginConfig pluginConfig = PluginConfigCache.get();
-        FeignConfig feignConfig = pluginConfig.getFeignConfig();
-        return Optional.ofNullable(feignConfig).map(FeignConfig::getServerAddr).orElseGet(() -> "");
+        YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
+        return yamlAgentConfig.getServerAddr();
     }
 
 }
