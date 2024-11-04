@@ -5,7 +5,7 @@
 	<h1>云原生流量治理解决方案</h1>
 
 
-![Static Badge](https://img.shields.io/badge/flowsphere-1.0.0-blue)
+![Static Badge](https://img.shields.io/badge/flowsphere-1.2.0-blue)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/license-Apache%202.0-blue)
@@ -14,6 +14,7 @@
 
 
 </div>
+
 
 
 # 简介
@@ -28,6 +29,21 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 ## 全链路泳道全景图
 ![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/panoramic.png)
 
+# 微服务控制台
+
+<table>
+  <tbody>
+    <tr align="center">
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/service-search.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/api.png"></td>
+    </tr>
+    <tr align="center">
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/ip.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/consumer.png"></td>
+    </tr>
+  </tbody>
+</table>
+
 # 主要特性
 
 1.支持基于标签路由全链路灰度发布，支持Http、MQ、JOB多种标签过滤方式
@@ -39,6 +55,8 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 4.采用字节码增强技术，对业务代码无侵入，业务性能影响最小；
 
 5.采用微内核架构，强类隔离，简单易用的扩展和配置体系。
+
+6.支持查看生产者接口调用方关系
 
 # 基本能力
 
@@ -52,6 +70,7 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 
+- 支持SpringCloud查看生产者接口调用方关系
 
 # 使用场景
 ## 环境流量隔离
@@ -83,7 +102,7 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 
 | flowsphere版本 | SpringCloud版本 | SpringCloudAlibaba版本 | ElasticJob版本 |
 |--------------|---------------|----------------------|----------|
-| 1.0          | Spring Cloud Hoxton            | 2.2.x                 |2.1.5.RELEASE          |
+| 1.x          | Spring Cloud Hoxton            | 2.2.x                 |2.1.5.RELEASE          |
 
 
 # 使用方式

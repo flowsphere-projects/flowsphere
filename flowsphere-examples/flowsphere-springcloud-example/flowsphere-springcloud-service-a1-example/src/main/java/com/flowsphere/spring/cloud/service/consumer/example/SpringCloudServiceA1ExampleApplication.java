@@ -14,7 +14,7 @@ import java.util.Collections;
 @SpringBootApplication
 public class SpringCloudServiceA1ExampleApplication {
 
-      public static void main(String[] args) {
+    public static void main(String[] args) {
 //        // 定义热点限流的规则，对第一个参数设置 qps 限流模式，阈值为5
         FlowRule rule = new FlowRule();
         rule.setResource("userResource");

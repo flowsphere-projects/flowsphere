@@ -4,10 +4,6 @@ pointcutConfigs:
       - methodName: doFilterInternal
         type: instant
         interceptorName: com.flowsphere.agent.plugin.spring.mvc.RequestContextFilterInterceptor
-#    methodPointcutConfigs:
-#      - methodName: doFilterInternal
-#        type: instant
-#        interceptorName: com.flowsphere.agent.plugin.spring.mvc.DynamicMachineIndicatorsLimiterInterceptor
   - className: org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController
     methodPointcutConfigs:
       - methodName: error
@@ -18,3 +14,13 @@ pointcutConfigs:
       - methodName: doFilterInternal
         type: instant
         interceptorName: com.flowsphere.agent.plugin.spring.mvc.DynamicMachineIndicatorsLimiterInterceptor
+  - className: org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
+    methodPointcutConfigs:
+      - methodName: registerHandlerMethod
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.spring.mvc.RequestMappingHandlerMappingInterceptor
+  - className: org.springframework.boot.context.event.EventPublishingRunListener
+    methodPointcutConfigs:
+      - methodName: running
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.spring.mvc.ApplicationContextInterceptor

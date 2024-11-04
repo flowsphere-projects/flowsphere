@@ -15,4 +15,5 @@ public class PluginConfig {
 
     private SentinelConfig sentinelConfig;
 
+
 }

@@ -5,10 +5,10 @@
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
         <artifactId>flowsphere-springcloud-example</artifactId>
-        <version>1.1.0.RELEASE</version>
+        <version>1.2.0.RELEASE</version>
     </parent>
     <artifactId>flowsphere-springcloud-service-a1-example</artifactId>
-    <version>1.1.0.RELEASE</version>
+    <version>1.2.0.RELEASE</version>
     <name>flowsphere-springcloud-service-a1-example</name>
     <description>flowsphere-springcloud-service-a1-example</description>
     <properties>
@@ -16,13 +16,28 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <sentinel.version>1.8.8</sentinel.version>
+        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
     </properties>
+
     <dependencies>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot-starter.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-            <version>1.8.8</version>
+            <version>${sentinel.version}</version>
         </dependency>
 
         <dependency>
@@ -80,7 +95,7 @@
         <dependency>
             <groupId>io.github.flowsphere-projects</groupId>
             <artifactId>flowsphere-springcloud-service-api-example</artifactId>
-            <version>1.1.0.RELEASE</version>
+            <version>1.2.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 

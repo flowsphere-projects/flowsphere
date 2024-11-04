@@ -1,8 +1,11 @@
 package com.flowsphere.plugin.mybatis.flow;
 
 import com.flowsphere.extension.datasource.entity.PluginConfig;
+import com.flowsphere.extension.datasource.entity.SentinelConfig;
 import com.flowsphere.extension.sentinel.limiter.AbstractSentinelLimiter;
 import com.flowsphere.extension.sentinel.limiter.SentinelResource;
+
+import java.util.Objects;
 
 public class MybatisLimiter extends AbstractSentinelLimiter {
 
@@ -14,7 +17,12 @@ public class MybatisLimiter extends AbstractSentinelLimiter {
 
     @Override
     public boolean needLimit(SentinelResource sentinelResource, PluginConfig pluginConfig) {
-        return true;
+        SentinelConfig.MybatisApiLimitConfig mybatisApiLimitConfig = pluginConfig.getSentinelConfig().getMybatisApiLimitConfig();
+        if (Objects.isNull(mybatisApiLimitConfig)) {
+            return false;
+        }
+        return mybatisApiLimitConfig.isAllMethodLimitEnabled() || mybatisApiLimitConfig.getExcludeLimitMethodList().stream()
+                .anyMatch(method -> method.equals(sentinelResource.getResourceName()));
     }
 
 }
