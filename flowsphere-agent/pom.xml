@@ -23,7 +23,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>flowsphere-sentinel</artifactId>
+            <artifactId>flowsphere-feature-sentinel</artifactId>
         </dependency>
 
         <dependency>
@@ -33,7 +33,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>flowsphere-datasource</artifactId>
+            <artifactId>flowsphere-extension-datasource</artifactId>
         </dependency>
 
         <dependency>

@@ -37,7 +37,7 @@
 
         <dependency>
             <groupId>io.github.flowsphere-projects</groupId>
-            <artifactId>flowsphere-sentinel</artifactId>
+            <artifactId>flowsphere-feature-sentinel</artifactId>
         </dependency>
 
     </dependencies>

@@ -5,6 +5,7 @@ import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.spring.cloud.service.api.SpringCloudCApi;
 import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -27,6 +28,7 @@ public class SpringCloudProviderC1Feign implements SpringCloudCApi {
     private DefaultMQProducer defaultMQProducer;
 
 
+    @SneakyThrows
     @PostMapping("/service-c/helloWord")
     public TagEntity helloWord(@RequestBody String str) {
         log.info("SpringCloudProviderC1Feign helloWord str={}", str);
@@ -41,6 +43,7 @@ public class SpringCloudProviderC1Feign implements SpringCloudCApi {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        Thread.sleep(4000);
         return TagEntity.build("SpringCloudProviderC1Feign");
     }
 

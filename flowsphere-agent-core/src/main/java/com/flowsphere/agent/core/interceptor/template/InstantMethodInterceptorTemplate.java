@@ -12,6 +12,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 public class InstantMethodInterceptorTemplate implements MethodInterceptorOperator {
@@ -46,7 +47,7 @@ public class InstantMethodInterceptorTemplate implements MethodInterceptorOperat
             exceptionMethod(customContextAccessor, allArguments, callable, method, e);
             throw e;
         } finally {
-            afterMethod(customContextAccessor, allArguments, callable, method, result);
+            afterMethod(customContextAccessor, allArguments, callable, method, Optional.ofNullable(result).orElse(instantMethodInterceptorResult.getResult()));
         }
     }
 

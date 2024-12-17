@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.flowsphere-projects</groupId>
-            <artifactId>flowsphere-datasource</artifactId>
+            <artifactId>flowsphere-extension-datasource</artifactId>
         </dependency>
 
     </dependencies>

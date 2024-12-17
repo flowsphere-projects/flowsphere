@@ -6,7 +6,7 @@ import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.SentinelConfig;
-import com.flowsphere.extension.sentinel.utils.SentinelContext;
+import com.flowsphere.features.sentinel.utils.SentinelContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

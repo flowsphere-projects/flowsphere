@@ -17,11 +17,24 @@
 
     <dependencies>
 
-
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>flowsphere-agent-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-removal</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-discovery-binder</artifactId>
         </dependency>
 
         <dependency>
@@ -33,12 +46,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.github.flowsphere-projects</groupId>
-            <artifactId>flowsphere-sentinel</artifactId>
-        </dependency>
-
 
     </dependencies>
 

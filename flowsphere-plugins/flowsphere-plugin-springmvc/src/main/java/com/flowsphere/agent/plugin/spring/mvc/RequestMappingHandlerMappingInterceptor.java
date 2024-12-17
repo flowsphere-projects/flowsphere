@@ -3,7 +3,7 @@ package com.flowsphere.agent.plugin.spring.mvc;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.common.instance.ProviderInterfaceManager;
+import com.flowsphere.feature.discovery.binder.ProviderInterfaceManager;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 import java.lang.reflect.Method;

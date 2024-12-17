@@ -3,7 +3,7 @@ package com.flowsphere.agent.core.builder;
 import com.flowsphere.agent.core.config.MethodMatcherConfig;
 import com.flowsphere.agent.core.interceptor.MethodInterceptor;
 import com.flowsphere.agent.core.interceptor.MethodInterceptorManager;
-import com.flowsphere.agent.core.interceptor.template.ConstructorInterceptorTemplate;
+import com.flowsphere.agent.core.interceptor.template.ConstructorMethodInterceptorTemplate;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorTemplate;
 import com.flowsphere.agent.core.interceptor.template.StaticMethodInterceptorTemplate;
 import com.flowsphere.agent.core.utils.MethodTypeUtils;
@@ -51,7 +51,7 @@ public class PluginsMethodInterceptorBuilder implements InterceptorBuilder {
                 }
 
                 if (MethodTypeUtils.isConstructorMethod(each)) {
-                    builder = new ConstructorInterceptorTemplate(convert(methodInterceptorMap)).intercept(builder, each);
+                    builder = new ConstructorMethodInterceptorTemplate(convert(methodInterceptorMap)).intercept(builder, each);
                     continue;
                 }
 

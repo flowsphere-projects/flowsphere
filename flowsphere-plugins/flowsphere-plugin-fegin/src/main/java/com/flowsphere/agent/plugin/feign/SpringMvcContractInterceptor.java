@@ -3,7 +3,7 @@ package com.flowsphere.agent.plugin.feign;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.common.instance.ConsumerInterfaceUrlManager;
+import com.flowsphere.feature.discovery.binder.ConsumerInterfaceUrlManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

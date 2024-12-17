@@ -21,6 +21,7 @@ public class NacosServerPredicate implements Predicate<NacosServer> {
         if (!Strings.isNullOrEmpty(tag) && !tag.equals(serverTag) && !Strings.isNullOrEmpty(serverTag)) {
             return false;
         }
+
         return true;
     }
 

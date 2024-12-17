@@ -2,8 +2,8 @@ package com.flowsphere.plugin.mybatis.flow;
 
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.SentinelConfig;
-import com.flowsphere.extension.sentinel.limiter.AbstractSentinelLimiter;
-import com.flowsphere.extension.sentinel.limiter.SentinelResource;
+import com.flowsphere.features.sentinel.limiter.AbstractSentinelLimiter;
+import com.flowsphere.features.sentinel.limiter.SentinelResource;
 
 import java.util.Objects;
 
