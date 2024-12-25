@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
-public class Instance {
+public class ServiceNode {
 
     /**
      * 请求数

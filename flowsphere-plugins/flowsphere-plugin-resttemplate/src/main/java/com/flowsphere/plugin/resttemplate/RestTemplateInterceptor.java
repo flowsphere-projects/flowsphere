@@ -4,9 +4,9 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.features.sentinel.limiter.SentinelResource;
-import com.flowsphere.features.sentinel.limiter.support.SlowRatioCircuitBreakerLimiter;
-import com.flowsphere.features.sentinel.utils.SentinelContext;
+import com.flowsphere.feature.sentinel.limiter.SentinelResource;
+import com.flowsphere.feature.sentinel.limiter.support.SlowRatioCircuitBreakerLimiter;
+import com.flowsphere.feature.sentinel.utils.SentinelContext;
 
 import java.lang.reflect.Method;
 import java.net.URI;

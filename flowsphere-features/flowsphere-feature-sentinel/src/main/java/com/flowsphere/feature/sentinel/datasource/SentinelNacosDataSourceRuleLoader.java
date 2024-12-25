@@ -1,7 +1,7 @@
-package com.flowsphere.features.sentinel.datasource;
+package com.flowsphere.feature.sentinel.datasource;
 
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
-import com.alibaba.csp.sentinel.datasource.apollo.ApolloDataSource;
+import com.alibaba.csp.sentinel.datasource.nacos.NacosDataSource;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
@@ -13,48 +13,55 @@ import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 
 import java.util.List;
+import java.util.Properties;
 
-public class SentinelApolloDataSourceRuleLoader extends AbstractSentinelDataSourceRuleLoader {
 
-    private String namespace;
+public class SentinelNacosDataSourceRuleLoader extends AbstractSentinelDataSourceRuleLoader {
 
-    private String ruleKey;
+
+    private Properties properties;
+
+    private String groupId;
+
+    private String dataId;
 
     @Override
     public void init(PluginConfigDataSource pluginConfigDataSource) {
+        properties = pluginConfigDataSource.getPros();
+
         PluginConfig pluginConfig = PluginConfigCache.get();
-        namespace = pluginConfig.getSentinelConfig().getNamespace();
-        ruleKey = pluginConfig.getSentinelConfig().getRuleKey();
+        dataId = pluginConfig.getSentinelConfig().getDataId();
+        groupId = pluginConfig.getSentinelConfig().getGroupId();
     }
 
     @Override
     public ReadableDataSource<String, List<FlowRule>> getFlowRuleDataSource() {
-        return new ApolloDataSource<>(namespace, ruleKey, "",
-                source -> JacksonUtils.toList(source, FlowRule.class));
+        return new NacosDataSource<>(properties, groupId, dataId, source ->
+                JacksonUtils.toList(source, FlowRule.class));
     }
 
     @Override
     public ReadableDataSource<String, List<DegradeRule>> getDegradeRuleDataSource() {
-        return new ApolloDataSource<>(namespace, ruleKey, "",
-                source -> JacksonUtils.toList(source, DegradeRule.class));
+        return new NacosDataSource<>(properties, groupId, dataId, source ->
+                JacksonUtils.toList(source, DegradeRule.class));
     }
 
     @Override
     public ReadableDataSource<String, List<AuthorityRule>> getAuthorityRuleDataSource() {
-        return new ApolloDataSource<>(namespace, ruleKey, "",
-                source -> JacksonUtils.toList(source, AuthorityRule.class));
+        return new NacosDataSource<>(properties, groupId, dataId, source ->
+                JacksonUtils.toList(source, AuthorityRule.class));
     }
 
     @Override
     public ReadableDataSource<String, List<SystemRule>> getSystemRuleDataSource() {
-        return new ApolloDataSource<>(namespace, ruleKey, "",
-                source -> JacksonUtils.toList(source, SystemRule.class));
+        return new NacosDataSource<>(properties, groupId, dataId, source ->
+                JacksonUtils.toList(source, SystemRule.class));
     }
 
     @Override
     public ReadableDataSource<String, List<ParamFlowRule>> getParamFlowRuleDataSource() {
-        return new ApolloDataSource<>(namespace, ruleKey, "",
-                source -> JacksonUtils.toList(source, ParamFlowRule.class));
+        return new NacosDataSource<>(properties, groupId, dataId, source ->
+                JacksonUtils.toList(source, ParamFlowRule.class));
     }
 
 }

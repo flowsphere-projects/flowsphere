@@ -1,4 +1,4 @@
-package com.flowsphere.features.sentinel.datasource;
+package com.flowsphere.feature.sentinel.datasource;
 
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;

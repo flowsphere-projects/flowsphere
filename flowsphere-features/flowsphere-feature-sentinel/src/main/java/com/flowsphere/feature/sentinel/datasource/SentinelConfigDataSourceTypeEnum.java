@@ -1,4 +1,4 @@
-package com.flowsphere.features.sentinel.datasource;
+package com.flowsphere.feature.sentinel.datasource;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

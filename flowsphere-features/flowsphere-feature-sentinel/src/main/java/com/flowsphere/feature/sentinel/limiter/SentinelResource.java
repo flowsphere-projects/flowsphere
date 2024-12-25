@@ -1,4 +1,4 @@
-package com.flowsphere.features.sentinel.limiter;
+package com.flowsphere.feature.sentinel.limiter;
 
 import com.alibaba.csp.sentinel.EntryType;
 import lombok.Data;

@@ -1,9 +1,9 @@
-package com.flowsphere.features.sentinel.init;
+package com.flowsphere.feature.sentinel.init;
 
 import com.flowsphere.common.config.YamlAgentConfig;
 import com.flowsphere.common.init.FlowSphereInit;
 import com.flowsphere.extension.datasource.enums.PluginConfigDataSourceTypeEnum;
-import com.flowsphere.features.sentinel.datasource.SentinelDataSourceRuleLoaderManager;
+import com.flowsphere.feature.sentinel.datasource.SentinelDataSourceRuleLoaderManager;
 
 import java.lang.instrument.Instrumentation;
 

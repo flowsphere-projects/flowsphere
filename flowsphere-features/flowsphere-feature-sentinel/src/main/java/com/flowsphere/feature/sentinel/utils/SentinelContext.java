@@ -1,4 +1,4 @@
-package com.flowsphere.features.sentinel.utils;
+package com.flowsphere.feature.sentinel.utils;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 

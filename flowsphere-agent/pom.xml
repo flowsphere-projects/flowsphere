@@ -28,6 +28,16 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-removal</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-discovery-binder</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>flowsphere-agent-core</artifactId>
         </dependency>
 

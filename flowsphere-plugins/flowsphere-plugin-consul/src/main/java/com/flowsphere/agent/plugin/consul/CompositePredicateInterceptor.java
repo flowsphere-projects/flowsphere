@@ -5,6 +5,7 @@ import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorRe
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.utils.StringUtils;
+import com.flowsphere.feature.removal.RemovalServerService;
 import com.netflix.loadbalancer.Server;
 import org.springframework.cloud.consul.discovery.ConsulServer;
 import org.springframework.util.CollectionUtils;
@@ -24,22 +25,23 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
         if (StringUtils.isNotEmpty(serverAddr)) {
             Object serverListObj = allArguments[0];
             List<Server> servers = (List<Server>) serverListObj;
-            List<Server> result = new ArrayList<>();
+            List<Server> resultList = new ArrayList<>();
             for (Server server : servers) {
                 ConsulServerPredicate consulServerPredicate = new ConsulServerPredicate();
                 if (server instanceof ConsulServer) {
                     if (consulServerPredicate.test((ConsulServer) server)) {
-                        result.add(server);
+                        resultList.add(server);
                     }
                 }
             }
+            resultList = RemovalServerService.getINSTANCE().removal(resultList);
             instantMethodInterceptorResult.setContinue(false);
             //兜底路由
-            if (CollectionUtils.isEmpty(result)) {
+            if (CollectionUtils.isEmpty(resultList)) {
                 instantMethodInterceptorResult.setResult(servers);
                 return;
             }
-            instantMethodInterceptorResult.setResult(result);
+            instantMethodInterceptorResult.setResult(resultList);
         }
     }
 

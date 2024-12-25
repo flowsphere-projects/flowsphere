@@ -27,6 +27,11 @@
             <artifactId>flowsphere-agent-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-removal</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

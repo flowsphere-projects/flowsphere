@@ -1,4 +1,4 @@
-package com.flowsphere.features.sentinel.constant;
+package com.flowsphere.feature.sentinel.constant;
 
 public class SentinelConstant {
 

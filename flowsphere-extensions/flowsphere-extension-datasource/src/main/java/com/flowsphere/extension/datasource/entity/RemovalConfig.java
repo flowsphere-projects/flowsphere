@@ -1,4 +1,6 @@
 package com.flowsphere.extension.datasource.entity;
+import com.flowsphere.common.utils.JacksonUtils;
+import com.google.common.collect.Lists;
 
 import lombok.Data;
 
@@ -21,11 +23,6 @@ public class RemovalConfig {
      * 错误率
      */
     private double errorRate;
-
-    /**
-     * 有效时长
-     */
-    private int expireTime;
 
     /**
      * 恢复时长
