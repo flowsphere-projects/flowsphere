@@ -27,6 +27,12 @@ public class FeignLoadBalancerInterceptorTest {
     public void initRemovalConfig() {
         PluginConfig pluginConfig = new PluginConfig();
         RemovalConfig removalConfig = new RemovalConfig();
+        removalConfig.setApplicationName("service-b");
+        removalConfig.setMinInstanceNum(1);
+        removalConfig.setErrorRate(1.0D);
+        removalConfig.setRecoveryTime(10000L);
+        removalConfig.setScaleUpLimit(1.0D);
+        removalConfig.setWindowsTime(10);
         removalConfig.setExceptions(Lists.newArrayList("java.lang.RuntimeException"));
         pluginConfig.setRemovalConfig(removalConfig);
         PluginConfigCache.put(pluginConfig);

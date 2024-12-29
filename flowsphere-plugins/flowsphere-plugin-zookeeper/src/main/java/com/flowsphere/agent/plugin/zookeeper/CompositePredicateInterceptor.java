@@ -5,7 +5,7 @@ import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorRe
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.utils.StringUtils;
-import com.flowsphere.feature.removal.RemovalServerService;
+import com.flowsphere.feature.removal.RemovalInstanceService;
 import com.netflix.loadbalancer.Server;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperServer;
 import org.springframework.util.CollectionUtils;
@@ -35,7 +35,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
                 }
             }
 
-            resultList = RemovalServerService.getINSTANCE().removal(resultList);
+            resultList = RemovalInstanceService.getInstance().removal(resultList);
             instantMethodInterceptorResult.setContinue(false);
             //兜底路由
             if (CollectionUtils.isEmpty(resultList)) {

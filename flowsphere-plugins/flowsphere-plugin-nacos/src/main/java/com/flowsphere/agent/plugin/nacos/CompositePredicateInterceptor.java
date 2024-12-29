@@ -6,20 +6,13 @@ import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorRe
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.utils.StringUtils;
-import com.flowsphere.extension.datasource.cache.PluginConfigCache;
-import com.flowsphere.extension.datasource.entity.PluginConfig;
-import com.flowsphere.extension.datasource.entity.RemovalConfig;
-import com.flowsphere.feature.removal.RemovalServerService;
-import com.flowsphere.feature.removal.ServiceNode;
-import com.flowsphere.feature.removal.ServiceNodeCache;
+import com.flowsphere.feature.removal.RemovalInstanceService;
 import com.netflix.loadbalancer.Server;
 import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 
 public class CompositePredicateInterceptor implements InstantMethodInterceptor {
@@ -41,7 +34,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
                     }
                 }
             }
-            result = RemovalServerService.getINSTANCE().removal(result);
+            result = RemovalInstanceService.getInstance().removal(result);
             instantMethodInterceptorResult.setContinue(false);
             //兜底路由
             if (CollectionUtils.isEmpty(result)) {

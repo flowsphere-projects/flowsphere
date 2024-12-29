@@ -49,4 +49,18 @@ public class RemovalConfig {
      */
     private int windowsTime;
 
+    public static void main(String[] args) {
+        RemovalConfig removalConfig = new RemovalConfig();
+        removalConfig.setApplicationName("");
+        removalConfig.setMinInstanceNum(0);
+        removalConfig.setErrorRate(0.0D);
+        removalConfig.setRecoveryTime(0L);
+        removalConfig.setExceptions(Lists.newArrayList());
+        removalConfig.setHttpStatus(Lists.newArrayList());
+        removalConfig.setScaleUpLimit(0.0D);
+        removalConfig.setWindowsTime(0);
+        System.out.println(JacksonUtils.toJson(removalConfig));
+
+    }
+
 }
