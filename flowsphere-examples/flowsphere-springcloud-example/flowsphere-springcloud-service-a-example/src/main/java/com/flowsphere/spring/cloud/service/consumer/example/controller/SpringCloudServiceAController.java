@@ -64,7 +64,7 @@ public class SpringCloudServiceAController {
 
     @PostMapping("/helloWord")
     public List<TagEntity> helloWord(String str) {
-        restTemplate.postForObject("http://service-b/service-b/helloWord?str=2", String.class, String.class);
+//        restTemplate.postForObject("http://service-b/service-b/helloWord?str=2", String.class, String.class);
         List<TagEntity> tagEntities = springCloudBApi.helloWord(str);
         tagEntities.add(TagEntity.build("SpringCloudProviderA"));
         return tagEntities;

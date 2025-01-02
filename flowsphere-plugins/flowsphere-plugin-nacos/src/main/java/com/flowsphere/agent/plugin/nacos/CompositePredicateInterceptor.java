@@ -34,7 +34,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
                     }
                 }
             }
-            result = RemovalInstanceService.getInstance().removal(result);
+            result = RemovalInstanceService.getInstance().removal(result.size() == 0 ? servers : result);
             instantMethodInterceptorResult.setContinue(false);
             //兜底路由
             if (CollectionUtils.isEmpty(result)) {
@@ -44,9 +44,6 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
             instantMethodInterceptorResult.setResult(result);
         }
     }
-
-
-
 
 
     @Override

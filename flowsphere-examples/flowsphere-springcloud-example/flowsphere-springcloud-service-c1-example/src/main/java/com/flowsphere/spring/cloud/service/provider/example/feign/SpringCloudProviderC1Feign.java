@@ -43,7 +43,6 @@ public class SpringCloudProviderC1Feign implements SpringCloudCApi {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Thread.sleep(4000);
         return TagEntity.build("SpringCloudProviderC1Feign");
     }
 

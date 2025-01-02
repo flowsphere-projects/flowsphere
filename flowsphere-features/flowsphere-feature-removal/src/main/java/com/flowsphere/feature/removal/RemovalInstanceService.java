@@ -1,9 +1,11 @@
 package com.flowsphere.feature.removal;
 
+import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.RemovalConfig;
 import com.netflix.loadbalancer.Server;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class RemovalInstanceService {
 
     private static final RemovalInstanceService INSTANCE = new RemovalInstanceService();
@@ -42,16 +45,21 @@ public class RemovalInstanceService {
                 instance.setRemovalTime(System.currentTimeMillis());
                 instance.setRecoveryTime(System.currentTimeMillis() + removalConfig.getRecoveryTime());
                 removalInstanceList.add(server);
+                log.info("Is removal allowed {}", JacksonUtils.toJson(removalInstanceList));
+
             } else {
                 //正常server
                 result.add(server);
             }
         }
+        log.info("被隔离后的阶段 result={} normal={}",result,instanceList);
         return result;
     }
 
     private boolean isRemovalAllowed(ServiceNode instance, List<Server> instanceList,
                                      List<Server> removalInstanceList, RemovalConfig removalConfig) {
+        log.info("Is removal allowed all param {},{},{},{}", instance,
+                removalConfig, removalInstanceList, instanceList);
         return instance.getErrorRate() >= removalConfig.getErrorRate()
                 && canMeetMinimumInstancesAfterRemoval(instanceList, removalInstanceList, removalConfig)
                 && instance.getRemovalStatus().compareAndSet(false, true);

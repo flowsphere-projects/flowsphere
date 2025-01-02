@@ -9,6 +9,7 @@ import com.flowsphere.feature.removal.ServiceNodeCache;
 import com.netflix.client.ClientRequest;
 import com.netflix.client.IResponse;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
+@Slf4j
 public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
 
     @SneakyThrows
@@ -30,16 +32,17 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
         String key = uri.getHost() + ":" + uri.getPort();
         ServiceNode serviceNode = ServiceNodeCache.getInstanceCallResult().computeIfAbsent(key, value -> {
             ServiceNode tmpServiceNode = new ServiceNode();
-            tmpServiceNode.setLastInvokeTime(System.currentTimeMillis());
-            if (!isSuccess(response, customContextAccessor.getCustomContext())) {
-                tmpServiceNode.getRequestFailNum().incrementAndGet();
-            }
             tmpServiceNode.setHost(uri.getHost());
             tmpServiceNode.setPort(uri.getPort());
-            tmpServiceNode.getRequestNum().incrementAndGet();
             return tmpServiceNode;
         });
+        if (!isSuccess(response, customContextAccessor.getCustomContext())) {
+            serviceNode.getRequestFailNum().incrementAndGet();
+        }
+        serviceNode.setLastInvokeTime(System.currentTimeMillis());
+        serviceNode.getRequestNum().incrementAndGet();
         ServiceNodeCache.saveInstanceCallResult(key, serviceNode);
+        log.info("处理了多少次 serviceNode={}", serviceNode);
     }
 
     private URI getURI(IResponse response, Object[] allArguments) {
@@ -54,14 +57,16 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
     }
 
     private boolean isSuccess(IResponse response, Object context) {
-        if (Objects.nonNull(response)) {
-            return response.isSuccess();
+        boolean result = true;
+        if (Objects.nonNull(response) && !response.isSuccess()) {
+            return false;
         }
         if (Objects.nonNull(context) && context instanceof Throwable) {
-            return isSuccess((Throwable) context);
+            result = !isSuccess((Throwable) context);
         }
-        return true;
+        return result;
     }
+
 
     private boolean isSuccess(Throwable e) {
         PluginConfig pluginConfig = PluginConfigCache.get();

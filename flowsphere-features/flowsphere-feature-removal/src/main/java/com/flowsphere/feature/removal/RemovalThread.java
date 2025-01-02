@@ -1,5 +1,6 @@
 package com.flowsphere.feature.removal;
 
+import com.flowsphere.common.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -28,14 +29,16 @@ public class RemovalThread implements Runnable {
         for (Iterator<Map.Entry<String, ServiceNode>> iterator = instanceCallResult.entrySet().iterator();
              iterator.hasNext(); ) {
             ServiceNode info = iterator.next().getValue();
-            if (System.currentTimeMillis() - info.getLastInvokeTime() >=  recoveryTime) {
-                iterator.remove();
-                if (info.getRemovalStatus().get()) {
-                    //TODO 通知server状态更新了
-                }
-                continue;
-            }
+//            if (System.currentTimeMillis() - info.getLastInvokeTime() >= recoveryTime) {
+//                iterator.remove();
+//                if (info.getRemovalStatus().get()) {
+//                    //TODO 通知server状态更新了
+//                }
+//                continue;
+//            }
             info.setErrorRate(calErrorRate(info));
+            System.out.println("计算服务错误率：" + JacksonUtils.toJson(info));
+//            log.info("ServiceNode calculating error rate all info {}", info);
         }
     }
 
