@@ -66,7 +66,7 @@ public class PluginsMethodInterceptorBuilder implements InterceptorBuilder {
 
             }
         } catch (Throwable e) {
-            log.error("[MethodInterceptorBuilder] init interceptor error", e);
+            log.error("[flowsphere] PluginsMethodInterceptorBuilder init interceptor error", e);
         }
         return builder;
     }

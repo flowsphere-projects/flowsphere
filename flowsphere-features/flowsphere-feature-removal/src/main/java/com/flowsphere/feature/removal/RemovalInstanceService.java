@@ -22,50 +22,64 @@ public class RemovalInstanceService {
         return INSTANCE;
     }
 
-    public List<Server> removal(List<Server> instanceList) {
+    public List<Server>  removal(List<Server> instanceList) {
         Map<String, ServiceNode> instanceCallResult = ServiceNodeCache.getInstanceCallResult();
         if (instanceCallResult.isEmpty()) {
             return instanceList;
         }
-        PluginConfig pluginConfig = PluginConfigCache.get();
-        RemovalConfig removalConfig = pluginConfig.getRemovalConfig();
+        RemovalConfig removalConfig = getRemovalConfig();
         if (Objects.isNull(removalConfig)) {
             return instanceList;
         }
-
         List<Server> removalInstanceList = getRemovalServiceNode(instanceList, instanceCallResult);
+        double canRemovalNum = getCanRemovalNum(instanceList, removalInstanceList, removalConfig);
+        if (canRemovalNum <= 0) {
+            return instanceList;
+        }
+        return removal(instanceList, instanceCallResult, removalConfig, canRemovalNum, removalInstanceList);
+    }
 
+
+    private List<Server> removal(List<Server> instanceList, Map<String, ServiceNode> instanceCallResult, RemovalConfig removalConfig,
+                                 double canRemovalNum, List<Server> removalInstanceList) {
         List<Server> result = new ArrayList<>();
         for (Server server : instanceList) {
             ServiceNode instance = instanceCallResult.get(server.getHostPort());
             if (Objects.isNull(instance)) {
                 continue;
             }
-            if (isRemovalAllowed(instance, instanceList, removalInstanceList, removalConfig)) {
+            if (isRemovalAllowed(instance, removalConfig, canRemovalNum)) {
                 instance.setRemovalTime(System.currentTimeMillis());
                 instance.setRecoveryTime(System.currentTimeMillis() + removalConfig.getRecoveryTime());
                 removalInstanceList.add(server);
-                log.info("Is removal allowed {}", JacksonUtils.toJson(removalInstanceList));
-
+                canRemovalNum--;
             } else {
-                //正常server
                 result.add(server);
             }
         }
-        log.info("被隔离后的阶段 result={} normal={}",result,instanceList);
+        log.info("[flowsphere] RemovalInstanceService removal normalInstance={} removalInstance={}", result, removalInstanceList);
         return result;
     }
 
-    private boolean isRemovalAllowed(ServiceNode instance, List<Server> instanceList,
-                                     List<Server> removalInstanceList, RemovalConfig removalConfig) {
-        log.info("Is removal allowed all param {},{},{},{}", instance,
-                removalConfig, removalInstanceList, instanceList);
+    private RemovalConfig getRemovalConfig() {
+        PluginConfig pluginConfig = PluginConfigCache.get();
+        return pluginConfig.getRemovalConfig();
+    }
+
+    public double getCanRemovalNum(List<Server> instanceList, List<Server> removalInstanceList, RemovalConfig removalConfig) {
+        int removalCount = removalInstanceList.size() > 0 ? instanceList.size() - removalInstanceList.size() : 0;
+        double canRemovalNum = Math.min(instanceList.size() * removalConfig.getScaleUpLimit() - removalCount,
+                instanceList.size() - removalCount - removalConfig.getMinInstanceNum());
+        return canRemovalNum;
+    }
+
+    public boolean isRemovalAllowed(ServiceNode instance, RemovalConfig removalConfig, double canRemovalNum) {
         return instance.getErrorRate() >= removalConfig.getErrorRate()
-                && canMeetMinimumInstancesAfterRemoval(instanceList, removalInstanceList, removalConfig)
+                && canRemovalNum >= 1
                 && instance.getRemovalStatus().compareAndSet(false, true);
     }
 
-    private List<Server> getRemovalServiceNode(List<Server> instanceList, Map<String, ServiceNode> instanceCallResult) {
+    public List<Server> getRemovalServiceNode(List<Server> instanceList, Map<String, ServiceNode> instanceCallResult) {
         return instanceList.stream().filter(instance -> {
             ServiceNode serviceNode = instanceCallResult.get(instance.getHostPort());
             if (Objects.isNull(serviceNode)) {
@@ -73,11 +87,6 @@ public class RemovalInstanceService {
             }
             return serviceNode.getRemovalStatus().get();
         }).collect(Collectors.toList());
-    }
-
-
-    private boolean canMeetMinimumInstancesAfterRemoval(List<Server> instanceList, List<Server> removalInstanceList, RemovalConfig removalConfig) {
-        return instanceList.size() - removalInstanceList.size() > removalConfig.getMinInstanceNum();
     }
 
 }

@@ -18,7 +18,7 @@ public class InstanceService {
                     .setUrl(serverAddr + "/consumer/save")
                     .setData(consumer));
         } catch (Exception e) {
-            log.error("register consumer fail {} {}", serverAddr, consumer, e);
+            log.error("[flowsphere] InstanceService register consumer fail {} {}", serverAddr, consumer, e);
         }
 
     }
@@ -29,7 +29,7 @@ public class InstanceService {
                     .setUrl(serverAddr + "/provider/registerInstant")
                     .setData(provider));
         } catch (Exception e) {
-            log.error("register provider fail {} {}", serverAddr, provider, e);
+            log.error("[flowsphere] InstanceService register provider fail {} {}", serverAddr, provider, e);
         }
 
     }
@@ -40,7 +40,7 @@ public class InstanceService {
                     .setUrl(serverAddr + "/provider/registerInstantFunction")
                     .setData(providerFunctionList));
         } catch (Exception e) {
-            log.error("register provider function fail {} {}", serverAddr, providerFunctionList, e);
+            log.error("[flowsphere] InstanceService register provider function fail {} {}", serverAddr, providerFunctionList, e);
         }
     }
 

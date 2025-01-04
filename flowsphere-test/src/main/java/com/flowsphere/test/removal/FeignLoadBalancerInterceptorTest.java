@@ -86,7 +86,7 @@ public class FeignLoadBalancerInterceptorTest {
         return new CustomContextAccessor() {
             @Override
             public Object getCustomContext() {
-                return new RuntimeException();
+                return new IllegalArgumentException();
             }
 
             @Override

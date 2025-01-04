@@ -41,8 +41,8 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
         }
         serviceNode.setLastInvokeTime(System.currentTimeMillis());
         serviceNode.getRequestNum().incrementAndGet();
+        log.info("[flowsphere] FeignLoadBalancerInterceptor serviceNode={}", serviceNode);
         ServiceNodeCache.saveInstanceCallResult(key, serviceNode);
-        log.info("处理了多少次 serviceNode={}", serviceNode);
     }
 
     private URI getURI(IResponse response, Object[] allArguments) {
