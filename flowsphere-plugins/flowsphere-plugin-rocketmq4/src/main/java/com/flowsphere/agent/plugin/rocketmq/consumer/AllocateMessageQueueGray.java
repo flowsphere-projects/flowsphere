@@ -31,17 +31,16 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
         boolean isGrayCid = isGrayCid(currentCid, grayConsumerConfig.getTag());
         if (!isGrayCid) {
             if (log.isDebugEnabled()) {
-                log.debug("[flowsphere] AllocateMessageQueueGray gray not-consumer grayConsumerConfig={}", grayConsumerConfig);
+                log.debug("[flowsphere] gray not-consumer grayConsumerConfig={}", grayConsumerConfig);
             }
             //cidAll则需要剔除灰度cid，同时mqAll需要剔除灰度队列
-
             List<String> newCidList = cidAll.stream().filter(cid -> isGrayCid(cid, TagManager.getSystemTag())).collect(Collectors.toList());
             List<MessageQueue> normalMessageQueueList = filterMessageQueue(mqAll, messageQueue -> !grayConsumerConfig.getQueueIdList().stream()
                     .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));
             return DEFAULT.allocate(consumerGroup, currentCid, normalMessageQueueList, newCidList);
         } else {
             if (log.isDebugEnabled()) {
-                log.debug("[flowsphere] AllocateMessageQueueGray gray consumer grayConsumerConfig={}", grayConsumerConfig);
+                log.debug("[flowsphere] gray consumer grayConsumerConfig={}", grayConsumerConfig);
             }
             //当前Cid是灰度节点
             List<MessageQueue> grayMessageQueueList = filterMessageQueue(mqAll, messageQueue -> grayConsumerConfig.getQueueIdList().stream()

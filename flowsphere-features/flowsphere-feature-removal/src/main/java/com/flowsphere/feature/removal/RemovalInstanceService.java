@@ -1,6 +1,5 @@
 package com.flowsphere.feature.removal;
 
-import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.RemovalConfig;
@@ -22,7 +21,7 @@ public class RemovalInstanceService {
         return INSTANCE;
     }
 
-    public List<Server>  removal(List<Server> instanceList) {
+    public List<Server> removal(List<Server> instanceList) {
         Map<String, ServiceNode> instanceCallResult = ServiceNodeCache.getInstanceCallResult();
         if (instanceCallResult.isEmpty()) {
             return instanceList;
@@ -33,15 +32,18 @@ public class RemovalInstanceService {
         }
         List<Server> removalInstanceList = getRemovalServiceNode(instanceList, instanceCallResult);
         double canRemovalNum = getCanRemovalNum(instanceList, removalInstanceList, removalConfig);
+        if (log.isDebugEnabled()) {
+            log.info("[flowsphere] getCanRemovalNum canRemovalNum={} removalSize={}", canRemovalNum, removalInstanceList.size());
+        }
         if (canRemovalNum <= 0) {
             return instanceList;
         }
-        return removal(instanceList, instanceCallResult, removalConfig, canRemovalNum, removalInstanceList);
+        return removal(instanceList, instanceCallResult, removalConfig, canRemovalNum);
     }
 
 
     private List<Server> removal(List<Server> instanceList, Map<String, ServiceNode> instanceCallResult, RemovalConfig removalConfig,
-                                 double canRemovalNum, List<Server> removalInstanceList) {
+                                 double canRemovalNum) {
         List<Server> result = new ArrayList<>();
         for (Server server : instanceList) {
             ServiceNode instance = instanceCallResult.get(server.getHostPort());
@@ -51,13 +53,14 @@ public class RemovalInstanceService {
             if (isRemovalAllowed(instance, removalConfig, canRemovalNum)) {
                 instance.setRemovalTime(System.currentTimeMillis());
                 instance.setRecoveryTime(System.currentTimeMillis() + removalConfig.getRecoveryTime());
-                removalInstanceList.add(server);
                 canRemovalNum--;
             } else {
                 result.add(server);
             }
         }
-        log.info("[flowsphere] RemovalInstanceService removal normalInstance={} removalInstance={}", result, removalInstanceList);
+        if (log.isDebugEnabled()) {
+            log.info("[flowsphere] removal normalInstance={} removalInstance={}", result, instanceCallResult);
+        }
         return result;
     }
 
@@ -85,7 +88,7 @@ public class RemovalInstanceService {
             if (Objects.isNull(serviceNode)) {
                 return true;
             }
-            return serviceNode.getRemovalStatus().get();
+            return !serviceNode.getRemovalStatus().get();
         }).collect(Collectors.toList());
     }
 

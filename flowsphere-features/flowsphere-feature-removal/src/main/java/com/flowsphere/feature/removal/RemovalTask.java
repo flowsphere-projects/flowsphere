@@ -19,7 +19,7 @@ public class RemovalTask {
             return;
         }
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
-        scheduledThreadPoolExecutor.scheduleWithFixedDelay(new RemovalThread(removalConfig.getRecoveryTime()), removalConfig.getWindowsTime(),
+        scheduledThreadPoolExecutor.scheduleWithFixedDelay(new RemovalThread(), removalConfig.getWindowsTime(),
                 removalConfig.getWindowsTime(), TimeUnit.MILLISECONDS);
     }
 

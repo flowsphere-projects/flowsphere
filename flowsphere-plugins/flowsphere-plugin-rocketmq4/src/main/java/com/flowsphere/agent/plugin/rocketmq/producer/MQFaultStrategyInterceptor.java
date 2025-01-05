@@ -49,14 +49,14 @@ public class MQFaultStrategyInterceptor implements InstantMethodInterceptor {
                 if (TagManager.getTag().equals(producerConfig.getTag())) {
                     //只发送topic灰度队列
                     if (log.isDebugEnabled()) {
-                        log.debug("[flowsphere] MQFaultStrategyInterceptor only send gray queues producerConfig={}", producerConfig);
+                        log.debug("[flowsphere] only send gray queues producerConfig={}", producerConfig);
                     }
                     redefineMessageQueue(topicPublishInfo, messageQueue -> producerConfig.getQueueIdList().stream()
                             .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));
                 } else {
                     //剔除topic灰度队列，避免非灰度环境消息
                     if (log.isDebugEnabled()) {
-                        log.debug("[flowsphere] MQFaultStrategyInterceptor send non-gray queue producerConfig={}", producerConfig);
+                        log.debug("[flowsphere] send non-gray queue producerConfig={}", producerConfig);
                     }
                     redefineMessageQueue(topicPublishInfo, messageQueue -> !producerConfig.getQueueIdList().stream()
                             .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));

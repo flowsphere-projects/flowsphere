@@ -14,7 +14,7 @@ public class TagManager {
             return tag;
         }
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] TagManager tag context is null");
+            log.debug("[flowsphere] tag context is null");
         }
         return System.getProperty(SERVER_TAG);
     }

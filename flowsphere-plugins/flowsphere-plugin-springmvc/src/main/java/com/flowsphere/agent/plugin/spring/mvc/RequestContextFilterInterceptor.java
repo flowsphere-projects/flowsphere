@@ -38,7 +38,7 @@ public class RequestContextFilterInterceptor implements InstantMethodInterceptor
         String tag = httpServletRequest.getHeader(CommonConstant.TAG);
         if (!Strings.isNullOrEmpty(tag)) {
             if (log.isDebugEnabled()) {
-                log.debug("[flowsphere] RequestContextFilterInterceptor spring-mvc doFilterInternal tag={}", tag);
+                log.debug("[flowsphere] spring-mvc doFilterInternal tag={}", tag);
             }
             TagContext.set(tag);
         }

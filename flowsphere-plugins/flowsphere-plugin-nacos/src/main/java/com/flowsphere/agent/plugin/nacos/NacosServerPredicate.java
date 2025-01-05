@@ -16,7 +16,7 @@ public class NacosServerPredicate implements Predicate<NacosServer> {
         String serverTag = nacosServer.getInstance().getMetadata().get(CommonConstant.SERVER_TAG);
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] NacosServerPredicate nacos tag={} serverTag={}", tag, serverTag);
+            log.debug("[flowsphere] nacos predicate tag={} serverTag={}", tag, serverTag);
         }
         if (!Strings.isNullOrEmpty(tag) && !tag.equals(serverTag) && !Strings.isNullOrEmpty(serverTag)) {
             return false;

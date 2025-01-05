@@ -38,7 +38,7 @@ public class LongPollService {
                             )
                     );
                 } catch (Exception e) {
-                    log.error("[flowsphere] LongPollService long polling notification fail", e);
+                    log.error("[flowsphere] long polling notification fail", e);
                 }
             }
         }, 0, yamlAgentConfig.getLongPollDelay(), TimeUnit.SECONDS);

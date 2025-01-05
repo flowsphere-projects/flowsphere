@@ -46,7 +46,7 @@ public class BaseLoadBalancerInterceptor implements InstantMethodInterceptor {
                     String serverTag = metadata.get(CommonConstant.SERVER_TAG);
                     String tag = TagContext.get();
                     if (log.isDebugEnabled()) {
-                        log.debug("[flowsphere] BaseLoadBalancerInterceptor eureka tag={}", tag);
+                        log.debug("[flowsphere] eureka tag={}", tag);
                     }
                     if (!Strings.isNullOrEmpty(tag) && tag.equals(serverTag) && !Strings.isNullOrEmpty(serverTag)) {
                         resultList.add(server);

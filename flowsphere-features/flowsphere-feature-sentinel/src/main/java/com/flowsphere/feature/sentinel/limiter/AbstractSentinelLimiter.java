@@ -50,7 +50,7 @@ public abstract class AbstractSentinelLimiter implements SentinelLimiter {
             if (!BlockException.isBlockException(e)) {
                 Tracer.trace(e);
             }
-            log.error("[flowsphere] AbstractSentinelLimiter resource limit error resourceName={} contextName={} origin={}",
+            log.error("[flowsphere] resource limit error resourceName={} contextName={} origin={}",
                     sentinelResource.getResourceName(), sentinelResource.getContextName(), sentinelResource.getOrigin(), e);
             throw e;
         } finally {

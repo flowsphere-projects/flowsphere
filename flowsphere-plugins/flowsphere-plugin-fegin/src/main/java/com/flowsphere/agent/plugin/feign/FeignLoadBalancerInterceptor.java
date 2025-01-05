@@ -41,7 +41,9 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
         }
         serviceNode.setLastInvokeTime(System.currentTimeMillis());
         serviceNode.getRequestNum().incrementAndGet();
-        log.info("[flowsphere] FeignLoadBalancerInterceptor serviceNode={}", serviceNode);
+        if (log.isDebugEnabled()) {
+            log.info("[flowsphere] saveInstanceCallResult serviceNode={}", serviceNode);
+        }
         ServiceNodeCache.saveInstanceCallResult(key, serviceNode);
     }
 

@@ -1,12 +1,17 @@
 package com.flowsphere.feature.removal;
 
-import com.flowsphere.common.utils.JacksonUtils;
+import com.flowsphere.extension.datasource.cache.PluginConfigCache;
+import com.flowsphere.extension.datasource.entity.PluginConfig;
+import com.flowsphere.extension.datasource.entity.RemovalConfig;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.sun.webkit.graphics.GraphicsDecoder.SCALE;
 
@@ -14,32 +19,41 @@ import static com.sun.webkit.graphics.GraphicsDecoder.SCALE;
 @Slf4j
 public class RemovalThread implements Runnable {
 
-    private final long recoveryTime;
-
-    public RemovalThread(long recoveryTime) {
-        this.recoveryTime = recoveryTime;
-    }
 
     @Override
     public void run() {
+        PluginConfig pluginConfig = PluginConfigCache.get();
+        RemovalConfig removalConfig = pluginConfig.getRemovalConfig();
+        if (Objects.isNull(removalConfig)) {
+            return;
+        }
         Map<String, ServiceNode> instanceCallResult = ServiceNodeCache.getInstanceCallResult();
         if (instanceCallResult.isEmpty()) {
             return;
         }
         for (Iterator<Map.Entry<String, ServiceNode>> iterator = instanceCallResult.entrySet().iterator();
              iterator.hasNext(); ) {
-            ServiceNode info = iterator.next().getValue();
-//            if (System.currentTimeMillis() - info.getLastInvokeTime() >= recoveryTime) {
-//                iterator.remove();
-//                if (info.getRemovalStatus().get()) {
-//                    //TODO 通知server状态更新了
-//                }
-//                continue;
-//            }
-            info.setErrorRate(calErrorRate(info));
-            System.out.println("计算服务错误率：" + JacksonUtils.toJson(info));
-//            log.info("ServiceNode calculating error rate all info {}", info);
+            ServiceNode serviceNode = iterator.next().getValue();
+            if (System.currentTimeMillis() - serviceNode.getLastInvokeTime() >= removalConfig.getRecoveryTime()) {
+                reset(serviceNode);
+                //TODO 通知server状态更新了
+                continue;
+            }
+            serviceNode.setErrorRate(calErrorRate(serviceNode));
+            if (log.isDebugEnabled()) {
+                log.info("[flowsphere] ServiceNode calculating error rate all serviceNode {}", serviceNode);
+            }
+
         }
+    }
+
+
+    private void reset(ServiceNode serviceNode) {
+        serviceNode.setRemovalTime(0);
+        serviceNode.setRecoveryTime(0);
+        serviceNode.setRequestFailNum(new AtomicInteger(0));
+        serviceNode.setErrorRate(0);
+        serviceNode.setRemovalStatus(new AtomicBoolean(false));
     }
 
 

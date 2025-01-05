@@ -55,7 +55,7 @@ public class LoadBalancerFeignClientInterceptor implements InstantMethodIntercep
         headers.putAll(request.headers());
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] FeignInstantMethodInterceptor feign tag={}", tag);
+            log.debug("[flowsphere] resolver feign tag={}", tag);
         }
         if (!Strings.isNullOrEmpty(tag)) {
             List<String> ruleList = new ArrayList<String>();

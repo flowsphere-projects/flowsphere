@@ -37,7 +37,7 @@ public class ShardingServiceInterceptor implements InstantMethodInterceptor {
             }
             instantMethodInterceptorResult.setContinue(false);
         } catch (Exception e) {
-            log.error("[flowsphere] ShardingServiceInterceptor elastic job interceptor execute error", e);
+            log.error("[flowsphere] elastic job interceptor execute error", e);
         }
     }
 

@@ -22,7 +22,7 @@ public class RemovalThreadTest {
 
     @Test
     public void runTest() {
-        RemovalThread removalThread = new RemovalThread(1000000);
+        RemovalThread removalThread = new RemovalThread();
         removalThread.run();
         Map<String, ServiceNode> instanceCallResult = ServiceNodeCache.getInstanceCallResult();
         Assertions.assertTrue(Objects.nonNull(instanceCallResult));

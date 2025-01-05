@@ -16,7 +16,7 @@ public class ConsulServerPredicate implements Predicate<ConsulServer> {
         String serverTag = consulServer.getMetadata().get(CommonConstant.SERVER_TAG);
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] ConsulServerPredicate consul tag={}", tag);
+            log.debug("[flowsphere] consul predicate tag={}", tag);
         }
         if (!Strings.isNullOrEmpty(tag) && !tag.equals(serverTag) && !Strings.isNullOrEmpty(serverTag)) {
             return false;

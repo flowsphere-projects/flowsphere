@@ -17,7 +17,7 @@ public class ZuulPropagator extends AbstractGatewayPropagator {
     @Override
     public void doInject(String tag) {
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] ZuulPropagator zuul doInject tag={}", tag);
+            log.debug("[flowsphere] zuul doInject tag={}", tag);
         }
         commandContext.getHeaders().add(CommonConstant.TAG, tag);
     }
