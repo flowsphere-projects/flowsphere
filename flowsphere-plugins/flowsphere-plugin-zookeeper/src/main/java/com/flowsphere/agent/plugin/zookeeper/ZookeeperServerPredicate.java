@@ -17,7 +17,7 @@ public class ZookeeperServerPredicate implements Predicate<ZookeeperServer> {
                 .getMetadata().get(CommonConstant.SERVER_TAG);
         String tag = TagContext.get();
         if (log.isDebugEnabled()) {
-            log.debug("[flowsphere] ZookeeperServerPredicate zk tag={}", tag);
+            log.debug("[flowsphere] zookeeper predicate zk tag={}", tag);
         }
         if (!Strings.isNullOrEmpty(tag) && !tag.equals(serverTag) && !Strings.isNullOrEmpty(serverTag)) {
             return false;

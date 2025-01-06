@@ -7,10 +7,8 @@ import com.flowsphere.spring.cloud.service.api.SpringCloudCApi;
 import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +22,7 @@ public class SpringCloudProviderBFeign implements SpringCloudBApi {
     private SpringCloudCApi springCloudCApi;
 
     @PostMapping("/helloWord")
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<TagEntity> helloWord(@RequestBody String str) {
         log.info("SpringCloudProviderBFeign helloWord str={} tag={}", str, TagContext.get());
         List<TagEntity> result = new ArrayList<>();

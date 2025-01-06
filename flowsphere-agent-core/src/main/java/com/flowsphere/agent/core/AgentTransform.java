@@ -31,12 +31,12 @@ public class AgentTransform implements AgentBuilder.Transformer {
     @Override
     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader currentClassLoader, JavaModule javaModule, ProtectionDomain protectionDomain) {
         try {
-            log.info("[FlowSphereAgentTransform] load interceptor typeName={}", typeDescription.getTypeName());
+            log.info("[flowsphere] transform load interceptor typeName={}", typeDescription.getTypeName());
             Collection<YamlMethodPointcutConfig> methodPointcutConfigs = classPointcutConfigMap.get(typeDescription.getTypeName());
             return InterceptorBuilderChain.buildInterceptor(builder, new TargetObjectInterceptorBuilder(),
                     new PluginsMethodInterceptorBuilder(MethodMatcherConfigCreator.create(methodPointcutConfigs), typeDescription, classLoader), new MultiThreadMethodInterceptorBuilder());
         } catch (Throwable e) {
-            log.error("[FlowSphereAgentTransform] load error", e);
+            log.error("[flowsphere] transform execute error", e);
             return builder;
         }
     }

@@ -17,7 +17,7 @@ public class HttpAccessorInterceptor implements InstantMethodInterceptor {
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object instantMethodInterceptorResult) {
         ClientHttpRequest request = (ClientHttpRequest) instantMethodInterceptorResult;
         if (log.isDebugEnabled()) {
-            log.info("[flowsphere] RestTemplateInterceptor tag={}", TagContext.get());
+            log.info("[flowsphere] restTemplate tag={}", TagContext.get());
         }
         request.getHeaders().add(CommonConstant.TAG, TagContext.get());
 
