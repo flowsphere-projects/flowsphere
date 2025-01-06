@@ -17,7 +17,7 @@ import java.util.ServiceLoader;
 public class FlowSphereAgent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
-        log.info("-------------------FlowSphereAgent开始启动-------------------");
+        log.info("-------------------flowsphere-agent开始启动-------------------");
 
         YamlAgentConfig yamlAgentConfig = YamlResolver.parseAgentConfig();
 
@@ -25,7 +25,7 @@ public class FlowSphereAgent {
 
         init(yamlAgentConfig, agentClassLoader, inst);
 
-        log.info("-------------------FlowSphereAgent启动成功-------------------");
+        log.info("-------------------flowsphere-agent启动成功-------------------");
     }
 
     private static void init(YamlAgentConfig yamlAgentConfig, AgentClassLoader agentClassLoader, Instrumentation inst) {

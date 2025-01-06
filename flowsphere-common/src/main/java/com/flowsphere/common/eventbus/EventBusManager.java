@@ -1,6 +1,5 @@
 package com.flowsphere.common.eventbus;
 
-import com.flowsphere.common.eventbus.listener.InstanceInitListener;
 import com.google.common.eventbus.EventBus;
 
 public class EventBusManager {

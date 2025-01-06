@@ -19,7 +19,7 @@ public abstract class AbstractTagExtract implements TagExtract {
         String tag = arrayWeightRandom.choose();
         TagContext.set(tag);
         if (log.isDebugEnabled()) {
-            log.debug("[FlowSphere] AttributeTagBinding spring-cloud-gateway choose={}", tag);
+            log.debug("[flowsphere] spring-cloud-gateway choose tag={}", tag);
         }
         return tag;
     }

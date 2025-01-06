@@ -6,6 +6,7 @@ import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorRe
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.utils.StringUtils;
+import com.flowsphere.feature.removal.RemovalInstanceService;
 import com.netflix.loadbalancer.Server;
 import org.springframework.util.CollectionUtils;
 
@@ -21,7 +22,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         String serverAddr = Env.get(SERVER_ADDR);
-        if (StringUtils.isNotEmpty(serverAddr)){
+        if (StringUtils.isNotEmpty(serverAddr)) {
             Object serverListObj = allArguments[0];
             List<Server> servers = (List<Server>) serverListObj;
             List<Server> result = new ArrayList<>();
@@ -33,6 +34,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
                     }
                 }
             }
+            result = RemovalInstanceService.getInstance().removal(result.size() == 0 ? servers : result);
             instantMethodInterceptorResult.setContinue(false);
             //兜底路由
             if (CollectionUtils.isEmpty(result)) {
@@ -42,6 +44,7 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
             instantMethodInterceptorResult.setResult(result);
         }
     }
+
 
     @Override
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {

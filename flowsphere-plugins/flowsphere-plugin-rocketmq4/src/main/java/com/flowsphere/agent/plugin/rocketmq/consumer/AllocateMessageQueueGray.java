@@ -34,7 +34,6 @@ public class AllocateMessageQueueGray implements AllocateMessageQueueStrategy {
                 log.debug("[flowsphere] gray not-consumer grayConsumerConfig={}", grayConsumerConfig);
             }
             //cidAll则需要剔除灰度cid，同时mqAll需要剔除灰度队列
-
             List<String> newCidList = cidAll.stream().filter(cid -> isGrayCid(cid, TagManager.getSystemTag())).collect(Collectors.toList());
             List<MessageQueue> normalMessageQueueList = filterMessageQueue(mqAll, messageQueue -> !grayConsumerConfig.getQueueIdList().stream()
                     .anyMatch(queueId -> queueId.equals(messageQueue.getQueueId())));

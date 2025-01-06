@@ -4,11 +4,11 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.flowsphere.extension.sentinel.limiter.support.WebRateLimiter;
+import com.flowsphere.feature.sentinel.limiter.support.WebRateLimiter;
 import com.flowsphere.common.constant.CommonConstant;
 import com.flowsphere.common.tag.context.TagContext;
-import com.flowsphere.extension.sentinel.limiter.SentinelResource;
-import com.flowsphere.extension.sentinel.utils.SentinelContext;
+import com.flowsphere.feature.sentinel.limiter.SentinelResource;
+import com.flowsphere.feature.sentinel.utils.SentinelContext;
 import com.google.common.base.Strings;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class RequestContextFilterInterceptor implements InstantMethodInterceptor
         String tag = httpServletRequest.getHeader(CommonConstant.TAG);
         if (!Strings.isNullOrEmpty(tag)) {
             if (log.isDebugEnabled()) {
-                log.debug("[flowsphere] RequestContextFilterInterceptor spring-mvc doFilterInternal tag={}", tag);
+                log.debug("[flowsphere] spring-mvc doFilterInternal tag={}", tag);
             }
             TagContext.set(tag);
         }
@@ -47,6 +47,7 @@ public class RequestContextFilterInterceptor implements InstantMethodInterceptor
     @Override
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {
         TagContext.remove();
+        SentinelContext.remove();
     }
 
     @SneakyThrows
