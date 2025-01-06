@@ -4,6 +4,7 @@ import com.flowsphere.agent.core.context.CustomContextAccessor;
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
+import com.flowsphere.extension.datasource.entity.RemovalConfig;
 import com.flowsphere.feature.removal.ServiceNode;
 import com.flowsphere.feature.removal.ServiceNodeCache;
 import com.netflix.client.ClientRequest;
@@ -23,12 +24,17 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
     @SneakyThrows
     @Override
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {
+        PluginConfig pluginConfig = PluginConfigCache.get();
+        RemovalConfig removalConfig = pluginConfig.getRemovalConfig();
+        if (Objects.isNull(removalConfig)) {
+            return;
+        }
         IResponse response = (IResponse) result;
         URI uri = getURI(response, allArguments);
-        saveInstanceCallResult(uri, response, customContextAccessor);
+        saveInstanceCallResult(uri, response, customContextAccessor, removalConfig);
     }
 
-    private void saveInstanceCallResult(URI uri, IResponse response, CustomContextAccessor customContextAccessor) {
+    private void saveInstanceCallResult(URI uri, IResponse response, CustomContextAccessor customContextAccessor, RemovalConfig removalConfig) {
         String key = uri.getHost() + ":" + uri.getPort();
         ServiceNode serviceNode = ServiceNodeCache.getInstanceCallResult().computeIfAbsent(key, value -> {
             ServiceNode tmpServiceNode = new ServiceNode();
@@ -36,7 +42,7 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
             tmpServiceNode.setPort(uri.getPort());
             return tmpServiceNode;
         });
-        if (!isSuccess(response, customContextAccessor.getCustomContext())) {
+        if (!isSuccess(response, customContextAccessor.getCustomContext(), removalConfig)) {
             serviceNode.getRequestFailNum().incrementAndGet();
         }
         serviceNode.setLastInvokeTime(System.currentTimeMillis());
@@ -58,24 +64,22 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
         return uri;
     }
 
-    private boolean isSuccess(IResponse response, Object context) {
+    private boolean isSuccess(IResponse response, Object context, RemovalConfig removalConfig) {
         boolean result = true;
         if (Objects.nonNull(response) && !response.isSuccess()) {
             return false;
         }
         if (Objects.nonNull(context) && context instanceof Throwable) {
-            result = !isSuccess((Throwable) context);
+            result = !isSuccess((Throwable) context, removalConfig);
         }
         return result;
     }
 
-
-    private boolean isSuccess(Throwable e) {
-        PluginConfig pluginConfig = PluginConfigCache.get();
-        if (Objects.isNull(pluginConfig.getRemovalConfig()) || Objects.isNull(pluginConfig.getRemovalConfig().getExceptions())) {
+    private boolean isSuccess(Throwable e, RemovalConfig removalConfig) {
+        if (Objects.isNull(removalConfig.getExceptions())) {
             return true;
         }
-        List<String> exceptions = pluginConfig.getRemovalConfig().getExceptions();
+        List<String> exceptions = removalConfig.getExceptions();
         Throwable cause = e.getCause();
         if (cause == null) {
             return !exceptions.contains(e.getClass().getName());

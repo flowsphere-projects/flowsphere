@@ -22,7 +22,7 @@ public class SpringCloudProviderBFeign implements SpringCloudBApi {
     private SpringCloudCApi springCloudCApi;
 
     @PostMapping("/helloWord")
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<TagEntity> helloWord(@RequestBody String str) {
         log.info("SpringCloudProviderBFeign helloWord str={} tag={}", str, TagContext.get());
         List<TagEntity> result = new ArrayList<>();
