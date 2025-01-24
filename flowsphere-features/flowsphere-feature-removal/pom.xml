@@ -25,6 +25,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>flowsphere-extension-datasource</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-discovery-binder</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.netflix.ribbon</groupId>
             <artifactId>ribbon-loadbalancer</artifactId>
