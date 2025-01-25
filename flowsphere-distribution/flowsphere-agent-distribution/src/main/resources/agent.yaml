@@ -12,7 +12,7 @@ plugins:
   - consul
   - resttemplate
 sentinelEnabled: false
-serverAddr: 127.0.0.1:8224
+serverAddr: http://127.0.0.1:8224
 pluginConfigDataSource:
 #  type: local
   type: nacos

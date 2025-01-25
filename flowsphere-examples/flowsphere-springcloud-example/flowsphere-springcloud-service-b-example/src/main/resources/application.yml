@@ -26,3 +26,6 @@ spring:
 #    service-url:
 #      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8189}/eureka/
 #    nacos:
+
+flowsphere:
+  instantInitEnabled: true
