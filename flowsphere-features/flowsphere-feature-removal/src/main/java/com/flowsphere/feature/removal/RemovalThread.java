@@ -3,6 +3,7 @@ package com.flowsphere.feature.removal;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.RemovalConfig;
+import com.flowsphere.feature.discovery.binder.InstanceService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public class RemovalThread implements Runnable {
             ServiceNode serviceNode = iterator.next().getValue();
             if (System.currentTimeMillis() - serviceNode.getLastInvokeTime() >= removalConfig.getRecoveryTime()) {
                 reset(serviceNode);
-                //TODO 通知server状态更新了
+                InstanceService.modifyProviderInstantRemoval(serviceNode.getHost(), 1);
                 continue;
             }
             serviceNode.setErrorRate(calErrorRate(serviceNode));

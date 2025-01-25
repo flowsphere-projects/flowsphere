@@ -3,6 +3,7 @@ package com.flowsphere.feature.removal;
 import com.flowsphere.extension.datasource.cache.PluginConfigCache;
 import com.flowsphere.extension.datasource.entity.PluginConfig;
 import com.flowsphere.extension.datasource.entity.RemovalConfig;
+import com.flowsphere.feature.discovery.binder.InstanceService;
 import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,6 +55,7 @@ public class RemovalInstanceService {
                 instance.setRemovalTime(System.currentTimeMillis());
                 instance.setRecoveryTime(System.currentTimeMillis() + removalConfig.getRecoveryTime());
                 canRemovalNum--;
+                InstanceService.modifyProviderInstantRemoval(instance.getHost(), 2);
             } else {
                 result.add(server);
             }

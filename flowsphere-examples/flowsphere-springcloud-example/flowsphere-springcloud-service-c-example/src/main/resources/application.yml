@@ -26,3 +26,5 @@ spring:
         enabled: true
       username: nacos
       password: nacos
+flowsphere:
+  instantInitEnabled: true

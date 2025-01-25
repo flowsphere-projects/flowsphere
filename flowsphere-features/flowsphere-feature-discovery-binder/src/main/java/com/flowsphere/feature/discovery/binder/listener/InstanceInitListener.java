@@ -1,12 +1,11 @@
 package com.flowsphere.feature.discovery.binder.listener;
 
-import com.flowsphere.feature.discovery.binder.event.InstanceInitEvent;
-
 import com.flowsphere.common.longpoll.LongPollService;
 import com.flowsphere.common.utils.IpUtils;
 import com.flowsphere.feature.discovery.binder.ConsumerInterfaceUrlManager;
 import com.flowsphere.feature.discovery.binder.InstanceService;
 import com.flowsphere.feature.discovery.binder.ProviderInterfaceManager;
+import com.flowsphere.feature.discovery.binder.event.InstanceInitEvent;
 import com.flowsphere.feature.discovery.binder.instance.entity.Consumer;
 import com.flowsphere.feature.discovery.binder.instance.entity.Provider;
 import com.flowsphere.feature.discovery.binder.instance.entity.ProviderFunction;
@@ -25,23 +24,23 @@ public class InstanceInitListener {
     @Subscribe
     public void listener(InstanceInitEvent instanceInitEvent) {
         LongPollService.getInstance().startLongPolling(instanceInitEvent.getServerAddr(),
-                instanceInitEvent.getApplicationName(),IpUtils.getIpv4Address());
+                instanceInitEvent.getApplicationName(), IpUtils.getIpv4Address());
         register(instanceInitEvent);
     }
 
 
     @SneakyThrows
     private void register(InstanceInitEvent instanceInitEvent) {
-        Map<String, List<String>> consumerInterfaceList = ConsumerInterfaceUrlManager.getInterfaceUrlList();
-        InstanceService.reportConsumerInterface(instanceInitEvent.getServerAddr(), new Consumer()
-                .setApplicationName(instanceInitEvent.getApplicationName())
-                .setDependOnInterfaceList(consumerInterfaceList));
-        InstanceService.registerProvider(instanceInitEvent.getServerAddr(), new Provider()
+        InstanceService.registerProvider(new Provider()
                 .setProviderName(instanceInitEvent.getApplicationName())
                 .setIp(IpUtils.getIpv4Address()));
         List<ProviderFunction> providerFunctionList = buildProviderFunctionList(instanceInitEvent,
                 ProviderInterfaceManager.getInterfaceUrlList());
-        InstanceService.registerProviderFunction(instanceInitEvent.getServerAddr(), providerFunctionList);
+        InstanceService.registerProviderFunction(providerFunctionList);
+        Map<String, List<String>> consumerInterfaceList = ConsumerInterfaceUrlManager.getInterfaceUrlList();
+        InstanceService.reportConsumerInterface(new Consumer()
+                .setApplicationName(instanceInitEvent.getApplicationName())
+                .setDependOnInterfaceList(consumerInterfaceList));
     }
 
 
