@@ -19,6 +19,7 @@
         <module>flowsphere-feature-discovery-binder</module>
         <module>flowsphere-feature-removal</module>
         <module>flowsphere-feature-sentinel</module>
+        <module>flowsphere-feature-register-center</module>
     </modules>
 
 

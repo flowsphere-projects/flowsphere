@@ -2,6 +2,8 @@ package com.flowsphere.test.plugin.eureka;
 
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.plugin.eureka.BaseLoadBalancerInterceptor;
+import com.flowsphere.common.config.YamlAgentConfig;
+import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.constant.CommonConstant;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.tag.context.TagContext;
@@ -23,6 +25,7 @@ public class BaseLoadBalancerInterceptorTest {
     @Test
     public void beforeTest() {
         initEnv();
+        initWarmupConfig();
         BaseLoadBalancerInterceptor interceptor = new BaseLoadBalancerInterceptor();
         InstantMethodInterceptorResult result = new InstantMethodInterceptorResult();
         TagContext.set("tagA");
@@ -35,6 +38,12 @@ public class BaseLoadBalancerInterceptorTest {
                 }, null, result);
         List<DiscoveryEnabledServer> resultList = (List<DiscoveryEnabledServer>) result.getResult();
         Assertions.assertTrue(resultList.size() == 1);
+    }
+
+    private void initWarmupConfig() {
+        YamlAgentConfig yamlAgentConfig = new YamlAgentConfig();
+        yamlAgentConfig.setWarmupEnabled(true);
+        YamlAgentConfigCache.put(yamlAgentConfig);
     }
 
 

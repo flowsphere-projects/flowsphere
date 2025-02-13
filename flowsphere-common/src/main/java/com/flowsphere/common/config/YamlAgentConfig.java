@@ -20,4 +20,6 @@ public class YamlAgentConfig {
 
     private String serverAddr;
 
+    private boolean warmupEnabled;
+
 }

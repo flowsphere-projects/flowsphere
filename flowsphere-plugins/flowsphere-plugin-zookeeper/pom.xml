@@ -24,12 +24,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>flowsphere-agent-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>flowsphere-feature-removal</artifactId>
+            <artifactId>flowsphere-feature-register-center</artifactId>
         </dependency>
 
     </dependencies>

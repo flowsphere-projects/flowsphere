@@ -12,6 +12,8 @@ public interface CommonConstant {
 
     String SERVER_TAG = "flowsphere.tag";
 
+    String TIMESTAMP = "timestamp";
+
     String SPRING_APPLICATION_NAME = "spring.application.name";
 
 }

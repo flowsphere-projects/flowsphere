@@ -38,6 +38,11 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-register-center</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>flowsphere-agent-core</artifactId>
         </dependency>
 

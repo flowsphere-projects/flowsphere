@@ -18,6 +18,7 @@ public class ConsulDiscoveryPropertiesInterceptor implements InstantMethodInterc
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         List<String> tags = (List<String>) callable.call();
         tags.add(CommonConstant.SERVER_TAG + "=" + TagManager.getSystemTag());
+        tags.add(CommonConstant.TIMESTAMP + "=" + System.currentTimeMillis());
         instantMethodInterceptorResult.setContinue(false);
         instantMethodInterceptorResult.setResult(tags);
     }

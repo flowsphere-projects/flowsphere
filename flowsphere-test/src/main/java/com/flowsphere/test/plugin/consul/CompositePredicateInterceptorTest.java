@@ -4,6 +4,8 @@ import com.ecwid.consul.v1.health.model.Check;
 import com.ecwid.consul.v1.health.model.HealthService;
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.plugin.consul.CompositePredicateInterceptor;
+import com.flowsphere.common.config.YamlAgentConfig;
+import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.constant.CommonConstant;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.tag.context.TagManager;
@@ -22,12 +24,19 @@ public class CompositePredicateInterceptorTest {
         Object[] objects = new Object[]{buildServerList()};
         System.setProperty("flowsphere.tag", "TAGA");
         initEnv();
+        initWarmupConfig();
         CompositePredicateInterceptor interceptor = new CompositePredicateInterceptor();
         InstantMethodInterceptorResult instantMethodInterceptorResult = new InstantMethodInterceptorResult();
         interceptor.beforeMethod(null, objects,
                 null, null, instantMethodInterceptorResult);
         Assertions.assertTrue(!instantMethodInterceptorResult.isContinue());
         Assertions.assertTrue(((List<Server>) instantMethodInterceptorResult.getResult()).size() == 1);
+    }
+
+    private void initWarmupConfig() {
+        YamlAgentConfig yamlAgentConfig = new YamlAgentConfig();
+        yamlAgentConfig.setWarmupEnabled(true);
+        YamlAgentConfigCache.put(yamlAgentConfig);
     }
 
     private void initEnv() {
