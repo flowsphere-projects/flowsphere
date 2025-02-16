@@ -5,13 +5,9 @@ import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorRe
 import com.flowsphere.agent.core.interceptor.type.InstantMethodInterceptor;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.utils.StringUtils;
-import com.flowsphere.feature.removal.RemovalInstanceService;
 import com.netflix.loadbalancer.Server;
-import org.springframework.cloud.zookeeper.discovery.ZookeeperServer;
-import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -25,24 +21,9 @@ public class CompositePredicateInterceptor implements InstantMethodInterceptor {
         if (StringUtils.isNotEmpty(serverAddr)) {
             Object serverListObj = allArguments[0];
             List<Server> servers = (List<Server>) serverListObj;
-            List<Server> resultList = new ArrayList<>();
-            for (Server server : servers) {
-                ZookeeperServerPredicate zookeeperServerPredicate = new ZookeeperServerPredicate();
-                if (server instanceof ZookeeperServer) {
-                    if (zookeeperServerPredicate.test((ZookeeperServer) server)) {
-                        resultList.add(server);
-                    }
-                }
-            }
-
-            resultList = RemovalInstanceService.getInstance().removal(resultList);
+            servers = ZookeeperSelector.getInstance().selectInstances(servers);
             instantMethodInterceptorResult.setContinue(false);
-            //兜底路由
-            if (CollectionUtils.isEmpty(resultList)) {
-                instantMethodInterceptorResult.setResult(servers);
-                return;
-            }
-            instantMethodInterceptorResult.setResult(resultList);
+            instantMethodInterceptorResult.setResult(servers);
         }
     }
 

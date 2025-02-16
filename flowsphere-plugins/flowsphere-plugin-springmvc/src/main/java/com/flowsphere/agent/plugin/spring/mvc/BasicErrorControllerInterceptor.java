@@ -30,8 +30,4 @@ public class BasicErrorControllerInterceptor implements InstantMethodInterceptor
         return new ResponseEntity(sentinelConfig.getLimitReturnResult(), HttpStatus.TOO_MANY_REQUESTS);
     }
 
-    @Override
-    public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {
-        SentinelContext.remove();
-    }
 }

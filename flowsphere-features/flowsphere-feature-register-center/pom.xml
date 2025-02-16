@@ -4,16 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.flowsphere-projects</groupId>
-        <artifactId>flowsphere-plugins</artifactId>
+        <artifactId>flowsphere-features</artifactId>
         <version>1.4.0.RELEASE</version>
     </parent>
-
-    <artifactId>flowsphere-plugin-springcloudgateway</artifactId>
-    <name>flowsphere-plugin-springcloudgateway</name>
-    <description>flowsphere-plugin-springcloudgateway</description>
+    <artifactId>flowsphere-feature-register-center</artifactId>
+    <name>flowsphere-feature-register-center</name>
+    <description>flowsphere-feature-register-center</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>8</java.version>
     </properties>
+
 
     <dependencies>
 
@@ -28,29 +29,11 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>flowsphere-feature-removal</artifactId>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 
 </project>

@@ -1,16 +1,21 @@
 package com.flowsphere.common.loadbalance;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class TagWeight {
+public class TagWeight extends ArrayWeight {
 
     private String tag;
 
-    private double weight;
+    public TagWeight(String tag, double weight) {
+        this.tag = tag;
+        super.setWeight(weight);
+    }
 
+    @Override
+    public Object getObj() {
+        return tag;
+    }
 }

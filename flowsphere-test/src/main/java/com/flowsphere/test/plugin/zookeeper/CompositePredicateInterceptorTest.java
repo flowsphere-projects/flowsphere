@@ -2,6 +2,8 @@ package com.flowsphere.test.plugin.zookeeper;
 
 import com.flowsphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
 import com.flowsphere.agent.plugin.zookeeper.CompositePredicateInterceptor;
+import com.flowsphere.common.config.YamlAgentConfig;
+import com.flowsphere.common.config.YamlAgentConfigCache;
 import com.flowsphere.common.env.Env;
 import com.flowsphere.common.tag.context.TagContext;
 import com.netflix.loadbalancer.Server;
@@ -25,6 +27,7 @@ public class CompositePredicateInterceptorTest {
         Object[] objects = new Object[]{buildServerList()};
         TagContext.set("TAGA");
         initEnv();
+        initWarmupConfig();
         CompositePredicateInterceptor interceptor = new CompositePredicateInterceptor();
         InstantMethodInterceptorResult instantMethodInterceptorResult = new InstantMethodInterceptorResult();
 
@@ -32,6 +35,12 @@ public class CompositePredicateInterceptorTest {
                 null, null, instantMethodInterceptorResult);
         Assertions.assertTrue(!instantMethodInterceptorResult.isContinue());
         Assertions.assertTrue(((List<Server>) instantMethodInterceptorResult.getResult()).size() == 1);
+    }
+
+    private void initWarmupConfig() {
+        YamlAgentConfig yamlAgentConfig = new YamlAgentConfig();
+        yamlAgentConfig.setWarmupEnabled(true);
+        YamlAgentConfigCache.put(yamlAgentConfig);
     }
 
     private void initEnv() {

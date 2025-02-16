@@ -16,7 +16,7 @@ public abstract class AbstractTagExtract implements TagExtract {
     public String extract(InstantWeight instantWeight, AbstractAttributeResolver attributeResolver) {
         List<TagWeight> tagWeight = getTagWeight(instantWeight);
         ArrayWeightRandom arrayWeightRandom = new ArrayWeightRandom(tagWeight);
-        String tag = arrayWeightRandom.choose();
+        String tag = (String) arrayWeightRandom.choose();
         TagContext.set(tag);
         if (log.isDebugEnabled()) {
             log.debug("[flowsphere] spring-cloud-gateway choose tag={}", tag);

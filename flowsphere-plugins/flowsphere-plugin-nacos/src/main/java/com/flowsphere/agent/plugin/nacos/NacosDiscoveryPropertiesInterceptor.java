@@ -17,6 +17,7 @@ public class NacosDiscoveryPropertiesInterceptor implements InstantMethodInterce
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         Map<String, String> metadata = (Map<String, String>) allArguments[0];
         metadata.put(CommonConstant.SERVER_TAG, TagManager.getSystemTag());
+        metadata.put(CommonConstant.TIMESTAMP, String.valueOf(System.currentTimeMillis()));
     }
 
     @Override

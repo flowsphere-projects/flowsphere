@@ -6,30 +6,30 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Refactory with code from https://zhuanlan.zhihu.com/p/389788435
-public class ArrayWeightRandom {
+public class ArrayWeightRandom<T extends ArrayWeight> {
 
-    private final List<String> items = new ArrayList<>();
+    private final List<Object> items = new ArrayList<>();
     private double[] weights;
 
-    public ArrayWeightRandom(List<TagWeight> tagWeights) {
+    public ArrayWeightRandom(List<T> tagWeights) {
         this.calWeights(tagWeights);
     }
 
     /**
      * 计算权重，初始化或者重新定义权重时使用
      */
-    public void calWeights(List<TagWeight> tagWeights) {
+    public void calWeights(List<T> tagWeights) {
         items.clear();
 
         // 计算权重总和
         double originWeightSum = 0;
-        for (TagWeight itemWithWeight : tagWeights) {
+        for (T itemWithWeight : tagWeights) {
             double weight = itemWithWeight.getWeight();
             if (weight <= 0) {
                 continue;
             }
 
-            items.add(itemWithWeight.getTag());
+            items.add(itemWithWeight.getObj());
             if (Double.isInfinite(weight)) {
                 weight = 10000.0D;
             }
@@ -42,7 +42,7 @@ public class ArrayWeightRandom {
         // 计算每个item的实际权重比例
         double[] actualWeightRatios = new double[items.size()];
         int index = 0;
-        for (TagWeight itemWithWeight : tagWeights) {
+        for (T itemWithWeight : tagWeights) {
             double weight = itemWithWeight.getWeight();
             if (weight <= 0) {
                 continue;
@@ -63,7 +63,7 @@ public class ArrayWeightRandom {
     /**
      * 基于权重随机算法选择
      */
-    public String choose() {
+    public Object choose() {
         double random = ThreadLocalRandom.current().nextDouble();
         //二分法快速查找范围索引
         int index = Arrays.binarySearch(weights, random);

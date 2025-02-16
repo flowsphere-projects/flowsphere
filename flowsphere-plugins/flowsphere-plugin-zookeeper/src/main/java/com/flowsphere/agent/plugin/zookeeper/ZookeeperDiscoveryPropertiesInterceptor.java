@@ -18,6 +18,7 @@ public class ZookeeperDiscoveryPropertiesInterceptor implements InstantMethodInt
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
         Map<String, String> metadata = (Map<String, String>) callable.call();
         metadata.put(CommonConstant.SERVER_TAG, TagManager.getSystemTag());
+        metadata.put(CommonConstant.TIMESTAMP, String.valueOf(System.currentTimeMillis()));
         instantMethodInterceptorResult.setContinue(false);
         instantMethodInterceptorResult.setResult(metadata);
     }
