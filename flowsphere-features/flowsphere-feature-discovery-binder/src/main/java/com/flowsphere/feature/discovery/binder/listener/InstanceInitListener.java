@@ -1,7 +1,7 @@
 package com.flowsphere.feature.discovery.binder.listener;
 
 import com.flowsphere.common.longpoll.LongPollService;
-import com.flowsphere.common.utils.IpUtils;
+import com.flowsphere.common.utils.NetUtils;
 import com.flowsphere.feature.discovery.binder.ConsumerInterfaceUrlManager;
 import com.flowsphere.feature.discovery.binder.InstanceService;
 import com.flowsphere.feature.discovery.binder.ProviderInterfaceManager;
@@ -24,16 +24,17 @@ public class InstanceInitListener {
     @Subscribe
     public void listener(InstanceInitEvent instanceInitEvent) {
         LongPollService.getInstance().startLongPolling(instanceInitEvent.getServerAddr(),
-                instanceInitEvent.getApplicationName(), IpUtils.getIpv4Address());
+                instanceInitEvent.getApplicationName(), NetUtils.getIpAddress(), instanceInitEvent.getPort());
         register(instanceInitEvent);
     }
 
 
     @SneakyThrows
     private void register(InstanceInitEvent instanceInitEvent) {
-        InstanceService.registerProvider(new Provider()
+        InstanceService.registerProviderInstance(new Provider()
                 .setProviderName(instanceInitEvent.getApplicationName())
-                .setIp(IpUtils.getIpv4Address()));
+                .setIp(NetUtils.getIpAddress())
+                .setPort(instanceInitEvent.getPort()));
         List<ProviderFunction> providerFunctionList = buildProviderFunctionList(instanceInitEvent,
                 ProviderInterfaceManager.getInterfaceUrlList());
         InstanceService.registerProviderFunction(providerFunctionList);

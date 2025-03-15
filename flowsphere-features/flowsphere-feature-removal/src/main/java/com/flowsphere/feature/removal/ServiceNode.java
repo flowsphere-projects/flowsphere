@@ -34,9 +34,9 @@ public class ServiceNode {
     private long recoveryTime;
 
     /**
-     * host地址
+     * ip地址
      */
-    private String host;
+    private String ip;
 
     /**
      * 端口

@@ -14,8 +14,8 @@ pointcutConfigs:
       - methodName: execute
         type: instant
         interceptorName: com.flowsphere.agent.plugin.feign.FeignLoadBalancerInterceptor
-#  - className: com.netflix.client.AbstractLoadBalancerAwareClient
-#    methodPointcutConfigs:
-#      - methodName: executeWithLoadBalancer
-#        type: instant
-#        interceptorName: com.flowsphere.agent.plugin.feign.FeignLoadBalancerInterceptor
+  - className: com.netflix.loadbalancer.DynamicServerListLoadBalancer
+    methodPointcutConfigs:
+      - methodName: updateListOfServers
+        type: instant
+        interceptorName: com.flowsphere.agent.plugin.feign.DynamicServerListLoadBalancerInterceptor

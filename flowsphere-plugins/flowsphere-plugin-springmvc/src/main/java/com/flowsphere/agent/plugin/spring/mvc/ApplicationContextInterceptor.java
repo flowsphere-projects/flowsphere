@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.flowsphere.common.constant.CommonConstant.SERVER_PORT;
 import static com.flowsphere.common.constant.CommonConstant.SPRING_APPLICATION_NAME;
 
 @Slf4j
@@ -36,10 +37,12 @@ public class ApplicationContextInterceptor implements InstantMethodInterceptor {
         Boolean instantInitEnabled = Boolean.valueOf(environment.getProperty(INSTANT_INIT_ENABLED));
         if (StringUtils.isNotEmpty(applicationName) && StringUtils.isNotEmpty(serverAddr) && instantInitEnabled) {
             if (STARTER.compareAndSet(false, true)) {
+                int port = Integer.parseInt(environment.getProperty(SERVER_PORT));
                 EventBusManager.getInstance().register(new InstanceInitListener());
                 EventBusManager.getInstance().post(new InstanceInitEvent()
                         .setApplicationName(applicationName)
-                        .setServerAddr(serverAddr));
+                        .setServerAddr(serverAddr)
+                        .setPort(port));
             }
         }
     }

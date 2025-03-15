@@ -12,7 +12,7 @@ import okhttp3.Response;
 
 import java.util.concurrent.TimeUnit;
 
-public class SimpleHttpClient  {
+public class SimpleHttpClient {
 
     private static final SimpleHttpClient INSTANT = new SimpleHttpClient();
 
@@ -35,17 +35,13 @@ public class SimpleHttpClient  {
     }
 
     @SneakyThrows
-    public void send(SimpleHttpRequest simpleHttpRequest) {
+    public Response send(SimpleHttpRequest simpleHttpRequest) {
         RequestBody body = RequestBody.create(MEDIA_TYPE, JacksonUtils.toJson(simpleHttpRequest.getData()));
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .url(simpleHttpRequest.getUrl())
                 .post(body)
                 .build();
-        try (Response response = okHttpClient.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new RuntimeException("okhttp post execute error");
-            }
-        }
+        return okHttpClient.newCall(request).execute();
     }
 
 }

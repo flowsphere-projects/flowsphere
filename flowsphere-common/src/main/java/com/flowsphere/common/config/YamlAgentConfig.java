@@ -16,7 +16,7 @@ public class YamlAgentConfig {
 
     private OkHttpConfig okHttpConfig = new OkHttpConfig();
 
-    private long longPollDelay = 30;
+    private long longPollDelay = 3010;
 
     private String serverAddr;
 

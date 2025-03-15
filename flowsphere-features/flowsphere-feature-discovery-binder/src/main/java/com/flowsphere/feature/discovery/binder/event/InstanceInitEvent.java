@@ -11,4 +11,6 @@ public class InstanceInitEvent {
 
     private String serverAddr;
 
+    private int port;
+
 }

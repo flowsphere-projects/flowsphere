@@ -16,4 +16,6 @@ public interface CommonConstant {
 
     String SPRING_APPLICATION_NAME = "spring.application.name";
 
+    String SERVER_PORT = "server.port";
+
 }
