@@ -22,4 +22,6 @@ public class YamlAgentConfig {
 
     private boolean warmupEnabled;
 
+    private boolean discoveryBinderEnabled;
+
 }

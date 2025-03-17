@@ -34,8 +34,8 @@ public class ApplicationContextInterceptor implements InstantMethodInterceptor {
         ConfigurableEnvironment environment = context.getEnvironment();
         String applicationName = environment.getProperty(SPRING_APPLICATION_NAME);
         String serverAddr = getServerAddr();
-        Boolean instantInitEnabled = Boolean.valueOf(environment.getProperty(INSTANT_INIT_ENABLED));
-        if (StringUtils.isNotEmpty(applicationName) && StringUtils.isNotEmpty(serverAddr) && instantInitEnabled) {
+        YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
+        if (StringUtils.isNotEmpty(applicationName) && StringUtils.isNotEmpty(serverAddr) && yamlAgentConfig.isDiscoveryBinderEnabled()) {
             if (STARTER.compareAndSet(false, true)) {
                 int port = Integer.parseInt(environment.getProperty(SERVER_PORT));
                 EventBusManager.getInstance().register(new InstanceInitListener());

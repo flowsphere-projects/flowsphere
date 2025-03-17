@@ -147,13 +147,19 @@ plugins:
 ### sentinel开关
 
 ```yaml
-sentinelEnabled: false
+sentinelEnabled: false/true
 ```
 
 ### warmup优雅上线开关
 
 ```yaml
-warmupEnabled: false
+warmupEnabled: false/true
+```
+
+### discoveryBinder开关
+查看微服务接口生产者与消费者绑定关系开关
+```yaml
+discoveryBinderEnabled: true/false
 ```
 
 ### flowsphere-server配置
