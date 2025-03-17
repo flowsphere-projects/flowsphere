@@ -12,6 +12,7 @@ plugins:
   - consul
   - resttemplate
 sentinelEnabled: false
+warmupEnabled: false
 serverAddr: http://127.0.0.1:8224
 pluginConfigDataSource:
 #  type: local
