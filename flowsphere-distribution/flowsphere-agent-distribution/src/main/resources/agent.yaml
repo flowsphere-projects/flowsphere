@@ -11,6 +11,7 @@ plugins:
   - zookeeper
   - consul
   - resttemplate
+  - mybatis
 sentinelEnabled: false
 warmupEnabled: false
 discoveryBinderEnabled: true
