@@ -11,4 +11,6 @@ public class Provider {
 
     private String ip;
 
+    private int port;
+
 }

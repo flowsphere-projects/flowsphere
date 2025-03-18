@@ -4,6 +4,7 @@ import com.flowsphere.common.tag.context.TagContext;
 import com.flowsphere.common.tag.context.TagManager;
 import com.flowsphere.common.utils.JacksonUtils;
 import com.flowsphere.spring.cloud.service.api.SpringCloudBApi;
+import com.flowsphere.spring.cloud.service.api.SpringCloudCApi;
 import com.flowsphere.spring.cloud.service.api.entity.TagEntity;
 import com.flowsphere.spring.cloud.service.consumer.example.entity.User;
 import com.flowsphere.spring.cloud.service.consumer.example.mapper.UserMapper;
@@ -30,6 +31,9 @@ public class SpringCloudServiceA1Controller {
 
     @Autowired
     private SpringCloudBApi springCloudBApi;
+
+    @Autowired
+    private SpringCloudCApi springCloudCApi;
 
     @Qualifier("taskExecutor")
     @Autowired
@@ -68,6 +72,7 @@ public class SpringCloudServiceA1Controller {
     public List<TagEntity> helloWord(String str) {
         List<TagEntity> tagEntities = springCloudBApi.helloWord(str);
         tagEntities.add(TagEntity.build("SpringCloudProviderA1"));
+        springCloudCApi.helloWord(str);
         return tagEntities;
     }
 

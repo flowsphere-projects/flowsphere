@@ -1,4 +1,4 @@
-package com.flowsphere.common.longpoll;
+package com.flowsphere.common.longpoll.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,5 +12,7 @@ public class NotificationRequest implements Serializable {
     private String applicationName;
 
     private String ip;
+
+    private int port;
 
 }

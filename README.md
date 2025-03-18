@@ -120,19 +120,575 @@ flowsphere是基于bytebuddy字节码增强技术进行建设，采用插件化�
 |------------|-------|
 | tag        | tagA  |
 
-# 付费社区
 
+## agent.yaml配置文件
 
-## 社区服务
+agent.yaml是flowsphere核心配置文件，主要配置需要加载的组件以及选择对应的配置中心。当前flowsphere支持本地模式和配置中心。配置中心支持Nacos、Apollo，需要修改agent.yaml文件来激活使用方式。具体示例如下：
 
-1.更加完整的flowsphere使用文档、配置文档
+### 组件配置
 
-2.提供答疑服务，无次数限制提问，当天内必定得到详细的回复和指导
+```yaml
+plugins:
+  - nacos
+  - rocketmq
+  - springmvc
+  - springcloudgateway
+  - feign
+  - dubbo
+  - elasticjob
+  - zuul
+  - eureka
+  - springboot2
+  - zookeeper
+  - consul
+  - mybatis
+```
 
-3.独家内容帮助用户深度理解flowsphere原理、源码
+### sentinel开关
 
-4.不定期分享编写简历技巧、三高（高性能、高可用、高并发）、线上紧急问题处理技巧、各种分布式场景下解决方案等知识点
+```yaml
+sentinelEnabled: false/true
+```
 
-## 社区二维码
+### warmup优雅上线开关
 
-![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/knowledge-planet.png)
+```yaml
+warmupEnabled: false/true
+```
+
+### discoveryBinder开关
+查看微服务接口生产者与消费者绑定关系开关
+```yaml
+discoveryBinderEnabled: true/false
+```
+
+### flowsphere-server配置
+
+```yaml
+serverAddr: http://127.0.0.1:8224
+```
+
+### Nacos
+
+#### 配置项
+
+```yaml
+plugins:
+ pluginConfigDataSource:
+   type: nacos
+   pros:
+     dataId: default
+     groupId: DEFAULT_GROUP
+     timeout: 3000
+     serverAddr: 127.0.0.1:8848
+```
+
+#### 使用方式
+
+### Apollo
+
+#### 配置项
+
+```yaml
+plugins:
+ pluginConfigDataSource:
+   type: apollo
+   pros:
+     appId: 101
+     apolloMeta: http://localhost:8080
+     env: DEV
+```
+
+#### 使用方式
+
+### Local
+
+```yaml
+plugins:
+ pluginConfigDataSource:
+   type: local
+```
+
+#### 使用方式
+
+需要配置plugin-config.yaml文件，具体参考文末"完整配置->yaml文件格式"内容配置\
+ 
+
+## plugin-config.yaml配置
+
+### SpringCloudGateway配置
+
+#### 配置项
+
+| Key                                              | Value                                                       | 说明                                |
+| :----------------------------------------------- | :---------------------------------------------------------- | :-------------------------------- |
+| springCloudGatewayConfig.regionWeight.regions    | \["1","2"]                                                  | 区域配置，数组类型                         |
+| springCloudGatewayConfig.regionWeight.tagWeights | \[{"tag":"tagA","weight:0.2"},{"tag":"tagA1","weight:0.8"}] | 区域标签权重配置，0.2代表20%流量走tagA标签服务，数组类型 |
+| springCloudGatewayConfig.userWeight.userIds      | \["1","2"]                                                  | 用户ID配置，数组类型                       |
+| springCloudGatewayConfig.userWeight.tagWeights   | \[{"tag":"tagA","weight:0.2"},{"tag":"tagA1","weight:0.8"}] | 用户权重配置，0.2代表20%流量走tagA标签服务，数组类型   |
+
+#### 示例
+
+```json
+{
+    "springCloudGatewayConfig": {
+        "regionWeight": {
+            "regions": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        },
+        "userWeight": {
+            "userIds": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        }
+    }
+}
+```
+
+### Zuul配置
+
+#### 配置项
+
+| Key                                | Value                                                       | 说明                                |
+| :--------------------------------- | :---------------------------------------------------------- | :-------------------------------- |
+| zuulConfig.regionWeight.regions    | \["1","2"]                                                  | 区域配置，数组类型                         |
+| zuulConfig.regionWeight.tagWeights | \[{"tag":"tagA","weight:0.2"},{"tag":"tagA1","weight:0.8"}] | 区域标签权重配置，0.2代表20%流量走tagA标签服务，数组类型 |
+| zuulConfig.userWeight.userIds      | \["1","2"]                                                  | 用户ID配置，数组类型                       |
+| zuulConfig.userWeight.tagWeights   | \[{"tag":"tagA","weight:0.2"},{"tag":"tagA1","weight:0.8"}] | 用户权重配置，0.2代表20%流量走tagA标签服务，数组类型   |
+
+#### 示例
+
+```json
+{
+    "zuulConfig": {
+        "regionWeight": {
+            "regions": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        },
+        "userWeight": {
+            "userIds": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        }
+    }
+}
+```
+
+### RocketMQ配置
+
+#### 配置项
+
+| Key                                      | Value               | 说明          |
+| :--------------------------------------- | :------------------ | :---------- |
+| consumerConfigList\[0].consumerGroupName | myConsumerGroupName | 消费者组名称      |
+| consumerConfigList\[0].tag               | myTag               | 消费者Tag（非必填） |
+| consumerConfigList\[0].queueIdList\[0]   | \[1,2]              | 消费队列ID      |
+| producerConfigList\[0].topic             | myTopic             | 生产者主题       |
+| producerConfigList\[0].tag               | myTag               | 生产者Tag（非必填） |
+| producerConfigList\[0].queueIdList\[0]   | \[1,2]              | 生产者队列ID     |
+
+#### 示例
+
+```json
+{
+  "rocketMQConfig": {
+    "consumerConfigList": [
+      {
+        "consumerGroupName": "CID_JODIE_3",
+        "tag": "tagB",
+        "queueList": [
+            0
+        ]
+      }
+    ],
+    "producerConfigList": [
+      {
+        "topic": "myTopic",
+        "tag": "tagB",
+        "queueIdList": [
+          0
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Sentinel配置
+
+#### 配置
+
+| Key                                                          | Value                                 | 说明                    |
+| :----------------------------------------------------------- | :------------------------------------ | :-------------------- |
+| sentinelConfig.appName                                       | myApp                                 | 应用名,apollo数据源与动态限流时使用 |
+| sentinelConfig.dataId                                        | dataId                                | nacos数据源时需要配置         |
+| sentinelConfig.groupId                                       | groupId                               | nacos数据源时需要配置         |
+| sentinelConfig.namespace                                     | namespace                             | apollo数据源时需要配置        |
+| sentinelConfig.ruleKey                                       | ruleKey                               | apollo数据源时需要配置        |
+| sentinelConfig.resourceLimitEnabled                          | true\false                            | 资源限流开关                |
+| sentinelConfig.limitReturnResult                             | {"code":429,"message":"服务器繁忙请稍后重试1！"} | 限流返回结果，json格式         |
+| sentinelConfig.httpApiLimitConfig.allUrlLimitEnabled         | true\false                            | 是否采集所有待配置限流url        |
+| sentinelConfig.httpApiLimitConfig.excludeLimitUrlList\[0]    | /helloword                            | 需要限流的url              |
+| sentinelConfig.mybatisApiLimitConfig.allMethodLimitEnabled   | true                                  | 是否开启mybatis方法拦截限流     |
+| sentinelConfig.mybatisApiLimitConfig.excludeLimitUrlList\[0] | findByName                            | 需要拦截的方法名              |
+
+#### 示例
+
+```json
+{
+    "sentinelConfig": {
+        "namespace": "xxx",
+        "ruleKey": "xxx",
+        "dataId": "service-a-flow-rules",
+        "groupId": "SENTINEL_GROUP",
+        "namespace": "namespace",
+        "resourceLimitEnabled": true,
+        "circuitBreakerEnabled": true,
+        "limitReturnResult": {
+            "code": 429,
+            "message": "服务器繁忙请稍后重试1！"
+        },
+        "mybatisApiLimitConfig": {
+            "allMethodLimitEnabled": true,
+            "excludeLimitUrlList": [
+                "findByName"
+            ]
+        },
+        "httpApiLimitConfig": {
+            "allUrlLimitEnabled": true,
+            "excludeLimitUrlList": [
+                "/helloWord",
+                "/lazy",
+                "/restTemplate",
+                "findById"
+            ]
+        }
+    }
+}
+```
+
+### Elastic Job配置
+
+#### 配置
+
+| Key         | Value      | 说明            |
+| :---------- | :--------- | :------------ |
+| grayEnabled | true\false | 灰度开关          |
+| ip          | 127.0.0.1  | 需要灰度执行的实例ip地址 |
+
+#### 示例
+
+```json
+{
+    "elasticJobConfig": {
+        "grayEnabled": true,
+        "ip": "192.168.0.12"
+    }
+}
+```
+
+ 
+
+### Removal配置
+
+#### 配置
+
+| Key             | Value                           | 说明        |
+| :-------------- | :------------------------------ | :-------- |
+| applicationName | xxx                             | 应用名称      |
+| minInstanceNum  | xxx                             | 最小实例数     |
+| errorRate       | 0.1\~1                          | 错误率       |
+| recoveryTime    | xxx                             | 恢复时长（毫秒）  |
+| exceptions      | \["java.lang.RuntimeException"] | 异常数组      |
+| httpStatus      | \[400]                          | http响应码数字 |
+| scaleUpLimit    | xxx                             | 实例上线      |
+| windowsTime     | xxxx                            | 检测间隔（毫秒）  |
+
+#### 示例
+
+```
+{
+    "removalConfig": {
+        "applicationName": "service-b",
+        "minInstanceNum": 1,
+        "errorRate": 1,
+        "recoveryTime": 100000,
+        "exceptions": [
+        ],
+        "httpStatus":[
+            400
+        ],
+        "scaleUpLimit": 1,
+        "windowsTime": 10000
+    }
+}
+```
+
+### 完整配置
+
+#### Yaml格式
+
+使用范围：plugins.pluginConfigDataSource.type=local
+
+```yaml
+pluginConfig:
+  rocketMQConfig:
+    consumerConfigList:
+      - consumerGroupName: CID_JODIE_3
+        tag: tagB
+        queueIdList: [0]
+    producerConfigList:
+      - topic: myTest
+        tag: tagB
+        queueIdList: [0]
+  elasticJobConfig:
+    grayEnabled: true
+    ip: 192.168.0.12
+  sentinelConfig:
+    namespaceName: xxx
+    ruleKey: xxx
+    dataId: service-a
+    groupId: SENTINEL_GROUP
+    resourceLimitEnabled: true
+    circuitBreakerEnabled: true
+    limitReturnResult: {"code":429,"message":"服务器繁忙请稍后重试1！"}
+    mybatisApiLimitConfig:
+      allMethodLimitEnabled: true
+      excludeLimitMethodList:
+        - findByName
+    httpApiLimitConfig:
+      allUrlLimitEnabled: true
+      excludeLimitUrlList:
+        - /myTest/helloWord
+  springCloudGatewayConfig:
+    regionWeight:
+      regions:
+        - 101
+      tagWeights:
+        - tag: tagA
+          weight: 0.2
+    userWeight:
+      userIds:
+        - 123
+      tagWeights:
+        - tag: tagA
+          weight: 0.2
+  zuulConfig:
+    regionWeight:
+      regions:
+        - 101
+      tagWeights:
+        - tag: tagA
+          weight: 0.2
+    userWeight:
+      userIds:
+        - 123
+      tagWeights:
+        - tag: tagA
+          weight: 0.2
+  removalConfig:
+    applicationName: service-b
+    minInstanceNum: 1
+    errorRate: 1
+    recoveryTime: 1000
+    exceptions:
+      - "java.lang.RuntimeException"
+    httpStatus:
+      - 400
+    scaleUpLimit: 1
+    windowsTime: 10000
+    
+```
+
+#### Json格式
+
+使用范围：plugins.pluginConfigDataSource.type=nacos、apollo
+
+```json
+{
+    "rocketMQConfig": {
+        "consumerConfigList": [
+            {
+                "consumerGroupName": "default_test_consumer_group_11",
+                "tag": "tagA",
+                "queueIdList": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ]
+            }
+        ],
+        "producerConfigList": [
+            {
+                "topic": "TopicTest",
+                "tag": "tagA",
+                "queueIdList": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ]
+            }
+        ]
+    },
+    "elasticJobConfig": {
+        "grayEnabled": true,
+        "ip": "192.168.0.12"
+    },
+    "springCloudGatewayConfig": {
+        "regionWeight": {
+            "regions": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.5
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.5
+                }
+            ]
+        },
+        "userWeight": {
+            "userIds": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        }
+    },
+    "zuulConfig": {
+        "regionWeight": {
+            "regions": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 1
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0
+                }
+            ]
+        },
+        "userWeight": {
+            "userIds": [
+                "123"
+            ],
+            "tagWeights": [
+                {
+                    "tag": "tagA",
+                    "weight": 0.2
+                },
+                {
+                    "tag": "tagA1",
+                    "weight": 0.8
+                }
+            ]
+        }
+    },
+    "removalConfig": {
+        "applicationName": "service-b",
+        "minInstanceNum": 1,
+        "errorRate": 1,
+        "recoveryTime": 100000,
+        "exceptions": [
+
+        ],
+        "httpStatus": [
+            400
+        ],
+        "scaleUpLimit": 1,
+        "windowsTime": 10000
+    },
+    "sentinelConfig": {
+        "namespace": "xxx",
+        "ruleKey": "xxx",
+        "dataId": "service-a-flow-rules",
+        "groupId": "SENTINEL_GROUP",
+        "namespace": "namespace",
+        "resourceLimitEnabled": true,
+        "circuitBreakerEnabled": true,
+        "limitReturnResult": {
+            "code": 429,
+            "message": "服务器繁忙请稍后重试1！"
+        },
+        "mybatisApiLimitConfig": {
+            "allMethodLimitEnabled": true,
+            "excludeLimitUrlList": [
+                "findByName"
+            ]
+        },
+        "httpApiLimitConfig": {
+            "allUrlLimitEnabled": true,
+            "excludeLimitUrlList": [
+                "/helloWord",
+                "/lazy",
+                "/restTemplate",
+                "findById"
+            ]
+        }
+    }
+}
+```

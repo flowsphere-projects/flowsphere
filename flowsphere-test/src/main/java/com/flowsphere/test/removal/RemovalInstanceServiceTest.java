@@ -33,7 +33,7 @@ public class RemovalInstanceServiceTest {
         test.afterExceptionTest();
         Map<String, ServiceNode> instanceCallResult = ServiceNodeCache.getInstanceCallResult();
         instanceCallResult.values().forEach(node -> {
-            node.setHost("127.0.0.1");
+            node.setIp("127.0.0.1");
             node.setPort(8080);
             node.setErrorRate(2);
         });
@@ -53,7 +53,7 @@ public class RemovalInstanceServiceTest {
         ServiceNode tmpServiceNode = new ServiceNode();
         tmpServiceNode.setLastInvokeTime(System.currentTimeMillis());
         tmpServiceNode.getRequestFailNum().incrementAndGet();
-        tmpServiceNode.setHost("127.0.0.1");
+        tmpServiceNode.setIp("127.0.0.1");
         tmpServiceNode.setPort(8081);
         tmpServiceNode.getRequestNum().incrementAndGet();
         ServiceNodeCache.saveInstanceCallResult(key, tmpServiceNode);
@@ -62,7 +62,7 @@ public class RemovalInstanceServiceTest {
         ServiceNode tmpServiceNode1 = new ServiceNode();
         tmpServiceNode1.getRequestFailNum().incrementAndGet();
         tmpServiceNode1.setLastInvokeTime(System.currentTimeMillis());
-        tmpServiceNode1.setHost("127.0.0.1");
+        tmpServiceNode1.setIp("127.0.0.1");
         tmpServiceNode1.setPort(8082);
         tmpServiceNode1.getRequestNum().incrementAndGet();
         ServiceNodeCache.saveInstanceCallResult(key1, tmpServiceNode1);

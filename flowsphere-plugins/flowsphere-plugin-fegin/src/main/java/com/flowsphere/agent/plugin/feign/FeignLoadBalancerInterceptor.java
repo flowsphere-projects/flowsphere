@@ -38,7 +38,7 @@ public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
         String key = uri.getHost() + ":" + uri.getPort();
         ServiceNode serviceNode = ServiceNodeCache.getInstanceCallResult().computeIfAbsent(key, value -> {
             ServiceNode tmpServiceNode = new ServiceNode();
-            tmpServiceNode.setHost(uri.getHost());
+            tmpServiceNode.setIp(uri.getHost());
             tmpServiceNode.setPort(uri.getPort());
             return tmpServiceNode;
         });

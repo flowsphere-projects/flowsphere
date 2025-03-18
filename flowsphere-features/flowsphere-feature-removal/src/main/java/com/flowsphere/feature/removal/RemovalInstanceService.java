@@ -55,7 +55,7 @@ public class RemovalInstanceService {
                 instance.setRemovalTime(System.currentTimeMillis());
                 instance.setRecoveryTime(System.currentTimeMillis() + removalConfig.getRecoveryTime());
                 canRemovalNum--;
-                InstanceService.modifyProviderInstantRemoval(instance.getHost(), 2);
+                InstanceService.modifyProviderInstanceRemoval(instance.getIp(), instance.getPort(), 2);
             } else {
                 result.add(server);
             }

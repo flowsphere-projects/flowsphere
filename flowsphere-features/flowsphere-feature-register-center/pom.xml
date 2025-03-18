@@ -33,6 +33,13 @@
             <artifactId>flowsphere-feature-removal</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-core</artifactId>
+            <version>2.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 

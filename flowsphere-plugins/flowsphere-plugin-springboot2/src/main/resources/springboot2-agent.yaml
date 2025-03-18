@@ -4,3 +4,9 @@ pointcutConfigs:
       - methodName: running
         type: instant
         interceptorName: com.flowsphere.spring.boot2.EventPublishingRunListenerInterceptor
+  - className: org.springframework.context.support.AbstractApplicationContext
+    methodPointcutConfigs:
+      - methodName: doClose
+        type: instant
+        interceptorName: com.flowsphere.spring.boot2.AppShutdownInterceptor
+

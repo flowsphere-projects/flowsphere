@@ -37,7 +37,7 @@ public class RemovalThread implements Runnable {
             ServiceNode serviceNode = iterator.next().getValue();
             if (System.currentTimeMillis() - serviceNode.getLastInvokeTime() >= removalConfig.getRecoveryTime()) {
                 reset(serviceNode);
-                InstanceService.modifyProviderInstantRemoval(serviceNode.getHost(), 1);
+                InstanceService.modifyProviderInstanceRemoval(serviceNode.getIp(), serviceNode.getPort(), 1);
                 continue;
             }
             serviceNode.setErrorRate(calErrorRate(serviceNode));

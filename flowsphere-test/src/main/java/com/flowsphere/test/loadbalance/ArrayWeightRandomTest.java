@@ -25,6 +25,30 @@ public class ArrayWeightRandomTest {
 
     private static final double TAG_B_WEIGHT = 0.7;
 
+
+    @Test
+    public void tagWeightRandomLoadBalanceTest1() {
+        AtomicInteger tagACounter = new AtomicInteger();
+        AtomicInteger tagA1Counter = new AtomicInteger();
+        for (int i = 0; i < 10000; i++) {
+            List<TagWeight> tagWeights = new ArrayList<>();
+            tagWeights.add(new TagWeight(TAG_A, 1.0));
+            tagWeights.add(new TagWeight(TAG_B, 1.0));
+            ArrayWeightRandom arrayWeightRandom = new ArrayWeightRandom<TagWeight>(tagWeights);
+            String tag = (String) arrayWeightRandom.choose();
+            if (tag.equals(TAG_A)) {
+                tagACounter.incrementAndGet();
+            }
+            if (tag.equals(TAG_B)) {
+                tagA1Counter.incrementAndGet();
+            }
+        }
+        //随机会有一定误差，取个范围值就好
+        Assertions.assertTrue(tagACounter.get() > 2800);
+        Assertions.assertTrue(tagA1Counter.get() > 6900);
+    }
+
+
     @Test
     public void tagWeightRandomLoadBalanceTest() {
         AtomicInteger tagACounter = new AtomicInteger();
