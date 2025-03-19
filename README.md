@@ -5,7 +5,7 @@
 	<h1>云原生流量治理解决方案</h1>
 
 
-![Static Badge](https://img.shields.io/badge/flowsphere-1.4.0-blue)
+![Static Badge](https://img.shields.io/badge/flowsphere-1.5.0-blue)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/license-Apache%202.0-blue)
