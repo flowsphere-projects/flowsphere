@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter
+    methodPointcutConfigs:
+      - methodName: forward
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.zuul.RibbonRoutingFilterInterceptor

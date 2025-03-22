@@ -1,11 +1,11 @@
 <div align="center">
 	<p></p>
 	<p></p>
-    <img src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/logo.png"  alt="图片名称" align=center />
+    <img src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/logo.png"  alt="图片名称" align=center />
 	<h1>云原生流量治理解决方案</h1>
 
 
-![Static Badge](https://img.shields.io/badge/flowsphere-1.5.0-blue)
+![Static Badge](https://img.shields.io/badge/thalossphere-1.5.0-blue)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.9-blue?logo=Spring)
 ![Static Badge](https://img.shields.io/badge/license-Apache%202.0-blue)
@@ -24,22 +24,22 @@ thalossphere是基于bytebuddy字节码增强技术进行建设，采用插件�
 # 架构图
 
 ## 全局架构图
-![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/agent.png)
+![](https://github.com/thalossphere-projects/thalossphere/blob/main/docs/agent.png)
 
 ## 全链路泳道全景图
-![](https://github.com/flowsphere-projects/flowsphere/blob/main/docs/panoramic.png)
+![](https://github.com/thalossphere-projects/thalossphere/blob/main/docs/panoramic.png)
 
 # 微服务控制台
 
 <table>
   <tbody>
     <tr align="center">
-      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/service-search.png"></td>
-      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/api.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/service-search.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/api.png"></td>
     </tr>
     <tr align="center">
-      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/ip.png"></td>
-      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/flowsphere-projects/flowsphere/blob/main/docs/consumer.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/ip.png"></td>
+      <td width="50%"><img style="max-height:75%;max-width:75%;" src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/consumer.png"></td>
     </tr>
   </tbody>
 </table>
@@ -100,7 +100,7 @@ thalossphere是基于bytebuddy字节码增强技术进行建设，采用插件�
 
 ## 支持组件版本
 
-| flowsphere版本 | SpringCloud版本 | SpringCloudAlibaba版本 | ElasticJob版本 |
+| thalossphere版本 | SpringCloud版本 | SpringCloudAlibaba版本 | ElasticJob版本 |
 |--------------|---------------|----------------------|----------|
 | 1.x          | Spring Cloud Hoxton            | 2.2.x                 |2.1.5.RELEASE          |
 
@@ -108,11 +108,11 @@ thalossphere是基于bytebuddy字节码增强技术进行建设，采用插件�
 # 使用方式
 ## JVM参数配置
 
--javaagent:xxx\flowsphere-agent-0.0.1-RELEASE.jar -Dflowshpere.tag=tagA
+-javaagent:xxx\thalossphere-agent-0.0.1-RELEASE.jar -Dflowshpere.tag=tagA
 
 ## 异步使用方式
 
--javaagent:xxx\flowsphere-agent-0.0.1-RELEASE.jar -Dflowshpere.tag=tagA -Dasync.thread.package.path=xxx
+-javaagent:xxx\thalossphere-agent-0.0.1-RELEASE.jar -Dflowshpere.tag=tagA -Dasync.thread.package.path=xxx
 
 # 配置
 ## Http-Header参数
@@ -123,7 +123,7 @@ thalossphere是基于bytebuddy字节码增强技术进行建设，采用插件�
 
 ## agent.yaml配置文件
 
-agent.yaml是flowsphere核心配置文件，主要配置需要加载的组件以及选择对应的配置中心。当前flowsphere支持本地模式和配置中心。配置中心支持Nacos、Apollo，需要修改agent.yaml文件来激活使用方式。具体示例如下：
+agent.yaml是thalossphere核心配置文件，主要配置需要加载的组件以及选择对应的配置中心。当前thalossphere支持本地模式和配置中心。配置中心支持Nacos、Apollo，需要修改agent.yaml文件来激活使用方式。具体示例如下：
 
 ### 组件配置
 
@@ -162,7 +162,7 @@ warmupEnabled: false/true
 discoveryBinderEnabled: true/false
 ```
 
-### flowsphere-server配置
+### thalossphere-server配置
 
 ```yaml
 serverAddr: http://127.0.0.1:8224

@@ -1,0 +1,21 @@
+pointcutConfigs:
+  - className: org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient
+    methodPointcutConfigs:
+      - methodName: execute
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.feign.LoadBalancerFeignClientInterceptor
+  - className: org.springframework.cloud.openfeign.support.SpringMvcContract
+    methodPointcutConfigs:
+      - methodName: parseAndValidateMetadata
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.feign.SpringMvcContractInterceptor
+  - className: org.springframework.cloud.openfeign.ribbon.FeignLoadBalancer
+    methodPointcutConfigs:
+      - methodName: execute
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.feign.FeignLoadBalancerInterceptor
+  - className: com.netflix.loadbalancer.DynamicServerListLoadBalancer
+    methodPointcutConfigs:
+      - methodName: updateListOfServers
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.feign.DynamicServerListLoadBalancerInterceptor

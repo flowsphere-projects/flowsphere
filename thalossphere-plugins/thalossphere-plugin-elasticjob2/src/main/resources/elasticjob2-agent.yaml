@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: com.dangdang.ddframe.job.lite.internal.sharding.ShardingService
+    methodPointcutConfigs:
+      - methodName: getShardingItems
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.elastic.job.ShardingServiceInterceptor

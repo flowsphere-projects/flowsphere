@@ -1,0 +1,11 @@
+pointcutConfigs:
+  - className: com.netflix.loadbalancer.BaseLoadBalancer
+    methodPointcutConfigs:
+      - methodName: getAllServers
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.eureka.BaseLoadBalancerInterceptor
+  - className: org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean
+    methodPointcutConfigs:
+      - methodName: getMetadataMap
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.eureka.EurekaInstanceConfigBeanInterceptor
