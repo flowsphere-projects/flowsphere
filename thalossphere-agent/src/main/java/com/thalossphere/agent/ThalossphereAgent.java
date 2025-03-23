@@ -30,11 +30,11 @@ public class ThalossphereAgent {
 
     private static void init(YamlAgentConfig yamlAgentConfig, AgentClassLoader agentClassLoader, Instrumentation inst) {
         ServiceLoader<CoreInit> serviceLoader = ServiceLoader.load(CoreInit.class);
-        List<CoreInit> FlowSphereInitList = new LinkedList<>();
-        for (CoreInit FlowSphereInit : serviceLoader) {
-            FlowSphereInitList.add(FlowSphereInit);
+        List<CoreInit> coreInits = new LinkedList<>();
+        for (CoreInit coreInit : serviceLoader) {
+            coreInits.add(coreInit);
         }
-        FlowSphereInitList.stream()
+        coreInits.stream()
                 .sorted((o1, o2) -> Integer.compare(o1.getOrder(), o2.getOrder()))
                 .forEach(FlowSphereInit -> FlowSphereInit.init(yamlAgentConfig, agentClassLoader, inst));
 
