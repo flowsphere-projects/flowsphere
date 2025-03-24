@@ -1,0 +1,12 @@
+pointcutConfigs:
+  - className: org.springframework.boot.context.event.EventPublishingRunListener
+    methodPointcutConfigs:
+      - methodName: running
+        type: instant
+        interceptorName: com.thalossphere.spring.boot2.EventPublishingRunListenerInterceptor
+  - className: org.springframework.context.support.AbstractApplicationContext
+    methodPointcutConfigs:
+      - methodName: doClose
+        type: instant
+        interceptorName: com.thalossphere.spring.boot2.AppShutdownInterceptor
+

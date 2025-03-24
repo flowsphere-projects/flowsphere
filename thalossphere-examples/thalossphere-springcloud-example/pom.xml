@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.thalossphere-projects</groupId>
+        <artifactId>thalossphere-examples</artifactId>
+        <version>1.5.0.RELEASE</version>
+    </parent>
+
+    <artifactId>thalossphere-springcloud-example</artifactId>
+    <version>1.5.0.RELEASE</version>
+    <packaging>pom</packaging>
+    <name>thalossphere-springcloud-example</name>
+    <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>thalossphere-springcloud-gateway-example</module>
+        <module>thalossphere-springcloud-service-a-example</module>
+        <module>thalossphere-springcloud-service-a1-example</module>
+        <module>thalossphere-springcloud-service-b-example</module>
+        <module>thalossphere-springcloud-service-b1-example</module>
+        <module>thalossphere-springcloud-service-c-example</module>
+        <module>thalossphere-springcloud-service-c1-example</module>
+        <module>thalossphere-springcloud-eureka-server</module>
+        <module>thalossphere-springcloud-zuul-example</module>
+        <module>thalossphere-springcloud-service-api-example</module>
+    </modules>
+
+</project>

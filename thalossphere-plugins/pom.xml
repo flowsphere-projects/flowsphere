@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.thalossphere-projects</groupId>
+        <artifactId>thalossphere</artifactId>
+        <version>1.5.0.RELEASE</version>
+    </parent>
+
+    <packaging>pom</packaging>
+    <artifactId>thalossphere-plugins</artifactId>
+    <name>thalossphere-plugins</name>
+    <description>thalossphere-plugins</description>
+
+    <properties>
+
+        <agent.package.dest.dir>../../agent</agent.package.dest.dir>
+        <plugin.dest.dir>${agent.package.dest.dir}/plugins</plugin.dest.dir>
+
+        <ant-contrib.version>1.0b3</ant-contrib.version>
+        <ant-nodeps.version>1.8.1</ant-nodeps.version>
+
+    </properties>
+
+    <modules>
+        <module>thalossphere-plugin-fegin</module>
+        <module>thalossphere-plugin-nacos</module>
+        <module>thalossphere-plugin-rocketmq4</module>
+        <module>thalossphere-plugin-springcloudgateway</module>
+        <module>thalossphere-plugin-springmvc</module>
+        <module>thalossphere-plugin-elasticjob2</module>
+        <module>thalossphere-plugin-mybatis</module>
+        <module>thalossphere-plugin-zuul</module>
+        <module>thalossphere-plugin-eureka</module>
+        <module>thalossphere-plugin-springboot2</module>
+        <module>thalossphere-plugin-zookeeper</module>
+        <module>thalossphere-plugin-consul</module>
+        <module>thalossphere-plugin-resttemplate</module>
+    </modules>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>package</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <tasks>
+                                    <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                          tofile="${plugin.dest.dir}/${project.build.finalName}.jar" overwrite="true"/>
+                                </tasks>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>ant-contrib</groupId>
+                            <artifactId>ant-contrib</artifactId>
+                            <version>${ant-contrib.version}</version>
+                            <exclusions>
+                                <exclusion>
+                                    <groupId>ant</groupId>
+                                    <artifactId>ant</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.ant</groupId>
+                            <artifactId>ant-nodeps</artifactId>
+                            <version>${ant-nodeps.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
