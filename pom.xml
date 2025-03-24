@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.flowsphere-projects</groupId>
-    <artifactId>flowsphere</artifactId>
+    <groupId>io.github.thalossphere-projects</groupId>
+    <artifactId>thalossphere</artifactId>
     <version>1.5.0.RELEASE</version>
-    <name>flowsphere</name>
+    <name>thalossphere</name>
     <packaging>pom</packaging>
-    <description>flowsphere</description>
+    <description>thalossphere</description>
     <properties>
         <java.version>8</java.version>
 
@@ -68,14 +68,14 @@
     </properties>
 
     <modules>
-        <module>flowsphere-agent</module>
-        <module>flowsphere-agent-core</module>
-        <module>flowsphere-common</module>
-        <module>flowsphere-plugins</module>
-        <module>flowsphere-distribution</module>
-        <module>flowsphere-extensions</module>
-        <module>flowsphere-features</module>
-        <module>flowsphere-test</module>
+        <module>thalossphere-agent</module>
+        <module>thalossphere-agent-core</module>
+        <module>thalossphere-common</module>
+        <module>thalossphere-plugins</module>
+        <module>thalossphere-distribution</module>
+        <module>thalossphere-extensions</module>
+        <module>thalossphere-features</module>
+        <module>thalossphere-test</module>
     </modules>
 
     <dependencyManagement>
@@ -83,56 +83,56 @@
         <dependencies>
 
             <dependency>
-                <groupId>io.github.flowsphere-projects</groupId>
-                <artifactId>flowsphere-plugin-rocketmq4</artifactId>
+                <groupId>io.github.thalossphere-projects</groupId>
+                <artifactId>thalossphere-plugin-rocketmq4</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.github.flowsphere-projects</groupId>
-                <artifactId>flowsphere-plugin-nacos</artifactId>
+                <groupId>io.github.thalossphere-projects</groupId>
+                <artifactId>thalossphere-plugin-nacos</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.github.flowsphere-projects</groupId>
-                <artifactId>flowsphere-plugin-springmvc</artifactId>
+                <groupId>io.github.thalossphere-projects</groupId>
+                <artifactId>thalossphere-plugin-springmvc</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.github.flowsphere-projects</groupId>
-                <artifactId>flowsphere-plugin-fegin</artifactId>
+                <groupId>io.github.thalossphere-projects</groupId>
+                <artifactId>thalossphere-plugin-fegin</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.github.flowsphere-projects</groupId>
-                <artifactId>flowsphere-plugin-eureka</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-plugin-zookeeper</artifactId>
+                <groupId>io.github.thalossphere-projects</groupId>
+                <artifactId>thalossphere-plugin-eureka</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-plugin-consul</artifactId>
+                <artifactId>thalossphere-plugin-zookeeper</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-plugin-springcloudgateway</artifactId>
+                <artifactId>thalossphere-plugin-consul</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-plugin-elasticjob2</artifactId>
+                <artifactId>thalossphere-plugin-springcloudgateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>thalossphere-plugin-elasticjob2</artifactId>
                 <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
@@ -152,49 +152,49 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-extension-datasource</artifactId>
+                <artifactId>thalossphere-extension-datasource</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-feature-sentinel</artifactId>
+                <artifactId>thalossphere-feature-sentinel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-feature-discovery-binder</artifactId>
+                <artifactId>thalossphere-feature-discovery-binder</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-feature-removal</artifactId>
+                <artifactId>thalossphere-feature-removal</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-feature-register-center</artifactId>
+                <artifactId>thalossphere-feature-register-center</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-agent</artifactId>
+                <artifactId>thalossphere-agent</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-agent-core</artifactId>
+                <artifactId>thalossphere-agent-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flowsphere-common</artifactId>
+                <artifactId>thalossphere-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -705,9 +705,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/flowsphere-projects/flowsphere</url>
-        <connection>https://github.com/flowsphere-projects/flowsphere</connection>
-        <developerConnection>https://github.com/flowsphere-projects/flowsphere</developerConnection>
+        <url>https://github.com/thalossphere-projects/thalossphere</url>
+        <connection>https://github.com/thalossphere-projects/thalossphere</connection>
+        <developerConnection>https://github.com/thalossphere-projects/thalossphere</developerConnection>
         <tag>v${project.version}</tag>
     </scm>
 
@@ -719,6 +719,6 @@
     </developers>
 
 
-    <url>https://github.com/flowsphere-projects/flowsphere</url>
+    <url>https://github.com/thalossphere-projects/thalossphere</url>
 
 </project>

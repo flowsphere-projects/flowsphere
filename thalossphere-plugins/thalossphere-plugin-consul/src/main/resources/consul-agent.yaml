@@ -1,0 +1,11 @@
+pointcutConfigs:
+  - className: com.netflix.loadbalancer.CompositePredicate
+    methodPointcutConfigs:
+      - methodName: getEligibleServers
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.consul.CompositePredicateInterceptor
+  - className: org.springframework.cloud.consul.discovery.ConsulDiscoveryProperties
+    methodPointcutConfigs:
+      - methodName: getTags
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.consul.ConsulDiscoveryPropertiesInterceptor

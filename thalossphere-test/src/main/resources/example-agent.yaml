@@ -1,0 +1,6 @@
+pointcutConfigs:
+  - className: com.flowpshere.test.AgentProxyCore
+    methodPointcutConfigs:
+      - methodName: instantHelloWord
+        type: instant
+        interceptorName: com.flowpshere.agent.CustomInterceptor

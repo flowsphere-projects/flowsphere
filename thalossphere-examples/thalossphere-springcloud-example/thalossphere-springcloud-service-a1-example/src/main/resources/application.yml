@@ -1,0 +1,38 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/thalossphere_example?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+  application:
+    name: service-a
+  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        heartbeat:
+#          enabled: true
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: localhost:8848
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+      username: nacos
+      password: nacos
+#    zookeeper:
+#      connect-string: 127.0.0.1:2181
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8189}/eureka/
+#    nacos:
+thalossphere:
+  instantInitEnabled: true
+
