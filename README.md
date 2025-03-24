@@ -1,7 +1,6 @@
 <div align="center">
 	<p></p>
 	<p></p>
-    <img src="https://github.com/thalossphere-projects/thalossphere/blob/main/docs/logo.png"  alt="图片名称" align=center />
 	<h1>云原生流量治理解决方案</h1>
 
 
