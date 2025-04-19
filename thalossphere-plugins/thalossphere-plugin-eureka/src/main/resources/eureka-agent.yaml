@@ -9,3 +9,8 @@ pointcutConfigs:
       - methodName: getMetadataMap
         type: instant
         interceptorName: com.thalossphere.agent.plugin.eureka.EurekaInstanceConfigBeanInterceptor
+  - className: org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient
+    methodPointcutConfigs:
+      - methodName: getInstances
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.eureka.EurekaDiscoveryClientInterceptor

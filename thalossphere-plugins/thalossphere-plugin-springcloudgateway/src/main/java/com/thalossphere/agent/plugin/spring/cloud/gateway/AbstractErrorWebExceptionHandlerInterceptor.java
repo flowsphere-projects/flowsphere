@@ -3,7 +3,7 @@ package com.thalossphere.agent.plugin.spring.cloud.gateway;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.utils.JacksonUtils;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
 import com.thalossphere.extension.datasource.entity.PluginConfig;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class AbstractErrorWebExceptionHandlerInterceptor implements InstantMethodInterceptor {
+public class AbstractErrorWebExceptionHandlerInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override

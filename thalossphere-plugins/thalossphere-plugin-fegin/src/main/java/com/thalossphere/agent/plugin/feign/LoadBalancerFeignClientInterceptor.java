@@ -2,30 +2,22 @@ package com.thalossphere.agent.plugin.feign;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.constant.CommonConstant;
 import com.thalossphere.common.tag.context.TagContext;
-import com.thalossphere.extension.datasource.cache.PluginConfigCache;
-import com.thalossphere.extension.datasource.entity.PluginConfig;
-import com.thalossphere.feature.removal.ServiceNode;
-import com.thalossphere.feature.removal.ServiceNodeCache;
 import com.thalossphere.feature.sentinel.limiter.SentinelResource;
 import com.thalossphere.feature.sentinel.limiter.support.SlowRatioCircuitBreakerLimiter;
 import com.google.common.base.Strings;
-import com.netflix.client.ClientRequest;
-import com.netflix.client.IResponse;
 import feign.Request;
-import feign.Response;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URI;
 import java.util.*;
 import java.util.concurrent.Callable;
 
 @Slf4j
-public class LoadBalancerFeignClientInterceptor implements InstantMethodInterceptor {
+public class LoadBalancerFeignClientInterceptor implements InstanceMethodInterceptor {
 
     private static final String DECLARED_FIELD_NAME = "headers";
 

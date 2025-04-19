@@ -32,26 +32,26 @@ public class LongPollService {
     }
 
     public void startLongPolling(String serverAddr, String applicationName, String ip, int port) {
-        YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
-        SCHEDULER.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Response response = SimpleHttpClient.getInstance().send(new SimpleHttpRequest()
-                            .setUrl(serverAddr + NOTIFICATION_API_URL)
-                            .setData(
-                                    new NotificationRequest()
-                                            .setApplicationName(applicationName)
-                                            .setIp(ip)
-                                            .setPort(port)
-                            )
-                    );
-                    responseHandler(response);
-                } catch (Exception e) {
-                    log.error("[thalossphere] long polling notification fail", e);
-                }
-            }
-        }, 0, yamlAgentConfig.getLongPollDelay(), TimeUnit.MILLISECONDS);
+//        YamlAgentConfig yamlAgentConfig = YamlAgentConfigCache.get();
+//        SCHEDULER.scheduleAtFixedRate(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Response response = SimpleHttpClient.getInstance().send(new SimpleHttpRequest()
+//                            .setUrl(serverAddr + NOTIFICATION_API_URL)
+//                            .setData(
+//                                    new NotificationRequest()
+//                                            .setApplicationName(applicationName)
+//                                            .setIp(ip)
+//                                            .setPort(port)
+//                            )
+//                    );
+//                    responseHandler(response);
+//                } catch (Exception e) {
+//                    log.error("[thalossphere] long polling notification fail", e);
+//                }
+//            }
+//        }, 0, yamlAgentConfig.getLongPollDelay(), TimeUnit.MILLISECONDS);
     }
 
     private void responseHandler(Response response) throws IOException {

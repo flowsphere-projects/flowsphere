@@ -9,7 +9,9 @@ spring:
         - id: test1
           uri: lb://service-a
           predicates:
-            - Path=/myClient
+            - Path=/service-a/**
+          filters:
+            - StripPrefix=1
       discovery:
         locator:
           enabled: true
@@ -25,6 +27,12 @@ spring:
 #      discovery:
 #        heartbeat:
 #          enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8189}/eureka/
+  instance:
+    prefer-ip-address: true
 logging:
   level:
     com.thalossphere:

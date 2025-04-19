@@ -7,7 +7,7 @@ import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptor
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
-public interface InstantMethodInterceptor extends MethodInterceptor {
+public interface InstanceMethodInterceptor extends MethodInterceptor {
 
 
     /**

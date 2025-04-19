@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.elastic.job;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.utils.NetUtils;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
 import lombok.SneakyThrows;
@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 
 @Slf4j
-public class ShardingServiceInterceptor implements InstantMethodInterceptor {
+public class ShardingServiceInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override

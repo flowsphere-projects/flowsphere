@@ -1,8 +1,7 @@
 package com.thalossphere.agent.plugin.consul;
 
-import com.thalossphere.register.center.selector.InstanceSelector;
 import com.netflix.loadbalancer.Server;
-import org.springframework.cloud.consul.discovery.ConsulServer;
+import com.thalossphere.register.center.selector.InstanceSelector;
 
 import java.util.Map;
 
@@ -16,16 +15,17 @@ public class ConsulSelector extends InstanceSelector {
 
     @Override
     public Map<String, String> getMetadata(Server server) {
-        if (server instanceof ConsulServer) {
-            ConsulServer consulServer = (ConsulServer) server;
-            return consulServer.getMetadata();
-        }
+//        if (server instanceof ConsulServer) {
+//            ConsulServer consulServer = (ConsulServer) server;
+//            return consulServer.getMetadata();
+//        }
         return null;
     }
 
     @Override
     public boolean isValidServer(Server server) {
-        return server instanceof ConsulServer && new ConsulServerPredicate().test((ConsulServer) server);
+//        return server instanceof ConsulServer && new ConsulServerPredicate().test((ConsulServer) server);
+        return false;
     }
 
 }

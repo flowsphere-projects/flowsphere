@@ -3,7 +3,7 @@ package com.thalossphere.agent.plugin.spring.mvc;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.feature.sentinel.limiter.support.DynamicMachineIndicatorsLimiter;
 import com.thalossphere.common.env.Env;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
 
 import static com.thalossphere.common.constant.CommonConstant.SPRING_APPLICATION_NAME;
 
-public class DynamicMachineIndicatorsLimiterInterceptor implements InstantMethodInterceptor {
+public class DynamicMachineIndicatorsLimiterInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

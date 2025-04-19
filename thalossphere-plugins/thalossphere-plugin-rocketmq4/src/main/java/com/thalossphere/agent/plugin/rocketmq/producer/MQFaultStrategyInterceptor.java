@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.rocketmq.producer;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.agent.plugin.rocketmq.config.RocketMQConfigService;
 import com.thalossphere.agent.plugin.rocketmq.utils.MessageQueueThreadLocalUtils;
 import com.thalossphere.common.tag.context.TagManager;
@@ -19,7 +19,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class MQFaultStrategyInterceptor implements InstantMethodInterceptor {
+public class MQFaultStrategyInterceptor implements InstanceMethodInterceptor {
 
 
     @Override

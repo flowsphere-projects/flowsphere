@@ -2,10 +2,9 @@ package com.thalossphere.agent.plugin.spring.cloud.gateway;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.agent.plugin.spring.cloud.gateway.propagator.GatewayPropagator;
 import com.thalossphere.agent.plugin.spring.cloud.gateway.request.GatewayHttpRequest;
-import com.thalossphere.common.request.HeaderResolver;
 import com.thalossphere.common.loadbalance.InstantWeight;
 import com.thalossphere.common.request.SimpleAttributeResolver;
 import com.thalossphere.common.request.SimpleRequestResolver;
@@ -20,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class LoadBalancerClientFilterInterceptor implements InstantMethodInterceptor {
+public class LoadBalancerClientFilterInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
@@ -49,7 +48,6 @@ public class LoadBalancerClientFilterInterceptor implements InstantMethodInterce
 
     @Override
     public void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, Object result) {
-        TagContext.remove();
     }
 
     @Override

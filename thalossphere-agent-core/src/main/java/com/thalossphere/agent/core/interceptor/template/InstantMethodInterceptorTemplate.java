@@ -2,7 +2,7 @@ package com.thalossphere.agent.core.interceptor.template;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.MethodInterceptorOperator;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.MethodDelegation;
@@ -17,9 +17,9 @@ import java.util.concurrent.Callable;
 
 public class InstantMethodInterceptorTemplate implements MethodInterceptorOperator {
 
-    private final Map<String, List<InstantMethodInterceptor>> interceptorMap;
+    private final Map<String, List<InstanceMethodInterceptor>> interceptorMap;
 
-    public InstantMethodInterceptorTemplate(Map<String, List<InstantMethodInterceptor>> interceptorMap) {
+    public InstantMethodInterceptorTemplate(Map<String, List<InstanceMethodInterceptor>> interceptorMap) {
         this.interceptorMap = interceptorMap;
     }
 
@@ -53,8 +53,8 @@ public class InstantMethodInterceptorTemplate implements MethodInterceptorOperat
 
     private void afterMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable,
                              Method method, Object result) {
-        for (Map.Entry<String, List<InstantMethodInterceptor>> entry : interceptorMap.entrySet()) {
-            for (InstantMethodInterceptor interceptor : entry.getValue()) {
+        for (Map.Entry<String, List<InstanceMethodInterceptor>> entry : interceptorMap.entrySet()) {
+            for (InstanceMethodInterceptor interceptor : entry.getValue()) {
                 interceptor.afterMethod(customContextAccessor, allArguments, callable, method, result);
             }
         }
@@ -62,8 +62,8 @@ public class InstantMethodInterceptorTemplate implements MethodInterceptorOperat
 
     private InstantMethodInterceptorResult beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable,
                                                         Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {
-        for (Map.Entry<String, List<InstantMethodInterceptor>> entry : interceptorMap.entrySet()) {
-            for (InstantMethodInterceptor interceptor : entry.getValue()) {
+        for (Map.Entry<String, List<InstanceMethodInterceptor>> entry : interceptorMap.entrySet()) {
+            for (InstanceMethodInterceptor interceptor : entry.getValue()) {
                 interceptor.beforeMethod(customContextAccessor, allArguments, callable, method, instantMethodInterceptorResult);
             }
         }
@@ -72,8 +72,8 @@ public class InstantMethodInterceptorTemplate implements MethodInterceptorOperat
 
     private void exceptionMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable,
                                  Method method, Throwable e) {
-        for (Map.Entry<String, List<InstantMethodInterceptor>> entry : interceptorMap.entrySet()) {
-            for (InstantMethodInterceptor interceptor : entry.getValue()) {
+        for (Map.Entry<String, List<InstanceMethodInterceptor>> entry : interceptorMap.entrySet()) {
+            for (InstanceMethodInterceptor interceptor : entry.getValue()) {
                 interceptor.exceptionMethod(customContextAccessor, allArguments, callable, method, e);
             }
         }

@@ -1,7 +1,7 @@
 package com.thalossphere.agent.plugin.spring.mvc;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.config.YamlAgentConfig;
 import com.thalossphere.common.config.YamlAgentConfigCache;
 import com.thalossphere.common.eventbus.EventBusManager;
@@ -21,7 +21,7 @@ import static com.thalossphere.common.constant.CommonConstant.SERVER_PORT;
 import static com.thalossphere.common.constant.CommonConstant.SPRING_APPLICATION_NAME;
 
 @Slf4j
-public class ApplicationContextInterceptor implements InstantMethodInterceptor {
+public class ApplicationContextInterceptor implements InstanceMethodInterceptor {
 
     private static final AtomicBoolean STARTER = new AtomicBoolean(false);
 

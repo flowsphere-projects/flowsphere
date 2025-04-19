@@ -3,7 +3,7 @@ package com.thalossphere.agent.plugin.nacos;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.constant.CommonConstant;
 import com.thalossphere.common.tag.context.TagManager;
 
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-public class NacosDiscoveryPropertiesInterceptor implements InstantMethodInterceptor {
+public class NacosDiscoveryPropertiesInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

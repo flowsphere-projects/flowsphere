@@ -2,7 +2,7 @@ package com.thalossphere.spring.boot2;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.config.YamlAgentConfig;
 import com.thalossphere.common.config.YamlAgentConfigCache;
 import com.thalossphere.common.env.Env;
@@ -22,7 +22,7 @@ import static com.thalossphere.common.constant.CommonConstant.SERVER_PORT;
 import static com.thalossphere.common.constant.CommonConstant.SPRING_APPLICATION_NAME;
 
 @Slf4j
-public class AppShutdownInterceptor implements InstantMethodInterceptor {
+public class AppShutdownInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override

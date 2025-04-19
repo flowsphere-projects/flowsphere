@@ -3,7 +3,7 @@ package com.thalossphere.agent.plugin.spring.mvc;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.feature.sentinel.limiter.support.WebRateLimiter;
 import com.thalossphere.common.constant.CommonConstant;
 import com.thalossphere.common.tag.context.TagContext;
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 @Slf4j
-public class RequestContextFilterInterceptor implements InstantMethodInterceptor {
+public class RequestContextFilterInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override

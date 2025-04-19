@@ -1,5 +1,6 @@
 pointcutConfigs:
-  - className: org.springframework.cloud.gateway.filter.LoadBalancerClientFilter
+#  - className: org.springframework.cloud.gateway.filter.LoadBalancerClientFilter
+  - className: org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter
     methodPointcutConfigs:
       - methodName: filter
         type: instant
@@ -14,3 +15,8 @@ pointcutConfigs:
       - methodName: handle
         type: instant
         interceptorName: com.thalossphere.agent.plugin.spring.cloud.gateway.AbstractErrorWebExceptionHandlerInterceptor
+  - className: org.springframework.cloud.loadbalancer.core.CachingServiceInstanceListSupplier
+    methodPointcutConfigs:
+      - methodName: get
+        type: instant
+        interceptorName: com.thalossphere.agent.plugin.spring.cloud.gateway.CachingServiceInstanceListSupplierInterceptor

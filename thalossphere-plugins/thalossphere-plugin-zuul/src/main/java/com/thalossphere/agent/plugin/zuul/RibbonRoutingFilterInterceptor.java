@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.zuul;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.agent.plugin.zuul.propagator.ZuulPropagator;
 import com.thalossphere.agent.plugin.zuul.request.ZuulHttpRequest;
 import com.thalossphere.common.loadbalance.InstantWeight;
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class RibbonRoutingFilterInterceptor implements InstantMethodInterceptor {
+public class RibbonRoutingFilterInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

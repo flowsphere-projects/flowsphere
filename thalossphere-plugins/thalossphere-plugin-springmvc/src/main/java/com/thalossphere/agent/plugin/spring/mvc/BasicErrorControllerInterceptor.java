@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.spring.mvc;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
 import com.thalossphere.extension.datasource.entity.PluginConfig;
 import com.thalossphere.extension.datasource.entity.SentinelConfig;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class BasicErrorControllerInterceptor implements InstantMethodInterceptor {
+public class BasicErrorControllerInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

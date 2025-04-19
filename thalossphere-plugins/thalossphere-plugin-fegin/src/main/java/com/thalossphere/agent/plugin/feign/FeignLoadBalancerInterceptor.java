@@ -1,7 +1,7 @@
 package com.thalossphere.agent.plugin.feign;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
 import com.thalossphere.extension.datasource.entity.PluginConfig;
 import com.thalossphere.extension.datasource.entity.RemovalConfig;
@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 
 @Slf4j
-public class FeignLoadBalancerInterceptor implements InstantMethodInterceptor {
+public class FeignLoadBalancerInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override

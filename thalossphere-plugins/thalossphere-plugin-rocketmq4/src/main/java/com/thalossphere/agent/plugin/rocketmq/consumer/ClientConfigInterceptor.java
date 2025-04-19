@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.rocketmq.consumer;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.tag.context.TagManager;
 import com.thalossphere.common.utils.StringUtils;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
-public class ClientConfigInterceptor implements InstantMethodInterceptor {
+public class ClientConfigInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

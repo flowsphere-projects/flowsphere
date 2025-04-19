@@ -48,12 +48,6 @@
                     <groupId>com.google.guava</groupId>
                 </exclusion>
             </exclusions>
-            <!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>guava</artifactId>-->
-<!--                    <groupId>com.google.guava</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
         </dependency>
 
         <dependency>

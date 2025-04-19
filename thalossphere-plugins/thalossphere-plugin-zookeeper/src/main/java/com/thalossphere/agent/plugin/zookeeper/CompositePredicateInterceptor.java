@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.zookeeper;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.common.env.Env;
 import com.thalossphere.common.utils.StringUtils;
 import com.netflix.loadbalancer.Server;
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class CompositePredicateInterceptor implements InstantMethodInterceptor {
+public class CompositePredicateInterceptor implements InstanceMethodInterceptor {
 
     private final static String SERVER_ADDR = "spring.cloud.zookeeper.connect-string";
 

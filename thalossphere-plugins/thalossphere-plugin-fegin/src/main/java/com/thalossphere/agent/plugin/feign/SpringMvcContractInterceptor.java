@@ -2,7 +2,7 @@ package com.thalossphere.agent.plugin.feign;
 
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.feature.discovery.binder.ConsumerInterfaceUrlManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 
 @Slf4j
-public class SpringMvcContractInterceptor implements InstantMethodInterceptor {
+public class SpringMvcContractInterceptor implements InstanceMethodInterceptor {
 
     @Override
     public void beforeMethod(CustomContextAccessor customContextAccessor, Object[] allArguments, Callable<?> callable, Method method, InstantMethodInterceptorResult instantMethodInterceptorResult) {

@@ -11,8 +11,7 @@ import com.alibaba.csp.sentinel.adapter.reactor.EntryConfig;
 import com.alibaba.csp.sentinel.adapter.reactor.SentinelReactorTransformer;
 import com.thalossphere.agent.core.context.CustomContextAccessor;
 import com.thalossphere.agent.core.interceptor.template.InstantMethodInterceptorResult;
-import com.thalossphere.agent.core.interceptor.type.InstantMethodInterceptor;
-import com.thalossphere.common.utils.JacksonUtils;
+import com.thalossphere.agent.core.interceptor.type.InstanceMethodInterceptor;
 import com.thalossphere.extension.datasource.cache.PluginConfigCache;
 import com.thalossphere.extension.datasource.entity.PluginConfig;
 import com.thalossphere.extension.datasource.entity.SentinelConfig;
@@ -32,7 +31,7 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class AdaptCachedBodyGlobalFilterInterceptor implements InstantMethodInterceptor {
+public class AdaptCachedBodyGlobalFilterInterceptor implements InstanceMethodInterceptor {
 
     @SneakyThrows
     @Override
